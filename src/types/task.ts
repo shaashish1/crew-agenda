@@ -10,12 +10,7 @@ export interface Task {
   category?: string;
 }
 
-export type TaskStatus = 
-  | "Not Started" 
-  | "In Progress" 
-  | "Completed" 
-  | "On Hold" 
-  | "Overdue";
+export type TaskStatus = string;
 
 export interface Category {
   id: string;

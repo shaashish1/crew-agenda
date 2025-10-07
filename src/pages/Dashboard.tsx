@@ -6,7 +6,7 @@ import { TaskStatusBadge } from "@/components/TaskStatusBadge";
 import { TaskDialog } from "@/components/TaskDialog";
 import { ImportDataButton } from "@/components/ImportDataButton";
 import { useTaskContext } from "@/contexts/TaskContext";
-import { Task, TaskStatus } from "@/types/task";
+import { Task } from "@/types/task";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";

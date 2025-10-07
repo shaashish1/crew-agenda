@@ -1,24 +1,7 @@
 import { Task, TaskStatus } from "@/types/task";
 
-const normalizeStatus = (status: string): TaskStatus => {
-  const normalized = status.trim().toLowerCase();
-  
-  // Map various status formats to TaskStatus
-  if (normalized === "closed" || normalized === "completed" || normalized === "complete") {
-    return "Completed";
-  } else if (normalized === "open" || normalized === "in progress" || normalized === "inprogress") {
-    return "In Progress";
-  } else if (normalized === "not started" || normalized === "notstarted" || normalized === "pending") {
-    return "Not Started";
-  } else if (normalized === "on hold" || normalized === "onhold" || normalized === "hold") {
-    return "On Hold";
-  } else if (normalized === "overdue" || normalized === "late") {
-    return "Overdue";
-  }
-  
-  console.log(`Unknown status: "${status}", defaulting to "Not Started"`);
-  return "Not Started";
-};
+// Use status exactly as provided in CSV (trimmed)
+
 
 export const parseCSVDate = (dateStr: string): string => {
   // Handle format like "02/Sep/25" or other formats
@@ -112,10 +95,10 @@ export const parseCSV = (csvContent: string): Omit<Task, "id">[] => {
       const reportedDate = parseCSVDate(fields[3]);
       const targetDate = parseCSVDate(fields[4]);
       const statusRaw = fields[5]?.trim() || 'Not Started';
-      const status = normalizeStatus(statusRaw);
+      const status = statusRaw as TaskStatus;
       const progressComments = fields[6]?.trim() || '';
       
-      console.log(`Row ${i}: Status "${statusRaw}" -> "${status}"`);
+      console.log(`Row ${i}: Using status as-is -> "${status}"`);
       
       tasks.push({
         serialNo,
