@@ -1,12 +1,23 @@
 import { Task, TaskStatus } from "@/types/task";
 
-const statusMapping: { [key: string]: TaskStatus } = {
-  "Closed": "Completed",
-  "Open": "In Progress",
-  "Not Started": "Not Started",
-  "In Progress": "In Progress",
-  "On Hold": "On Hold",
-  "Overdue": "Overdue",
+const normalizeStatus = (status: string): TaskStatus => {
+  const normalized = status.trim().toLowerCase();
+  
+  // Map various status formats to TaskStatus
+  if (normalized === "closed" || normalized === "completed" || normalized === "complete") {
+    return "Completed";
+  } else if (normalized === "open" || normalized === "in progress" || normalized === "inprogress") {
+    return "In Progress";
+  } else if (normalized === "not started" || normalized === "notstarted" || normalized === "pending") {
+    return "Not Started";
+  } else if (normalized === "on hold" || normalized === "onhold" || normalized === "hold") {
+    return "On Hold";
+  } else if (normalized === "overdue" || normalized === "late") {
+    return "Overdue";
+  }
+  
+  console.log(`Unknown status: "${status}", defaulting to "Not Started"`);
+  return "Not Started";
 };
 
 export const parseCSVDate = (dateStr: string): string => {
@@ -96,13 +107,15 @@ export const parseCSV = (csvContent: string): Omit<Task, "id">[] => {
     
     if (fields.length >= 7) {
       const serialNo = parseInt(fields[0]) || tasks.length + 1;
-      const owner = fields[1] || 'Unknown';
-      const actionItem = fields[2] || '';
+      const owner = fields[1]?.trim() || 'Unknown';
+      const actionItem = fields[2]?.trim() || '';
       const reportedDate = parseCSVDate(fields[3]);
       const targetDate = parseCSVDate(fields[4]);
-      const statusRaw = fields[5] || 'Not Started';
-      const status = statusMapping[statusRaw] || "Not Started";
-      const progressComments = fields[6] || '';
+      const statusRaw = fields[5]?.trim() || 'Not Started';
+      const status = normalizeStatus(statusRaw);
+      const progressComments = fields[6]?.trim() || '';
+      
+      console.log(`Row ${i}: Status "${statusRaw}" -> "${status}"`);
       
       tasks.push({
         serialNo,

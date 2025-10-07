@@ -66,10 +66,10 @@ const Dashboard = () => {
     return <ArrowDown className="w-4 h-4 ml-1" />;
   };
 
-  // Get unique values for filters
-  const uniqueOwners = useMemo(() => [...new Set(tasks.map(t => t.owner))], [tasks]);
-  const uniqueCategories = useMemo(() => [...new Set(tasks.map(t => t.category).filter(Boolean))], [tasks]);
-  const statuses: TaskStatus[] = ["Not Started", "In Progress", "Completed", "On Hold", "Overdue"];
+  // Get unique values for filters (only values that exist in the data)
+  const uniqueOwners = useMemo(() => [...new Set(tasks.map(t => t.owner))].sort(), [tasks]);
+  const uniqueCategories = useMemo(() => [...new Set(tasks.map(t => t.category).filter(Boolean))].sort(), [tasks]);
+  const uniqueStatuses = useMemo(() => [...new Set(tasks.map(t => t.status))].sort(), [tasks]);
 
   // Filter and sort tasks
   const filteredAndSortedTasks = useMemo(() => {
@@ -181,7 +181,7 @@ const Dashboard = () => {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All statuses</SelectItem>
-                {statuses.map(status => (
+                {uniqueStatuses.map(status => (
                   <SelectItem key={status} value={status}>{status}</SelectItem>
                 ))}
               </SelectContent>
