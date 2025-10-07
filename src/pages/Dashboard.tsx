@@ -24,9 +24,9 @@ const Dashboard = () => {
   const [sortDirection, setSortDirection] = useState<SortDirection>(null);
   
   // Filter state
-  const [filterOwner, setFilterOwner] = useState<string>("");
-  const [filterCategory, setFilterCategory] = useState<string>("");
-  const [filterStatus, setFilterStatus] = useState<string>("");
+  const [filterOwner, setFilterOwner] = useState<string>("all");
+  const [filterCategory, setFilterCategory] = useState<string>("all");
+  const [filterStatus, setFilterStatus] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   const handleEdit = (task: Task) => {
@@ -76,13 +76,13 @@ const Dashboard = () => {
     let filtered = [...tasks];
 
     // Apply filters
-    if (filterOwner) {
+    if (filterOwner && filterOwner !== "all") {
       filtered = filtered.filter(t => t.owner === filterOwner);
     }
-    if (filterCategory) {
+    if (filterCategory && filterCategory !== "all") {
       filtered = filtered.filter(t => t.category === filterCategory);
     }
-    if (filterStatus) {
+    if (filterStatus && filterStatus !== "all") {
       filtered = filtered.filter(t => t.status === filterStatus);
     }
     if (searchQuery) {
@@ -152,7 +152,7 @@ const Dashboard = () => {
                 <SelectValue placeholder="All owners" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All owners</SelectItem>
+                <SelectItem value="all">All owners</SelectItem>
                 {uniqueOwners.map(owner => (
                   <SelectItem key={owner} value={owner}>{owner}</SelectItem>
                 ))}
@@ -166,7 +166,7 @@ const Dashboard = () => {
                 <SelectValue placeholder="All categories" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All categories</SelectItem>
+                <SelectItem value="all">All categories</SelectItem>
                 {uniqueCategories.map(cat => (
                   <SelectItem key={cat} value={cat!}>{cat}</SelectItem>
                 ))}
@@ -180,7 +180,7 @@ const Dashboard = () => {
                 <SelectValue placeholder="All statuses" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All statuses</SelectItem>
+                <SelectItem value="all">All statuses</SelectItem>
                 {statuses.map(status => (
                   <SelectItem key={status} value={status}>{status}</SelectItem>
                 ))}
@@ -188,13 +188,13 @@ const Dashboard = () => {
             </Select>
           </div>
         </div>
-        {(filterOwner || filterCategory || filterStatus || searchQuery) && (
+        {(filterOwner !== "all" || filterCategory !== "all" || filterStatus !== "all" || searchQuery) && (
           <Button
             variant="outline"
             onClick={() => {
-              setFilterOwner("");
-              setFilterCategory("");
-              setFilterStatus("");
+              setFilterOwner("all");
+              setFilterCategory("all");
+              setFilterStatus("all");
               setSearchQuery("");
             }}
           >
