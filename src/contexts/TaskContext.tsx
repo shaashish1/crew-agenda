@@ -46,20 +46,22 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [owners]);
 
   const addTask = (task: Omit<Task, "id" | "serialNo">) => {
-    const newTask: Task = {
-      ...task,
-      id: crypto.randomUUID(),
-      serialNo: tasks.length + 1,
-    };
-    setTasks([...tasks, newTask]);
+    setTasks((prev) => {
+      const newTask: Task = {
+        ...task,
+        id: crypto.randomUUID(),
+        serialNo: prev.length + 1,
+      };
+      return [...prev, newTask];
+    });
   };
 
   const updateTask = (id: string, updatedTask: Partial<Task>) => {
-    setTasks(tasks.map(task => task.id === id ? { ...task, ...updatedTask } : task));
+    setTasks((prev) => prev.map((task) => (task.id === id ? { ...task, ...updatedTask } : task)));
   };
 
   const deleteTask = (id: string) => {
-    setTasks(tasks.filter(task => task.id !== id));
+    setTasks((prev) => prev.filter((task) => task.id !== id));
   };
 
   const addCategory = (name: string) => {
@@ -67,11 +69,11 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({ children
       id: crypto.randomUUID(),
       name,
     };
-    setCategories([...categories, newCategory]);
+    setCategories((prev) => [...prev, newCategory]);
   };
 
   const deleteCategory = (id: string) => {
-    setCategories(categories.filter(cat => cat.id !== id));
+    setCategories((prev) => prev.filter((cat) => cat.id !== id));
   };
 
   const addOwner = (owner: Omit<Owner, "id">) => {
@@ -79,11 +81,11 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({ children
       ...owner,
       id: crypto.randomUUID(),
     };
-    setOwners([...owners, newOwner]);
+    setOwners((prev) => [...prev, newOwner]);
   };
 
   const deleteOwner = (id: string) => {
-    setOwners(owners.filter(owner => owner.id !== id));
+    setOwners((prev) => prev.filter((owner) => owner.id !== id));
   };
 
   return (
