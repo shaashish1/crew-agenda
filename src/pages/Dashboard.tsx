@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { TaskStatusBadge } from "@/components/TaskStatusBadge";
 import { TaskDialog } from "@/components/TaskDialog";
+import { ImportDataButton } from "@/components/ImportDataButton";
 import { useTaskContext } from "@/contexts/TaskContext";
 import { Task } from "@/types/task";
 import { toast } from "sonner";
@@ -35,10 +36,13 @@ const Dashboard = () => {
           <h1 className="text-3xl font-bold text-foreground">Task Dashboard</h1>
           <p className="text-muted-foreground mt-1">Manage and track your team's tasks</p>
         </div>
-        <Button onClick={handleAddNew} className="gap-2">
-          <Plus className="w-4 h-4" />
-          Add Task
-        </Button>
+        <div className="flex gap-3">
+          <ImportDataButton />
+          <Button onClick={handleAddNew} className="gap-2">
+            <Plus className="w-4 h-4" />
+            Add Task
+          </Button>
+        </div>
       </div>
 
       <div className="bg-card rounded-lg border border-border shadow-sm overflow-hidden">

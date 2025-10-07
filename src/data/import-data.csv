@@ -1,0 +1,105 @@
+S.No,Owner,Action Item,Reported Date,Target Date,Status,Comments,
+1,Achintya Das,AI Automation discussion was scheduled with Sridevi week of 15th Sep. Check the use-cases of other companies what they are doing? Get a PPT with 5-6 use case. Add idea funnel. Meeting will happen OU wise. Present use case pipeline to utilize RPA license and plan for migration. Share the use case that you have.,02/Sep/25,19/Sep/25,Closed,"Get the list for Use-case available with Achintya and follow.
+Samik to handover RPA to Achintya.
+Use cases obtained and prioritized on Sep 12. Will be taken up after Isomorphic automation.
+19/09/25:
+- List obtained from Sridevi on Sep 12 and following up. These are no sufficient.",
+2,Ashish Sharma,Finalize KRA draft and follow up with stakeholders.,02/Sep/25,19/Sep/25,Closed,"Draft created (Biradar, Ved, Ashish, Samik, Pravin, Yaju, Raj, Hariharan)",
+3,Channaveer Biradar,"Close the negotiations for ServiceNow implementation and freeze license cost. It should cover demand, change, asset, capex and Opex management. Combine the negotiations with ""Work Force Management"".
+- 2.5 Cr including ITSM License & WFM Implementation with EY.
+- [ (ITSM + WFM) 1.65 Cr + Implementation (40L) ] Info Bean is implementation for Partner
+- There should be no restriction of licenses, 2 Developer License also required.",02/Sep/25,19/Sep/25,Closed,"Finalized, LMTEQ as Integration Partner
+Legal and PO process in progress",
+4,Channaveer Biradar,Set up meeting with Gaurav and Abhijeet for ITSM POC findings.,,26/Aug/25,Closed,,
+5,Channaveer Biradar,Present governance plan and ensure visibility of all software licenses and renewals.,29/Aug/25,29/Aug/25,Closed,,
+6,Channaveer Biradar / Ajit,"SAP S/4 HANA, Finalize proposal with vendor and costing. Review implementation cost, cloud cost, and SAP license cost with SLT. Received quote from SAP on licenses + waiting final quote from SI Partner",02/Sep/25,10/Sep/25,Closed,,
+7,Channaveer Biradar,"Identify a single partner for all DB support activities (Oracle, MSSQL, MongoDB).",27/Aug/25,10/Sep/25,Closed,This is added as part of Managed Services RFP,
+8,Channaveer Biradar,Float Data Lake RFI to more partners and finalized the Vendor,02/Sep/25,26/Sep/25,Closed,Circulated to 6 Partners and discussion ongoing. We have received TechM and IBM. Thursday (25th Sep) we have call with Gaurav for TechM and then for IBM.,
+9,Channaveer Biradar,"Check the list of licenses maintained by Sridevi, these are used in labs and not being tracked by IT. Extend the ""license management tool"" to Sridevi.
+- We will use this License management in ITSM so that it is centrally managed. Development, Discovery, licenses are also with IT.",02/Sep/25,15/Sep/25,Closed,"The initial review completed and pending to extend the ""License Management Tool"". Plan to configure in ITSM once available.",
+10,Channaveer Biradar,"SAP S/4 HANA - bring down the cost of HANA to 45 L, Discuss hyperscale partner who can implement in less cost.",02/Sep/25,09/Sep/25,Closed,,
+11,Channaveer Biradar,"Review the Laptop policy, completely revise the laptop policy as per USA site and we need a number how much quantity to buy?
+Evaluate HP, Lenovo, and Dell laptops. When we buy new laptop, give the old laptops for buy back.
+- Lease Model : We should get the proposal by weekend (22nd Sep), What is the Spec? HP and Dell have given sample model, we need both models Intel vPRO i7 and i5.
+- Update SOP: Laptops should be given to all bands, add in policy.
+- Bayview North America site: It will be only leasing model. Same model we want in India also.
+- We plan to sell old laptops for buyback new laptops, we need to know ""SEZ policy"" as the laptops will go out of the facility.",02/Sep/25,"19/09/2025
+30/09/2025
+07/10/2025",In progress,"The SOP is revised as per instruction, pending review and approval.
+a. - Lease Model : we should get the proposal by weekend (22nd Sep), What is the Spec? HP and Dell have given sample model, we need Intel vPRO i7 and i5 also.
+Laptops should be given to all bands, add in policy.
+Gaurav wants to review the Laptop Policy with Tejas.",
+12,DCS Hariharan,Demonstrate MFA functionality for external and internal access (Sendhil is Global Admin).,26/Aug/25,29/Aug/25,Closed,,
+13,Samik Bhattacharya,"Get confirmation for Grammarly by tomorrow @ 3rd Sep. Work with Ved to finalize license counts for Alok's team. Discovery team does not need Grammarly.
+- Alok will need 100 license, rest we can take as saving. Increase license cost from 700 to 1000 per user X 100 = 1 Lakhs",02/Sep/25,26/Sep/25,Closed,"Alok meeting scheduled on 26th Sep
+Samik to keep 110 license and release rest all and confirm. Send to Sourcing Team for negotiations.",
+14,Samik Bhattacharya,"Need Adoption report for D-Vega, how many users are using the applications.
+- How many excel users will now switch to D-Vega?
+- We need to see the value from the program.
+- Publish how many opportunities we cover.",02/Sep/25,19/Sep/25,Closed,"Adoption will start from:
+• 1st Oct - For Disc. Chem, Disc. Bio, CDS, Safety Assessments.
+• 31st Oct - Chemical Dev., Formulation Dev., Translation and Clinical Research.",Picture
+15,Ved/Ajit,"Identify a single partner for all DB support activities (Oracle, MSSQL, MongoDB). Send the DB Support requirement to new vendor, Where are the license cost, and is vendor managing AMC. We need to understand the license details.
+(- Including the DB Support Services in Managed Infra Services RFP )",02/Sep/25,19/Sep/25,Closed,Licenses are good and compliant. Accepting proposals from New Vendors. Shared details with the Sourcing Team (Vinod). Pending with Sourcing Team.,
+16,DCS Hariharan / Ajit,"Prepare RFP for Managed Security Services and circulate to the partners.
+- (KPMG, Deloitte, PWC)",26/Aug/25,25/Sep/25,Closed,"RFP circulated to all Partners. ( KPMG, Pwc, Deloitte) on 26th Aug,25
+KPMG has confirmed via email that they are the Statutory Auditor for the Biocon Group company currently and, as such, they cannot be engaged in the MSS partnership
+PWC - Draft MSS RFP responded 12th Sep
+Deloitte - Draft MSS RFP Responding by 15th Sep
+Commercial Proposals Received – Security RFP | Deloitte & PwC -22th Sep,25",
+17,Ajit,"Infra RFP (Managed Infrastructure Services) for circulation to the vendors. Draft Infra RFP by 19th Sept,25 . In RFP including DB Support & Mac OS Services as well. (DB Support not tracked separately now)",12/Sep/25,25/Sep/25,Closed,Completed initial discussion with Infra team to consolidate the scope of work. RFP creation completed and shared with Sourcing Team (Vinod).,
+18,Ashish Sharma,Set meeting with Sunil & Gaurav for DR finalization,09/Sep/25,18/Sep/25,Closed,Decision taken to remove unwanted apps. from DR.,
+19,Ashish Sharma,"Draft an email to Business SPOC about the DR process change (should be only Informational change), No change in RTO and RPO as part of the process. Work with Sendhil to get the data. We still continue to have the DR, only the process is changed. Business will get the application in same timeframe, we are only changing the strategy.",17/Sep/25,29/Sep/25,Closed,,
+20,Sendhil /Ajit,"Evaluate movement of Commvault backup from S20 to HUB as part of DR process change. Also, evaluate cost of dedicated link required from Biocon Park to Hub for Commvault backup storage. Come with overall proposal. Get vendor to Shift the Commvault.
+For movement of Commvault storage, we need to know the existing network Chart for S20 to understand the bandwidth for backup - @Raghu
+- Reduce Commvault backup size as per new 10 year policy
+- Need a vendor to analyze the Architecture",22/Sep/25,08/Oct/25,In progress,#Sendhil & Raghu are working. There are lots of complexity to move the existing setup and additional cost. Set up meeting for Commvault discussion,
+21,Samik Bhattacharya,"Invoice processing - Need technical evaluation sheet from 3 partner.
+Techno prism: 350/-
+MYND: 73/-
+Febi.ai - ",17/Sep/25,"23/09/2025
+10/10/2025",In progress,"18/09/25: ""Mind Solution"" Visited on 17th Sep, awaiting other 2 vendors
+19/09/25: Gaurav asked to schedule meeting with Vendor on Monday
+Go-NoGo decision",
+22,Raj Patra,Review all eLN instances across the organisation since support is ending on Dec'26. Need to have a roadmap for cloud migration and for overall eLN Road map is required for rest of the Organization,17/Sep/25,"10/7/2025
+10/22/25",In progress,"Consolidating data at the moment, hopefully by next week, will have a draft to discuss.
+Awaiting data from both Revvity & Dotmatics at the moment, once I receive will consolidate & present the TCO & comparative analysis",
+23,Channaveer Biradar,"S4/Hana - 15 CR given as budget to all partners from Syngene, meeting required with Shastri PWC (23 Cr). Finalize numbers by this week 19th Sep @Biradar",17/Sep/25,19/Sep/25,In progress,,
+24,Biradar,"Monthly Newsletters - 1st Oct target date to send out, finalize the letter by Next week: @Biradar to share content",24/Sep/25,"01/10/2025
+06/10/2025",In progress,Received the content and creating the letter using Canva,
+25,Sendhil/Ranjit AR,"Sale old Laptops to Vendors, get the quotations",24/Sep/25,15/Oct/25,In progress,,
+26,Pravin,Pravin to update about WFM it in the meeting.,24/Sep/25,,Not Started,,
+27,Sendhil /Ajit,Migration of our tape backup and infrastructure to the cloud,29/Sep/25,,In progress,Ajit is working with Commvault Team Aneesh,
+28,Biradar/ Yaju,Insilco floor creation,30/Sep/25,07/Oct/25,Not Started,Biradar to schedule a meeting next Tuesday,
+29,Biradar,Close Data Lake vendor finalization,30/Sep/25,15/Oct/25,In progress,IBM and Tech M,
+30,Ashish/ Nagendra,"Team Building outing, finalize 2 day event nearby",30/Sep/25,,In progress,,
+31,Yajuvendra,Opex Based IT Assets approach – Laptops,30/Sep/25,25/Nov/25,In progress,,
+32,Yajuvendra,SDWAN network assessment for Syngene,30/Sep/25,25/Nov/25,In progress,,
+33,Yajuvendra,IT Manager hiring for Bayview Site,30/Sep/25,25/Nov/25,In progress,,
+34,"Ved, Raj, Pravin, Sendhil, Ashish","MS Teams Shared Space Reduction
+Support MS Teams integration where shared data is stored 160 TB vs 80 TB that we have purchased. 
+- Archive old data (60 TB) to reduce cost
+- Avoid Procurement of new space
+- Identify duplicate folders with Data Owner which can be removed - Sendhil to share target date
+- Take consensus from owner to Archive old data
+- Do the optimization and storage quota limit",30/Sep/25,,In progress,"Reduce storage from 160 TB ? 80 TB (Phase 1), then 80 TB ? 50 TB (Phase 2)",
+35,"Ved, Sendhil, Ashish, Tejas, Raj, Pravin",Reduce DR operations cost by 70%,03/Oct/25,,In progress,,
+36,"Yaju, Ashish, Raghu/Karthik, Shamith Kumar","Internet Communication Links Optimization, 
+Optimize bandwidth up to 60%",03/Oct/25,,In progress,,
+37,"Pravin, Biradar, Abhijeet, Sanjay Kumar",Software Subscriptions Licenses Optimization,03/Oct/25,,In progress,,
+38,"Ajit, Sendhil, Microsoft Account Manager",Microsoft Subscriptions Licenses Optimization,03/Oct/25,,In progress,,
+39,"DCS Hariharan, Gangadhar",InfoSec Licenses Optimization,03/Oct/25,,In progress,,
+40,"Ved, Sendhil, Tejas","Tape backups, Backup policy Optimization to reduce the # of Tape backups per annum, approx. 50",03/Oct/25,,In progress,,
+41,,,,,,,
+42,,,,,,,
+43,,,,,,,
+44,,,,,,,
+45,,,,,,,
+46,,,,,,,
+47,,,,,,,
+48,,,,,,,
+49,,,,,,,
+50,,,,,,,
+51,,,,,,,
+52,,,,,,,
+53,,,,,,,
