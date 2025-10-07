@@ -39,32 +39,60 @@ export const parseCSVDate = (dateStr: string): string => {
 };
 
 export const parseCSV = (csvContent: string): Omit<Task, "id">[] => {
-  const lines = csvContent.split('\n');
   const tasks: Omit<Task, "id">[] = [];
   
-  // Skip header row
-  for (let i = 1; i < lines.length; i++) {
-    const line = lines[i].trim();
-    if (!line) continue;
+  // Parse CSV handling multi-line quoted fields
+  const rows: string[][] = [];
+  let currentRow: string[] = [];
+  let currentField = '';
+  let insideQuotes = false;
+  
+  for (let i = 0; i < csvContent.length; i++) {
+    const char = csvContent[i];
+    const nextChar = csvContent[i + 1];
     
-    // Parse CSV considering quoted fields with commas
-    const fields: string[] = [];
-    let currentField = '';
-    let insideQuotes = false;
-    
-    for (let j = 0; j < line.length; j++) {
-      const char = line[j];
-      
-      if (char === '"') {
-        insideQuotes = !insideQuotes;
-      } else if (char === ',' && !insideQuotes) {
-        fields.push(currentField.trim());
-        currentField = '';
+    if (char === '"') {
+      if (insideQuotes && nextChar === '"') {
+        // Handle escaped quotes ("")
+        currentField += '"';
+        i++; // Skip next quote
       } else {
-        currentField += char;
+        // Toggle quote state
+        insideQuotes = !insideQuotes;
       }
+    } else if (char === ',' && !insideQuotes) {
+      // End of field
+      currentRow.push(currentField.trim());
+      currentField = '';
+    } else if ((char === '\n' || char === '\r') && !insideQuotes) {
+      // End of row (handle both \n and \r\n)
+      if (char === '\r' && nextChar === '\n') {
+        i++; // Skip the \n in \r\n
+      }
+      if (currentField || currentRow.length > 0) {
+        currentRow.push(currentField.trim());
+        if (currentRow.some(field => field)) { // Only add non-empty rows
+          rows.push(currentRow);
+        }
+        currentRow = [];
+        currentField = '';
+      }
+    } else {
+      currentField += char;
     }
-    fields.push(currentField.trim()); // Add last field
+  }
+  
+  // Add last field and row if exists
+  if (currentField || currentRow.length > 0) {
+    currentRow.push(currentField.trim());
+    if (currentRow.some(field => field)) {
+      rows.push(currentRow);
+    }
+  }
+  
+  // Skip header row and process data rows
+  for (let i = 1; i < rows.length; i++) {
+    const fields = rows[i];
     
     if (fields.length >= 7) {
       const serialNo = parseInt(fields[0]) || tasks.length + 1;
