@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Plus, Pencil, Trash2, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
+import { Plus, Pencil, Trash2, ArrowUpDown, ArrowUp, ArrowDown, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { TaskStatusBadge } from "@/components/TaskStatusBadge";
@@ -9,7 +9,9 @@ import { useTaskContext } from "@/contexts/TaskContext";
 import { Task } from "@/types/task";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Badge } from "@/components/ui/badge";
 
 type SortField = "serialNo" | "owner" | "actionItem" | "category" | "reportedDate" | "targetDate" | "status";
 type SortDirection = "asc" | "desc" | null;
@@ -23,10 +25,10 @@ const Dashboard = () => {
   const [sortField, setSortField] = useState<SortField | null>(null);
   const [sortDirection, setSortDirection] = useState<SortDirection>(null);
   
-  // Filter state
-  const [filterOwner, setFilterOwner] = useState<string>("all");
-  const [filterCategory, setFilterCategory] = useState<string>("all");
-  const [filterStatus, setFilterStatus] = useState<string>("all");
+  // Filter state - now arrays for multi-select
+  const [filterOwners, setFilterOwners] = useState<string[]>([]);
+  const [filterCategories, setFilterCategories] = useState<string[]>([]);
+  const [filterStatuses, setFilterStatuses] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   const handleEdit = (task: Task) => {
@@ -76,14 +78,14 @@ const Dashboard = () => {
     let filtered = [...tasks];
 
     // Apply filters
-    if (filterOwner && filterOwner !== "all") {
-      filtered = filtered.filter(t => t.owner === filterOwner);
+    if (filterOwners.length > 0) {
+      filtered = filtered.filter(t => filterOwners.includes(t.owner));
     }
-    if (filterCategory && filterCategory !== "all") {
-      filtered = filtered.filter(t => t.category === filterCategory);
+    if (filterCategories.length > 0) {
+      filtered = filtered.filter(t => t.category && filterCategories.includes(t.category));
     }
-    if (filterStatus && filterStatus !== "all") {
-      filtered = filtered.filter(t => t.status === filterStatus);
+    if (filterStatuses.length > 0) {
+      filtered = filtered.filter(t => filterStatuses.includes(t.status));
     }
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
@@ -115,7 +117,15 @@ const Dashboard = () => {
     }
 
     return filtered;
-  }, [tasks, filterOwner, filterCategory, filterStatus, searchQuery, sortField, sortDirection]);
+  }, [tasks, filterOwners, filterCategories, filterStatuses, searchQuery, sortField, sortDirection]);
+
+  const toggleFilter = (value: string, currentFilters: string[], setFilters: (filters: string[]) => void) => {
+    if (currentFilters.includes(value)) {
+      setFilters(currentFilters.filter(f => f !== value));
+    } else {
+      setFilters([...currentFilters, value]);
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -147,54 +157,147 @@ const Dashboard = () => {
           </div>
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">Owner</label>
-            <Select value={filterOwner} onValueChange={setFilterOwner}>
-              <SelectTrigger>
-                <SelectValue placeholder="All owners" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All owners</SelectItem>
-                {uniqueOwners.map(owner => (
-                  <SelectItem key={owner} value={owner}>{owner}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant="outline" className="w-full justify-between">
+                  {filterOwners.length > 0 ? (
+                    <span className="flex gap-1 flex-wrap">
+                      {filterOwners.slice(0, 2).map(owner => (
+                        <Badge key={owner} variant="secondary" className="text-xs">
+                          {owner}
+                        </Badge>
+                      ))}
+                      {filterOwners.length > 2 && (
+                        <Badge variant="secondary" className="text-xs">
+                          +{filterOwners.length - 2}
+                        </Badge>
+                      )}
+                    </span>
+                  ) : (
+                    "All owners"
+                  )}
+                  <ChevronDown className="ml-2 h-4 w-4 shrink-0" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-56 p-3" align="start">
+                <div className="space-y-2 max-h-64 overflow-y-auto">
+                  {uniqueOwners.map(owner => (
+                    <div key={owner} className="flex items-center space-x-2">
+                      <Checkbox
+                        id={`owner-${owner}`}
+                        checked={filterOwners.includes(owner)}
+                        onCheckedChange={() => toggleFilter(owner, filterOwners, setFilterOwners)}
+                      />
+                      <label
+                        htmlFor={`owner-${owner}`}
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                      >
+                        {owner}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </PopoverContent>
+            </Popover>
           </div>
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">Category</label>
-            <Select value={filterCategory} onValueChange={setFilterCategory}>
-              <SelectTrigger>
-                <SelectValue placeholder="All categories" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All categories</SelectItem>
-                {uniqueCategories.map(cat => (
-                  <SelectItem key={cat} value={cat!}>{cat}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant="outline" className="w-full justify-between">
+                  {filterCategories.length > 0 ? (
+                    <span className="flex gap-1 flex-wrap">
+                      {filterCategories.slice(0, 2).map(cat => (
+                        <Badge key={cat} variant="secondary" className="text-xs">
+                          {cat}
+                        </Badge>
+                      ))}
+                      {filterCategories.length > 2 && (
+                        <Badge variant="secondary" className="text-xs">
+                          +{filterCategories.length - 2}
+                        </Badge>
+                      )}
+                    </span>
+                  ) : (
+                    "All categories"
+                  )}
+                  <ChevronDown className="ml-2 h-4 w-4 shrink-0" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-56 p-3" align="start">
+                <div className="space-y-2 max-h-64 overflow-y-auto">
+                  {uniqueCategories.map(cat => (
+                    <div key={cat} className="flex items-center space-x-2">
+                      <Checkbox
+                        id={`cat-${cat}`}
+                        checked={filterCategories.includes(cat)}
+                        onCheckedChange={() => toggleFilter(cat, filterCategories, setFilterCategories)}
+                      />
+                      <label
+                        htmlFor={`cat-${cat}`}
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                      >
+                        {cat}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </PopoverContent>
+            </Popover>
           </div>
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">Status</label>
-            <Select value={filterStatus} onValueChange={setFilterStatus}>
-              <SelectTrigger>
-                <SelectValue placeholder="All statuses" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All statuses</SelectItem>
-                {uniqueStatuses.map(status => (
-                  <SelectItem key={status} value={status}>{status}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant="outline" className="w-full justify-between">
+                  {filterStatuses.length > 0 ? (
+                    <span className="flex gap-1 flex-wrap">
+                      {filterStatuses.slice(0, 2).map(status => (
+                        <Badge key={status} variant="secondary" className="text-xs">
+                          {status}
+                        </Badge>
+                      ))}
+                      {filterStatuses.length > 2 && (
+                        <Badge variant="secondary" className="text-xs">
+                          +{filterStatuses.length - 2}
+                        </Badge>
+                      )}
+                    </span>
+                  ) : (
+                    "All statuses"
+                  )}
+                  <ChevronDown className="ml-2 h-4 w-4 shrink-0" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-56 p-3" align="start">
+                <div className="space-y-2 max-h-64 overflow-y-auto">
+                  {uniqueStatuses.map(status => (
+                    <div key={status} className="flex items-center space-x-2">
+                      <Checkbox
+                        id={`status-${status}`}
+                        checked={filterStatuses.includes(status)}
+                        onCheckedChange={() => toggleFilter(status, filterStatuses, setFilterStatuses)}
+                      />
+                      <label
+                        htmlFor={`status-${status}`}
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                      >
+                        {status}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </PopoverContent>
+            </Popover>
           </div>
         </div>
-        {(filterOwner !== "all" || filterCategory !== "all" || filterStatus !== "all" || searchQuery) && (
+        {(filterOwners.length > 0 || filterCategories.length > 0 || filterStatuses.length > 0 || searchQuery) && (
           <Button
             variant="outline"
             onClick={() => {
-              setFilterOwner("all");
-              setFilterCategory("all");
-              setFilterStatus("all");
+              setFilterOwners([]);
+              setFilterCategories([]);
+              setFilterStatuses([]);
               setSearchQuery("");
             }}
           >
