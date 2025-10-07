@@ -306,7 +306,7 @@ const Dashboard = () => {
         )}
       </div>
 
-      <div className="bg-card rounded-lg border border-border shadow-sm overflow-hidden">
+      <div className="bg-card rounded-lg border border-border shadow-sm overflow-x-auto">
         {filteredAndSortedTasks.length === 0 ? (
           <div className="p-12 text-center">
             <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
@@ -324,11 +324,11 @@ const Dashboard = () => {
             </Button>
           </div>
         ) : (
-          <Table>
+          <Table className="table-auto">
             <TableHeader>
               <TableRow>
                 <TableHead 
-                  className="w-[80px] cursor-pointer select-none"
+                  className="cursor-pointer select-none whitespace-nowrap"
                   onClick={() => handleSort("serialNo")}
                 >
                   <div className="flex items-center">
@@ -337,7 +337,7 @@ const Dashboard = () => {
                   </div>
                 </TableHead>
                 <TableHead 
-                  className="cursor-pointer select-none"
+                  className="cursor-pointer select-none whitespace-nowrap"
                   onClick={() => handleSort("owner")}
                 >
                   <div className="flex items-center">
@@ -346,7 +346,7 @@ const Dashboard = () => {
                   </div>
                 </TableHead>
                 <TableHead 
-                  className="min-w-[200px] cursor-pointer select-none"
+                  className="cursor-pointer select-none"
                   onClick={() => handleSort("actionItem")}
                 >
                   <div className="flex items-center">
@@ -355,7 +355,7 @@ const Dashboard = () => {
                   </div>
                 </TableHead>
                 <TableHead 
-                  className="cursor-pointer select-none"
+                  className="cursor-pointer select-none whitespace-nowrap"
                   onClick={() => handleSort("category")}
                 >
                   <div className="flex items-center">
@@ -364,7 +364,7 @@ const Dashboard = () => {
                   </div>
                 </TableHead>
                 <TableHead 
-                  className="cursor-pointer select-none"
+                  className="cursor-pointer select-none whitespace-nowrap"
                   onClick={() => handleSort("reportedDate")}
                 >
                   <div className="flex items-center">
@@ -373,7 +373,7 @@ const Dashboard = () => {
                   </div>
                 </TableHead>
                 <TableHead 
-                  className="cursor-pointer select-none"
+                  className="cursor-pointer select-none whitespace-nowrap"
                   onClick={() => handleSort("targetDate")}
                 >
                   <div className="flex items-center">
@@ -382,7 +382,7 @@ const Dashboard = () => {
                   </div>
                 </TableHead>
                 <TableHead 
-                  className="cursor-pointer select-none"
+                  className="cursor-pointer select-none whitespace-nowrap"
                   onClick={() => handleSort("status")}
                 >
                   <div className="flex items-center">
@@ -390,8 +390,8 @@ const Dashboard = () => {
                     {getSortIcon("status")}
                   </div>
                 </TableHead>
-                <TableHead className="min-w-[200px]">Progress Comments</TableHead>
-                <TableHead className="w-[100px]">Actions</TableHead>
+                <TableHead className="whitespace-nowrap">Progress Comments</TableHead>
+                <TableHead className="whitespace-nowrap">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
