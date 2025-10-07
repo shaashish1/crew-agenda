@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Upload } from "lucide-react";
 import { useTaskContext } from "@/contexts/TaskContext";
@@ -8,16 +8,24 @@ import { toast } from "sonner";
 export const ImportDataButton = () => {
   const { addTask, owners, addOwner } = useTaskContext();
   const [loading, setLoading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleImport = async () => {
+  const handleImport = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
     setLoading(true);
     try {
-      // Fetch the CSV file from the data folder
-      const response = await fetch('/src/data/import-data.csv');
-      const csvContent = await response.text();
+      // Read the uploaded CSV file
+      const csvContent = await file.text();
       
       // Parse CSV
       const parsedTasks = parseCSV(csvContent);
+      
+      if (parsedTasks.length === 0) {
+        toast.error('No valid tasks found in the CSV file.');
+        return;
+      }
       
       // Extract unique owners from CSV and add them if they don't exist
       const uniqueOwners = [...new Set(parsedTasks.map(task => task.owner))];
@@ -40,18 +48,31 @@ export const ImportDataButton = () => {
       toast.error('Failed to import data. Please check the CSV format.');
     } finally {
       setLoading(false);
+      // Reset file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
     }
   };
 
   return (
-    <Button 
-      onClick={handleImport} 
-      variant="outline" 
-      className="gap-2"
-      disabled={loading}
-    >
-      <Upload className="w-4 h-4" />
-      {loading ? "Importing..." : "Import CSV Data"}
-    </Button>
+    <>
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept=".csv"
+        onChange={handleImport}
+        className="hidden"
+      />
+      <Button 
+        onClick={() => fileInputRef.current?.click()} 
+        variant="outline" 
+        className="gap-2"
+        disabled={loading}
+      >
+        <Upload className="w-4 h-4" />
+        {loading ? "Importing..." : "Import CSV"}
+      </Button>
+    </>
   );
 };
