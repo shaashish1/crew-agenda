@@ -8,6 +8,10 @@ export interface Task {
   status: TaskStatus;
   progressComments: string;
   category?: string;
+  priority_score?: number;
+  sentiment?: string;
+  dependencies?: string[];
+  project_id?: string;
 }
 
 export type TaskStatus = string;
