@@ -14,7 +14,129 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      documents: {
+        Row: {
+          content: string | null
+          created_at: string
+          editor_state: Json | null
+          id: string
+          name: string
+          phase: string
+          project_id: string
+          status: string
+          type: string
+          updated_at: string
+          upload_date: string
+          url: string | null
+          version: string
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string
+          editor_state?: Json | null
+          id?: string
+          name: string
+          phase: string
+          project_id: string
+          status?: string
+          type: string
+          updated_at?: string
+          upload_date?: string
+          url?: string | null
+          version?: string
+        }
+        Update: {
+          content?: string | null
+          created_at?: string
+          editor_state?: Json | null
+          id?: string
+          name?: string
+          phase?: string
+          project_id?: string
+          status?: string
+          type?: string
+          updated_at?: string
+          upload_date?: string
+          url?: string | null
+          version?: string
+        }
+        Relationships: []
+      }
+      ideas: {
+        Row: {
+          category: string
+          created_at: string
+          created_by: string | null
+          description: string | null
+          id: string
+          priority: string
+          project_id: string | null
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          priority: string
+          project_id?: string | null
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          priority?: string
+          project_id?: string | null
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      project_blueprints: {
+        Row: {
+          assumptions: string[]
+          constraints: string[]
+          created_at: string
+          id: string
+          project_id: string
+          purpose: string
+          success_metrics: string[]
+          updated_at: string
+          validation_criteria: string[]
+        }
+        Insert: {
+          assumptions?: string[]
+          constraints?: string[]
+          created_at?: string
+          id?: string
+          project_id: string
+          purpose: string
+          success_metrics?: string[]
+          updated_at?: string
+          validation_criteria?: string[]
+        }
+        Update: {
+          assumptions?: string[]
+          constraints?: string[]
+          created_at?: string
+          id?: string
+          project_id?: string
+          purpose?: string
+          success_metrics?: string[]
+          updated_at?: string
+          validation_criteria?: string[]
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
