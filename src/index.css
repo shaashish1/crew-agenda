@@ -8,30 +8,34 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Modern Theme - Syngene Brand */
-    --background: 220 25% 97%;
-    --foreground: 220 15% 20%;
+    /* Modern Theme - Inspired by reference */
+    --background: 220 30% 98%;
+    --foreground: 220 40% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 15% 20%;
+    --card-foreground: 220 40% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 15% 20%;
+    --popover-foreground: 220 40% 15%;
 
-    /* Primary - Syngene Gold with modern treatment */
-    --primary: 217 91% 60%;
+    /* Primary - Bright Modern Blue */
+    --primary: 214 100% 59%;
     --primary-foreground: 0 0% 100%;
+    
+    /* Primary variants for gradients */
+    --primary-light: 214 100% 70%;
+    --primary-dark: 214 95% 50%;
 
-    /* Secondary - Light Blue */
-    --secondary: 220 25% 95%;
-    --secondary-foreground: 220 15% 20%;
+    /* Secondary - Soft Purple/Blue */
+    --secondary: 225 25% 96%;
+    --secondary-foreground: 220 40% 15%;
 
-    /* Accent - Modern Blue */
-    --accent: 217 91% 60%;
+    /* Accent - Vibrant Blue */
+    --accent: 214 100% 59%;
     --accent-foreground: 0 0% 100%;
 
-    --muted: 220 15% 95%;
-    --muted-foreground: 220 10% 50%;
+    --muted: 220 20% 95%;
+    --muted-foreground: 220 15% 55%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
@@ -42,53 +46,59 @@ All colors MUST be HSL.
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 100%;
 
-    --info: 217 91% 60%;
+    --info: 214 100% 59%;
     --info-foreground: 0 0% 100%;
 
-    --border: 220 15% 90%;
-    --input: 220 15% 95%;
-    --ring: 217 91% 60%;
+    --border: 220 15% 92%;
+    --input: 220 20% 96%;
+    --ring: 214 100% 59%;
 
-    --radius: 1rem;
+    --radius: 1.5rem;
 
-    /* Modern shadows */
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
-    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+    /* 3D Shadows - Multi-layered for depth */
+    --shadow-sm: 0 2px 4px rgba(99, 102, 241, 0.05), 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 12px rgba(99, 102, 241, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+    --shadow-lg: 0 12px 32px rgba(99, 102, 241, 0.12), 0 4px 16px rgba(0, 0, 0, 0.06);
+    --shadow-xl: 0 20px 40px rgba(99, 102, 241, 0.15), 0 8px 24px rgba(0, 0, 0, 0.08);
     
     /* Gradient backgrounds */
-    --gradient-primary: linear-gradient(135deg, hsl(220 25% 97%) 0%, hsl(230 30% 98%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(220 30% 98%) 0%, hsl(225 35% 97%) 50%, hsl(230 30% 96%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(220 30% 99%) 100%);
+    --gradient-button: linear-gradient(135deg, hsl(214 100% 59%) 0%, hsl(214 95% 50%) 100%);
 
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 220 15% 20%;
-    --sidebar-primary: 217 91% 60%;
+    --sidebar-foreground: 220 40% 15%;
+    --sidebar-primary: 214 100% 59%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 15% 95%;
-    --sidebar-accent-foreground: 220 15% 20%;
-    --sidebar-border: 220 15% 90%;
-    --sidebar-ring: 217 91% 60%;
+    --sidebar-accent: 220 20% 96%;
+    --sidebar-accent-foreground: 220 40% 15%;
+    --sidebar-border: 220 15% 92%;
+    --sidebar-ring: 214 100% 59%;
   }
 
   .dark {
-    --background: 220 20% 12%;
-    --foreground: 220 15% 90%;
+    --background: 220 25% 10%;
+    --foreground: 220 15% 92%;
 
-    --card: 220 18% 16%;
-    --card-foreground: 220 15% 90%;
+    --card: 220 22% 14%;
+    --card-foreground: 220 15% 92%;
 
-    --popover: 220 18% 16%;
-    --popover-foreground: 220 15% 90%;
+    --popover: 220 22% 14%;
+    --popover-foreground: 220 15% 92%;
 
-    --primary: 217 91% 60%;
+    --primary: 214 100% 59%;
     --primary-foreground: 0 0% 100%;
+    
+    --primary-light: 214 100% 70%;
+    --primary-dark: 214 95% 50%;
 
-    --secondary: 220 18% 20%;
-    --secondary-foreground: 220 15% 90%;
+    --secondary: 220 22% 18%;
+    --secondary-foreground: 220 15% 92%;
 
-    --accent: 217 91% 60%;
+    --accent: 214 100% 59%;
     --accent-foreground: 0 0% 100%;
 
-    --muted: 220 18% 20%;
+    --muted: 220 22% 18%;
     --muted-foreground: 220 15% 65%;
 
     --destructive: 0 84% 60%;
@@ -100,27 +110,30 @@ All colors MUST be HSL.
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 100%;
 
-    --info: 217 91% 60%;
+    --info: 214 100% 59%;
     --info-foreground: 0 0% 100%;
 
-    --border: 220 18% 24%;
-    --input: 220 18% 20%;
-    --ring: 217 91% 60%;
+    --border: 220 22% 22%;
+    --input: 220 22% 18%;
+    --ring: 214 100% 59%;
 
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.6);
+    --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.7);
     
-    --gradient-primary: linear-gradient(135deg, hsl(220 20% 12%) 0%, hsl(220 18% 16%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(220 25% 10%) 0%, hsl(220 22% 14%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(220 22% 14%) 0%, hsl(220 20% 16%) 100%);
+    --gradient-button: linear-gradient(135deg, hsl(214 100% 59%) 0%, hsl(214 95% 50%) 100%);
 
-    --sidebar-background: 220 18% 16%;
-    --sidebar-foreground: 220 15% 90%;
-    --sidebar-primary: 217 91% 60%;
+    --sidebar-background: 220 22% 14%;
+    --sidebar-foreground: 220 15% 92%;
+    --sidebar-primary: 214 100% 59%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 18% 20%;
-    --sidebar-accent-foreground: 220 15% 90%;
-    --sidebar-border: 220 18% 24%;
-    --sidebar-ring: 217 91% 60%;
+    --sidebar-accent: 220 22% 18%;
+    --sidebar-accent-foreground: 220 15% 92%;
+    --sidebar-border: 220 22% 22%;
+    --sidebar-ring: 214 100% 59%;
   }
 }
 
@@ -142,6 +155,34 @@ All colors MUST be HSL.
   }
   
   .shadow-card-hover {
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-xl);
+  }
+  
+  .card-3d {
+    transform: translateZ(0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card-3d:hover {
+    transform: translateY(-4px) translateZ(0);
+    box-shadow: var(--shadow-xl);
+  }
+  
+  .glass-effect {
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.9);
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
   }
 }
