@@ -1,12 +1,7 @@
-import { Layout } from "@/components/Layout";
-import Dashboard from "./Dashboard";
+import Landing from "./Landing";
 
 const Index = () => {
-  return (
-    <Layout>
-      <Dashboard />
-    </Layout>
-  );
+  return <Landing />;
 };
 
 export default Index;
