@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -8,8 +8,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useProjectContext } from "@/contexts/ProjectContext";
-import { RAGStatus } from "@/types/project";
+import { RAGStatus, Comment } from "@/types/project";
 import { toast } from "sonner";
+import { format } from "date-fns";
 
 const NewProject = () => {
   const navigate = useNavigate();
@@ -38,6 +39,32 @@ const NewProject = () => {
     scopeRAG: "green" as RAGStatus,
   });
 
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [newComment, setNewComment] = useState("");
+
+  const handleAddComment = () => {
+    if (!newComment.trim()) {
+      toast.error("Please enter a comment");
+      return;
+    }
+
+    if (!formData.projectManager) {
+      toast.error("Please enter Project Manager name first");
+      return;
+    }
+
+    const comment: Comment = {
+      id: crypto.randomUUID(),
+      text: newComment.trim(),
+      author: formData.projectManager,
+      timestamp: new Date().toISOString(),
+    };
+
+    setComments([...comments, comment]);
+    setNewComment("");
+    toast.success("Comment added to history");
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -53,6 +80,7 @@ const NewProject = () => {
       capex: Number(formData.capex) || 0,
       opex: Number(formData.opex) || 0,
       actualSpent: Number(formData.actualSpent) || 0,
+      comments,
     });
 
     toast.success("Project created successfully!");
@@ -316,15 +344,72 @@ const NewProject = () => {
 
             <Card>
               <CardHeader>
-                <CardTitle>Current Status</CardTitle>
+                <CardTitle>Current Status & Comments</CardTitle>
               </CardHeader>
-              <CardContent>
-                <Textarea
-                  value={formData.currentStatus}
-                  onChange={(e) => setFormData({ ...formData, currentStatus: e.target.value })}
-                  placeholder="Enter current project status..."
-                  rows={8}
-                />
+              <CardContent className="space-y-4">
+                <div>
+                  <Label>Status Summary</Label>
+                  <Textarea
+                    value={formData.currentStatus}
+                    onChange={(e) => setFormData({ ...formData, currentStatus: e.target.value })}
+                    placeholder="Enter current project status summary..."
+                    rows={3}
+                  />
+                </div>
+
+                <div>
+                  <Label>Comment History ({comments.length})</Label>
+                  <div className="mt-2 space-y-3 max-h-64 overflow-y-auto border rounded-lg p-3 bg-muted/20">
+                    {comments.length === 0 ? (
+                      <p className="text-sm text-muted-foreground text-center py-4">
+                        No comments yet. Add your first comment below.
+                      </p>
+                    ) : (
+                      comments.map((comment) => (
+                        <div key={comment.id} className="bg-card p-3 rounded-lg border shadow-sm">
+                          <div className="flex justify-between items-start mb-1">
+                            <span className="text-sm font-medium text-foreground">
+                              {comment.author}
+                            </span>
+                            <span className="text-xs text-muted-foreground">
+                              {format(new Date(comment.timestamp), "dd MMM yyyy, HH:mm")}
+                            </span>
+                          </div>
+                          <p className="text-sm text-foreground whitespace-pre-wrap">{comment.text}</p>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <Label>Add Comment</Label>
+                  <div className="flex gap-2 mt-2">
+                    <Textarea
+                      value={newComment}
+                      onChange={(e) => setNewComment(e.target.value)}
+                      placeholder="Enter your comment..."
+                      rows={2}
+                      className="flex-1"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" && e.ctrlKey) {
+                          handleAddComment();
+                        }
+                      }}
+                    />
+                    <Button 
+                      type="button" 
+                      onClick={handleAddComment}
+                      size="icon"
+                      className="h-auto"
+                    >
+                      <Send className="w-4 h-4" />
+                    </Button>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Press Ctrl+Enter to add comment
+                  </p>
+                </div>
               </CardContent>
             </Card>
 

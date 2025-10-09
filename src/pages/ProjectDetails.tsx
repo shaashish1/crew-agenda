@@ -190,10 +190,31 @@ const ProjectDetails = () => {
                       </div>
                     </div>
                     <div className="pt-4 border-t">
+                      <h4 className="font-medium mb-2">Status Summary</h4>
                       <p className="text-muted-foreground whitespace-pre-wrap">
                         {project.currentStatus || 'No status update provided'}
                       </p>
                     </div>
+                    {project.comments && project.comments.length > 0 && (
+                      <div className="pt-4 border-t">
+                        <h4 className="font-medium mb-3">Comment History ({project.comments.length})</h4>
+                        <div className="space-y-3 max-h-96 overflow-y-auto">
+                          {project.comments.map((comment) => (
+                            <div key={comment.id} className="bg-muted/30 p-3 rounded-lg border">
+                              <div className="flex justify-between items-start mb-1">
+                                <span className="text-sm font-medium text-foreground">
+                                  {comment.author}
+                                </span>
+                                <span className="text-xs text-muted-foreground">
+                                  {format(new Date(comment.timestamp), "dd MMM yyyy, HH:mm")}
+                                </span>
+                              </div>
+                              <p className="text-sm text-foreground whitespace-pre-wrap">{comment.text}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </CardContent>
               </Card>

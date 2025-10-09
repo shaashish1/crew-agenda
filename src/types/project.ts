@@ -1,5 +1,12 @@
 export type RAGStatus = 'green' | 'amber' | 'red';
 
+export interface Comment {
+  id: string;
+  text: string;
+  author: string;
+  timestamp: string;
+}
+
 export interface Project {
   id: string;
   name: string;
@@ -25,6 +32,7 @@ export interface Project {
   
   // Current Status with RAG
   currentStatus: string;
+  comments: Comment[];
   overallRAG: RAGStatus;
   timelineRAG: RAGStatus;
   budgetRAG: RAGStatus;

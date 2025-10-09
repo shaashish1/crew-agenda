@@ -84,6 +84,7 @@ export const ProjectProvider = ({ children }: { children: ReactNode }) => {
       id: crypto.randomUUID(),
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
+      comments: project.comments || [],
     };
     setProjects([...projects, newProject]);
   };
