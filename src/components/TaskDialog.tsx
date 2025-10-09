@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Task, TaskStatus } from "@/types/task";
 import { useTaskContext } from "@/contexts/TaskContext";
+import { Plus } from "lucide-react";
 
 interface TaskDialogProps {
   open: boolean;
@@ -17,7 +18,7 @@ interface TaskDialogProps {
 const statusOptions: TaskStatus[] = ["Not Started", "In Progress", "Completed", "On Hold", "Overdue"];
 
 export const TaskDialog = ({ open, onOpenChange, task }: TaskDialogProps) => {
-  const { addTask, updateTask, owners, categories } = useTaskContext();
+  const { addTask, updateTask, owners, categories, addCategory } = useTaskContext();
   const [formData, setFormData] = useState({
     owner: "",
     actionItem: "",
@@ -27,6 +28,8 @@ export const TaskDialog = ({ open, onOpenChange, task }: TaskDialogProps) => {
     progressComments: "",
     category: "",
   });
+  const [isCreatingNewCategory, setIsCreatingNewCategory] = useState(false);
+  const [newCategoryName, setNewCategoryName] = useState("");
 
   useEffect(() => {
     if (task) {
@@ -39,6 +42,8 @@ export const TaskDialog = ({ open, onOpenChange, task }: TaskDialogProps) => {
         progressComments: task.progressComments,
         category: task.category || "",
       });
+      setIsCreatingNewCategory(false);
+      setNewCategoryName("");
     } else {
       setFormData({
         owner: "",
@@ -49,15 +54,27 @@ export const TaskDialog = ({ open, onOpenChange, task }: TaskDialogProps) => {
         progressComments: "",
         category: "",
       });
+      setIsCreatingNewCategory(false);
+      setNewCategoryName("");
     }
   }, [task, open]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // If creating a new category, add it first
+    let finalCategory = formData.category;
+    if (isCreatingNewCategory && newCategoryName.trim()) {
+      addCategory(newCategoryName.trim());
+      finalCategory = newCategoryName.trim();
+    }
+    
+    const finalFormData = { ...formData, category: finalCategory };
+    
     if (task) {
-      updateTask(task.id, formData);
+      updateTask(task.id, finalFormData);
     } else {
-      addTask(formData);
+      addTask(finalFormData);
     }
     onOpenChange(false);
   };
@@ -88,18 +105,56 @@ export const TaskDialog = ({ open, onOpenChange, task }: TaskDialogProps) => {
 
             <div className="space-y-2">
               <Label htmlFor="category">Category</Label>
-              <Select value={formData.category} onValueChange={(value) => setFormData({ ...formData, category: value })}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select category" />
-                </SelectTrigger>
-                <SelectContent>
-                  {categories.map((category) => (
-                    <SelectItem key={category.id} value={category.name}>
-                      {category.name}
+              {isCreatingNewCategory ? (
+                <div className="space-y-2">
+                  <Input
+                    placeholder="Enter new category name"
+                    value={newCategoryName}
+                    onChange={(e) => setNewCategoryName(e.target.value)}
+                    autoFocus
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      setIsCreatingNewCategory(false);
+                      setNewCategoryName("");
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              ) : (
+                <Select 
+                  value={formData.category} 
+                  onValueChange={(value) => {
+                    if (value === "__create_new__") {
+                      setIsCreatingNewCategory(true);
+                      setFormData({ ...formData, category: "" });
+                    } else {
+                      setFormData({ ...formData, category: value });
+                    }
+                  }}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="__create_new__">
+                      <div className="flex items-center gap-2">
+                        <Plus className="h-4 w-4" />
+                        <span>Create New Category</span>
+                      </div>
                     </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                    {categories.map((category) => (
+                      <SelectItem key={category.id} value={category.name}>
+                        {category.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
             </div>
           </div>
 
