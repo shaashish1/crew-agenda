@@ -1,9 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
-import { CheckSquare, Settings, LayoutDashboard } from "lucide-react";
+import { CheckSquare, Settings, LayoutDashboard, FolderKanban } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navigation = [
-  { name: "Dashboard", href: "/", icon: LayoutDashboard },
+  { name: "Task Dashboard", href: "/", icon: LayoutDashboard },
+  { name: "Projects", href: "/projects", icon: FolderKanban },
   { name: "Settings", href: "/settings", icon: Settings },
 ];
 
@@ -20,8 +21,8 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
               <CheckSquare className="w-6 h-6 text-primary-foreground" />
             </div>
             <div>
-              <h1 className="text-lg font-bold text-foreground">TaskTracker</h1>
-              <p className="text-xs text-muted-foreground">Team Management</p>
+              <h1 className="text-lg font-bold text-foreground">Project Hub</h1>
+              <p className="text-xs text-muted-foreground">IT Project Management</p>
             </div>
           </div>
         </div>
