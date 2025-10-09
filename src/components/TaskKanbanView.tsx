@@ -47,9 +47,13 @@ const TaskKanbanView: React.FC<TaskKanbanViewProps> = ({ tasks, onTaskClick }) =
                   </div>
                 </CardHeader>
                 <CardContent className="p-4 pt-2 space-y-2">
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground flex-wrap">
                     <User className="h-3 w-3" />
-                    <span className="truncate">{task.owner}</span>
+                    {task.owner.map((owner, idx) => (
+                      <Badge key={idx} variant="secondary" className="text-xs">
+                        {owner}
+                      </Badge>
+                    ))}
                   </div>
                   <div className="flex items-center gap-2 text-xs text-muted-foreground">
                     <Clock className="h-3 w-3" />

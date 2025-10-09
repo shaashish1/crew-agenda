@@ -28,7 +28,7 @@ export const ImportDataButton = () => {
       }
       
       // Extract unique owners from CSV and add them if they don't exist
-      const uniqueOwners = [...new Set(parsedTasks.map(task => task.owner))];
+      const uniqueOwners = [...new Set(parsedTasks.flatMap(task => task.owner))];
       const existingOwnerNames = owners.map(o => o.name);
       
       uniqueOwners.forEach(ownerName => {

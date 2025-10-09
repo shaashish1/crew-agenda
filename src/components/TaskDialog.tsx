@@ -7,7 +7,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Task, TaskStatus } from "@/types/task";
 import { useTaskContext } from "@/contexts/TaskContext";
-import { Plus } from "lucide-react";
+import { Plus, X } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface TaskDialogProps {
   open: boolean;
@@ -20,7 +23,7 @@ const statusOptions: TaskStatus[] = ["Not Started", "In Progress", "Completed", 
 export const TaskDialog = ({ open, onOpenChange, task }: TaskDialogProps) => {
   const { addTask, updateTask, owners, categories, addCategory } = useTaskContext();
   const [formData, setFormData] = useState({
-    owner: "",
+    owner: [] as string[],
     actionItem: "",
     reportedDate: "",
     targetDate: "",
@@ -46,7 +49,7 @@ export const TaskDialog = ({ open, onOpenChange, task }: TaskDialogProps) => {
       setNewCategoryName("");
     } else {
       setFormData({
-        owner: "",
+        owner: [],
         actionItem: "",
         reportedDate: new Date().toISOString().split("T")[0],
         targetDate: "",
@@ -88,19 +91,70 @@ export const TaskDialog = ({ open, onOpenChange, task }: TaskDialogProps) => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="owner">Owner *</Label>
-              <Select value={formData.owner} onValueChange={(value) => setFormData({ ...formData, owner: value })}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select owner" />
-                </SelectTrigger>
-                <SelectContent>
-                  {owners.map((owner) => (
-                    <SelectItem key={owner.id} value={owner.name}>
-                      {owner.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <Label htmlFor="owner">Owners *</Label>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant="outline" className="w-full justify-between">
+                    {formData.owner.length > 0 ? (
+                      <span className="flex gap-1 flex-wrap">
+                        {formData.owner.slice(0, 2).map(owner => (
+                          <Badge key={owner} variant="secondary" className="text-xs">
+                            {owner}
+                            <X 
+                              className="ml-1 h-3 w-3 cursor-pointer" 
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setFormData({ 
+                                  ...formData, 
+                                  owner: formData.owner.filter(o => o !== owner) 
+                                });
+                              }}
+                            />
+                          </Badge>
+                        ))}
+                        {formData.owner.length > 2 && (
+                          <Badge variant="secondary" className="text-xs">
+                            +{formData.owner.length - 2}
+                          </Badge>
+                        )}
+                      </span>
+                    ) : (
+                      "Select owners"
+                    )}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-56 p-3" align="start">
+                  <div className="space-y-2 max-h-64 overflow-y-auto">
+                    {owners.map(owner => (
+                      <div key={owner.id} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={`owner-${owner.id}`}
+                          checked={formData.owner.includes(owner.name)}
+                          onCheckedChange={(checked) => {
+                            if (checked) {
+                              setFormData({ 
+                                ...formData, 
+                                owner: [...formData.owner, owner.name] 
+                              });
+                            } else {
+                              setFormData({ 
+                                ...formData, 
+                                owner: formData.owner.filter(o => o !== owner.name) 
+                              });
+                            }
+                          }}
+                        />
+                        <label
+                          htmlFor={`owner-${owner.id}`}
+                          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                        >
+                          {owner.name}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </PopoverContent>
+              </Popover>
             </div>
 
             <div className="space-y-2">

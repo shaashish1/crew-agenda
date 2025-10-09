@@ -69,7 +69,7 @@ const Dashboard = () => {
   };
 
   // Get unique values for filters (only values that exist in the data)
-  const uniqueOwners = useMemo(() => [...new Set(tasks.map(t => t.owner))].sort(), [tasks]);
+  const uniqueOwners = useMemo(() => [...new Set(tasks.flatMap(t => t.owner))].sort(), [tasks]);
   const uniqueCategories = useMemo(() => [...new Set(tasks.map(t => t.category).filter(Boolean))].sort(), [tasks]);
   const uniqueStatuses = useMemo(() => [...new Set(tasks.map(t => t.status))].sort(), [tasks]);
 
@@ -79,7 +79,7 @@ const Dashboard = () => {
 
     // Apply filters
     if (filterOwners.length > 0) {
-      filtered = filtered.filter(t => filterOwners.includes(t.owner));
+      filtered = filtered.filter(t => t.owner.some(o => filterOwners.includes(o)));
     }
     if (filterCategories.length > 0) {
       filtered = filtered.filter(t => t.category && filterCategories.includes(t.category));
@@ -92,7 +92,7 @@ const Dashboard = () => {
       filtered = filtered.filter(t => 
         t.actionItem.toLowerCase().includes(query) ||
         t.progressComments?.toLowerCase().includes(query) ||
-        t.owner.toLowerCase().includes(query)
+        t.owner.some(o => o.toLowerCase().includes(query))
       );
     }
 
@@ -398,7 +398,15 @@ const Dashboard = () => {
               {filteredAndSortedTasks.map((task) => (
                 <TableRow key={task.id}>
                   <TableCell className="font-medium">{task.serialNo}</TableCell>
-                  <TableCell>{task.owner}</TableCell>
+                  <TableCell>
+                    <div className="flex flex-wrap gap-1">
+                      {task.owner.map((owner, idx) => (
+                        <Badge key={idx} variant="secondary" className="text-xs">
+                          {owner}
+                        </Badge>
+                      ))}
+                    </div>
+                  </TableCell>
                   <TableCell>{task.actionItem}</TableCell>
                   <TableCell>{task.category || "-"}</TableCell>
                   <TableCell>{new Date(task.reportedDate).toLocaleDateString()}</TableCell>

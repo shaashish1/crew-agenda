@@ -90,7 +90,9 @@ export const parseCSV = (csvContent: string): Omit<Task, "id">[] => {
     
     if (fields.length >= 7) {
       const serialNo = parseInt(fields[0]) || tasks.length + 1;
-      const owner = fields[1]?.trim() || 'Unknown';
+      const ownerField = fields[1]?.trim() || 'Unknown';
+      // Support comma-separated owners in CSV
+      const owner = ownerField.split(',').map(o => o.trim()).filter(Boolean);
       const actionItem = fields[2]?.trim() || '';
       const reportedDate = parseCSVDate(fields[3]);
       const targetDate = parseCSVDate(fields[4]);

@@ -36,7 +36,15 @@ const TaskTableView: React.FC<TaskTableViewProps> = ({ tasks, onTaskClick }) => 
               <TableCell className="font-medium">{task.serialNo}</TableCell>
               <TableCell className="text-lg">{task.sentiment || "😐"}</TableCell>
               <TableCell className="max-w-xs truncate">{task.actionItem}</TableCell>
-              <TableCell>{task.owner}</TableCell>
+              <TableCell>
+                <div className="flex flex-wrap gap-1">
+                  {task.owner.map((owner, idx) => (
+                    <Badge key={idx} variant="secondary" className="text-xs">
+                      {owner}
+                    </Badge>
+                  ))}
+                </div>
+              </TableCell>
               <TableCell>
                 {task.category && <Badge variant="outline">{task.category}</Badge>}
               </TableCell>

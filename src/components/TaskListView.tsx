@@ -37,9 +37,13 @@ const TaskListView: React.FC<TaskListViewProps> = ({ tasks, onTaskClick }) => {
           </CardHeader>
           <CardContent className="pt-0">
             <div className="flex flex-wrap items-center gap-4 text-sm">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <User className="h-4 w-4 text-muted-foreground" />
-                <span>{task.owner}</span>
+                {task.owner.map((owner, idx) => (
+                  <Badge key={idx} variant="secondary" className="text-xs">
+                    {owner}
+                  </Badge>
+                ))}
               </div>
               <div className="flex items-center gap-2">
                 <Clock className="h-4 w-4 text-muted-foreground" />

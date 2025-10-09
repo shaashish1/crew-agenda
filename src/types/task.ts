@@ -1,7 +1,7 @@
 export interface Task {
   id: string;
   serialNo: number;
-  owner: string;
+  owner: string[];
   actionItem: string;
   reportedDate: string;
   targetDate: string;
