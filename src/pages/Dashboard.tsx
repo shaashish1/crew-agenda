@@ -136,8 +136,8 @@ const Dashboard = () => {
         </div>
         <div className="flex gap-3">
           <ImportDataButton />
-          <Button onClick={handleAddNew} className="gap-2">
-            <Plus className="w-4 h-4" />
+          <Button onClick={handleAddNew} size="lg">
+            <Plus className="w-5 h-5" />
             Add Task
           </Button>
         </div>
@@ -318,9 +318,9 @@ const Dashboard = () => {
             <p className="text-muted-foreground mb-4">
               {tasks.length === 0 ? "Get started by creating your first task" : "Try adjusting your filters"}
             </p>
-            <Button onClick={handleAddNew} className="gap-2">
-              <Plus className="w-4 h-4" />
-              Add First Task
+            <Button onClick={handleAddNew} size="lg">
+              <Plus className="w-5 h-5" />
+              Add Your First Task
             </Button>
           </div>
         ) : (

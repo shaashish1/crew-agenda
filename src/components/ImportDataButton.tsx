@@ -67,10 +67,10 @@ export const ImportDataButton = () => {
       <Button 
         onClick={() => fileInputRef.current?.click()} 
         variant="outline" 
-        className="gap-2"
+        size="lg"
         disabled={loading}
       >
-        <Upload className="w-4 h-4" />
+        <Upload className="w-5 h-5" />
         {loading ? "Importing..." : "Import CSV"}
       </Button>
     </>
