@@ -33,7 +33,6 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
   }, [projectId]);
 
   const loadIdeas = async () => {
-    // @ts-ignore - Type will be available after Supabase types regeneration
     const query = supabase.from("ideas").select("*");
     if (projectId) {
       query.eq("project_id", projectId);
@@ -43,12 +42,11 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
     if (error) {
       toast({ title: "Error loading ideas", description: error.message, variant: "destructive" });
     } else {
-      setIdeas((data as any) || []);
+      setIdeas(data || []);
     }
   };
 
   const handleSubmit = async () => {
-    // @ts-ignore - Type will be available after Supabase types regeneration
     const { error } = await supabase.from("ideas").insert({
       ...formData,
       project_id: projectId || null
@@ -65,7 +63,6 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
   };
 
   const handleDelete = async (id: string) => {
-    // @ts-ignore - Type will be available after Supabase types regeneration
     const { error } = await supabase.from("ideas").delete().eq("id", id);
     
     if (error) {

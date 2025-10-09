@@ -35,7 +35,6 @@ const DocumentEditor: React.FC<DocumentEditorProps> = ({ projectId }) => {
   }, [projectId]);
 
   const loadDocuments = async () => {
-    // @ts-ignore - Type will be available after Supabase types regeneration
     const { data, error } = await supabase
       .from("documents")
       .select("*")
@@ -45,12 +44,11 @@ const DocumentEditor: React.FC<DocumentEditorProps> = ({ projectId }) => {
     if (error) {
       toast({ title: "Error loading documents", description: error.message, variant: "destructive" });
     } else {
-      setDocuments((data as any) || []);
+      setDocuments(data || []);
     }
   };
 
   const handleCreate = async () => {
-    // @ts-ignore - Type will be available after Supabase types regeneration
     const { error } = await supabase.from("documents").insert({
       ...formData,
       project_id: projectId,
@@ -70,7 +68,6 @@ const DocumentEditor: React.FC<DocumentEditorProps> = ({ projectId }) => {
   const handleSave = async () => {
     if (!selectedDoc) return;
 
-    // @ts-ignore - Type will be available after Supabase types regeneration
     const { error } = await supabase
       .from("documents")
       .update({ content: selectedDoc.content })
@@ -85,7 +82,6 @@ const DocumentEditor: React.FC<DocumentEditorProps> = ({ projectId }) => {
   };
 
   const handleDelete = async (id: string) => {
-    // @ts-ignore - Type will be available after Supabase types regeneration
     const { error } = await supabase.from("documents").delete().eq("id", id);
 
     if (error) {

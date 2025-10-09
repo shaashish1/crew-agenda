@@ -31,7 +31,6 @@ const ProjectBlueprints: React.FC<ProjectBlueprintsProps> = ({ projectId }) => {
   }, [projectId]);
 
   const loadBlueprint = async () => {
-    // @ts-ignore - Type will be available after Supabase types regeneration
     const { data, error } = await supabase
       .from("project_blueprints")
       .select("*")
@@ -41,13 +40,13 @@ const ProjectBlueprints: React.FC<ProjectBlueprintsProps> = ({ projectId }) => {
     if (error && error.code !== "PGRST116") {
       toast({ title: "Error loading blueprint", description: error.message, variant: "destructive" });
     } else if (data) {
-      setBlueprint(data as any);
+      setBlueprint(data);
       setFormData({
-        purpose: (data as any).purpose,
-        validation_criteria: (data as any).validation_criteria,
-        success_metrics: (data as any).success_metrics,
-        assumptions: (data as any).assumptions,
-        constraints: (data as any).constraints
+        purpose: data.purpose,
+        validation_criteria: data.validation_criteria,
+        success_metrics: data.success_metrics,
+        assumptions: data.assumptions,
+        constraints: data.constraints
       });
     }
   };
@@ -63,7 +62,6 @@ const ProjectBlueprints: React.FC<ProjectBlueprintsProps> = ({ projectId }) => {
     };
 
     if (blueprint) {
-      // @ts-ignore - Type will be available after Supabase types regeneration
       const { error } = await supabase
         .from("project_blueprints")
         .update(dataToSave)
@@ -77,7 +75,6 @@ const ProjectBlueprints: React.FC<ProjectBlueprintsProps> = ({ projectId }) => {
         loadBlueprint();
       }
     } else {
-      // @ts-ignore - Type will be available after Supabase types regeneration
       const { error } = await supabase
         .from("project_blueprints")
         .insert(dataToSave);
