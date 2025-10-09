@@ -8,101 +8,105 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
+    /* Syngene Brand Colors */
     --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
+    --foreground: 208 40% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 208 40% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover-foreground: 208 40% 12%;
 
-    --primary: 262 83% 58%;
+    /* Primary - Syngene Gold */
+    --primary: 42 53% 39%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 222 47% 11%;
+    /* Secondary - Syngene Light Gold */
+    --secondary: 39 67% 53%;
+    --secondary-foreground: 208 40% 12%;
 
-    --muted: 220 14% 96%;
-    --muted-foreground: 215 16% 47%;
-
-    --accent: 262 83% 58%;
+    /* Accent - Syngene Gray-Blue */
+    --accent: 202 12% 39%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84% 60%;
+    --muted: 200 10% 75%;
+    --muted-foreground: 30 3% 49%;
+
+    --destructive: 359 92% 43%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 262 83% 58%;
-
-    --radius: 0.75rem;
-
-    --success: 142 71% 45%;
+    --success: 124 35% 47%;
     --success-foreground: 0 0% 100%;
 
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 100%;
+    --warning: 39 67% 53%;
+    --warning-foreground: 208 40% 12%;
 
-    --info: 199 89% 48%;
+    --info: 208 54% 55%;
     --info-foreground: 0 0% 100%;
 
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 42 53% 39%;
+
+    --radius: 0.5rem;
+
     --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 222 47% 11%;
-    --sidebar-primary: 262 83% 58%;
+    --sidebar-foreground: 208 40% 12%;
+    --sidebar-primary: 42 53% 39%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 14% 96%;
-    --sidebar-accent-foreground: 222 47% 11%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 262 83% 58%;
+    --sidebar-accent: 200 10% 75%;
+    --sidebar-accent-foreground: 208 40% 12%;
+    --sidebar-border: 0 0% 88%;
+    --sidebar-ring: 42 53% 39%;
   }
 
   .dark {
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
+    --background: 208 32% 13%;
+    --foreground: 0 0% 88%;
 
-    --card: 222 47% 11%;
-    --card-foreground: 210 40% 98%;
+    --card: 208 40% 12%;
+    --card-foreground: 0 0% 88%;
 
-    --popover: 222 47% 11%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 208 40% 12%;
+    --popover-foreground: 0 0% 88%;
 
-    --primary: 262 83% 58%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 39 67% 53%;
+    --primary-foreground: 208 40% 12%;
 
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 202 12% 39%;
+    --secondary-foreground: 0 0% 88%;
 
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
-
-    --accent: 262 83% 58%;
+    --accent: 42 53% 39%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
+    --muted: 202 12% 25%;
+    --muted-foreground: 200 10% 75%;
 
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 262 83% 58%;
+    --destructive: 359 92% 43%;
+    --destructive-foreground: 0 0% 100%;
 
-    --success: 142 71% 45%;
+    --success: 124 35% 47%;
     --success-foreground: 0 0% 100%;
 
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 100%;
+    --warning: 39 67% 53%;
+    --warning-foreground: 208 40% 12%;
 
-    --info: 199 89% 48%;
+    --info: 208 54% 55%;
     --info-foreground: 0 0% 100%;
 
-    --sidebar-background: 222 47% 11%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 262 83% 58%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 217 33% 17%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 217 33% 17%;
-    --sidebar-ring: 262 83% 58%;
+    --border: 202 12% 25%;
+    --input: 202 12% 25%;
+    --ring: 39 67% 53%;
+
+    --sidebar-background: 208 40% 12%;
+    --sidebar-foreground: 0 0% 88%;
+    --sidebar-primary: 39 67% 53%;
+    --sidebar-primary-foreground: 208 40% 12%;
+    --sidebar-accent: 202 12% 25%;
+    --sidebar-accent-foreground: 0 0% 88%;
+    --sidebar-border: 202 12% 25%;
+    --sidebar-ring: 39 67% 53%;
   }
 }
 

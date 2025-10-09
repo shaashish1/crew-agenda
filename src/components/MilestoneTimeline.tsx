@@ -13,11 +13,11 @@ export const MilestoneTimeline = ({ projectId, milestones }: MilestoneTimelinePr
   const getStatusColor = (status: Milestone['status']) => {
     switch (status) {
       case 'completed':
-        return 'bg-[hsl(var(--success))]';
+        return 'bg-success';
       case 'in-progress':
-        return 'bg-[hsl(var(--info))]';
+        return 'bg-info';
       case 'delayed':
-        return 'bg-[hsl(var(--destructive))]';
+        return 'bg-destructive';
       default:
         return 'bg-muted';
     }
@@ -25,7 +25,7 @@ export const MilestoneTimeline = ({ projectId, milestones }: MilestoneTimelinePr
 
   return (
     <Card>
-      <CardHeader className="bg-[hsl(180,50%,40%)] text-white">
+      <CardHeader className="bg-primary text-primary-foreground">
         <div className="flex justify-between items-center">
           <CardTitle>Milestones</CardTitle>
           <Button size="sm" variant="secondary" className="gap-2">

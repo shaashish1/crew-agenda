@@ -15,7 +15,7 @@ export const RiskManagement = ({ projectId }: RiskManagementProps) => {
 
   return (
     <Card>
-      <CardHeader className="bg-[hsl(180,50%,40%)] text-white">
+      <CardHeader className="bg-primary text-primary-foreground">
         <div className="flex justify-between items-center">
           <CardTitle>Risk & Mitigation Plan</CardTitle>
           <Button size="sm" variant="secondary" className="gap-2">
@@ -33,7 +33,7 @@ export const RiskManagement = ({ projectId }: RiskManagementProps) => {
           <div className="overflow-x-auto">
             <table className="w-full border-collapse">
               <thead>
-                <tr className="bg-[hsl(180,50%,40%)] text-white">
+                <tr className="bg-primary text-primary-foreground">
                   <th className="p-3 text-left text-sm font-medium">Risk #</th>
                   <th className="p-3 text-left text-sm font-medium">Risk Details</th>
                   <th className="p-3 text-left text-sm font-medium">Mitigation Plan</th>
@@ -67,11 +67,11 @@ export const RiskManagement = ({ projectId }: RiskManagementProps) => {
         )}
         <div className="mt-6 flex gap-4 text-sm">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-4 bg-[hsl(var(--success))]"></div>
+            <div className="w-6 h-4 bg-success rounded"></div>
             <span className="text-muted-foreground">On track - goes live on or before planned Go-Live date</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-6 h-4 bg-[hsl(var(--destructive))]"></div>
+            <div className="w-6 h-4 bg-destructive rounded"></div>
             <span className="text-muted-foreground">Delayed - misses planned Go-Live date</span>
           </div>
         </div>

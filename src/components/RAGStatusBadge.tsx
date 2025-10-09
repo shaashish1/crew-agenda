@@ -11,11 +11,11 @@ export const RAGStatusBadge = ({ status, className }: RAGStatusBadgeProps) => {
   const getStatusColor = () => {
     switch (status) {
       case 'green':
-        return 'bg-[hsl(var(--success))] text-[hsl(var(--success-foreground))] hover:bg-[hsl(var(--success))]/80';
+        return 'bg-success text-success-foreground hover:bg-success/80';
       case 'amber':
-        return 'bg-[hsl(var(--warning))] text-[hsl(var(--warning-foreground))] hover:bg-[hsl(var(--warning))]/80';
+        return 'bg-warning text-warning-foreground hover:bg-warning/80';
       case 'red':
-        return 'bg-[hsl(var(--destructive))] text-[hsl(var(--destructive-foreground))] hover:bg-[hsl(var(--destructive))]/80';
+        return 'bg-destructive text-destructive-foreground hover:bg-destructive/80';
     }
   };
 

@@ -61,7 +61,7 @@ const Projects = () => {
         </Card>
         <Card>
           <CardContent className="pt-6">
-            <div className="text-2xl font-bold text-[hsl(var(--success))]">
+            <div className="text-2xl font-bold text-success">
               {projects.filter(p => p.overallRAG === 'green').length}
             </div>
             <p className="text-sm text-muted-foreground">On Track</p>
@@ -69,7 +69,7 @@ const Projects = () => {
         </Card>
         <Card>
           <CardContent className="pt-6">
-            <div className="text-2xl font-bold text-[hsl(var(--warning))]">
+            <div className="text-2xl font-bold text-warning">
               {projects.filter(p => p.overallRAG === 'amber').length}
             </div>
             <p className="text-sm text-muted-foreground">At Risk</p>
@@ -77,7 +77,7 @@ const Projects = () => {
         </Card>
         <Card>
           <CardContent className="pt-6">
-            <div className="text-2xl font-bold text-[hsl(var(--destructive))]">
+            <div className="text-2xl font-bold text-destructive">
               {projects.filter(p => p.overallRAG === 'red').length}
             </div>
             <p className="text-sm text-muted-foreground">Delayed</p>
