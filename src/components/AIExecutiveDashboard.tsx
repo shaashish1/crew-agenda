@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { AIInsightsCard } from "./AIInsightsCard";
 import { PortfolioHealthChart } from "./PortfolioHealthChart";
+import { EnhancedAnalyticsCharts } from "./EnhancedAnalyticsCharts";
 
 interface PortfolioInsights {
   executive_summary: string;
@@ -341,6 +342,12 @@ export const AIExecutiveDashboard = () => {
 
       {/* Portfolio Health Chart */}
       <PortfolioHealthChart />
+
+      {/* Enhanced Analytics and Charts */}
+      <div className="pt-6 border-t">
+        <h2 className="text-2xl font-bold mb-6">Advanced Analytics Dashboard</h2>
+        <EnhancedAnalyticsCharts />
+      </div>
     </div>
   );
 };

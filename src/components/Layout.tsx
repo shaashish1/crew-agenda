@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { CheckSquare, Settings, LayoutDashboard, FolderKanban, BookOpen, BrainCircuit } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const navigation = [
   { name: "Home", href: "/", icon: LayoutDashboard },
@@ -51,7 +52,10 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
           })}
         </nav>
 
-        <div className="p-4 border-t border-border">
+        <div className="p-4 border-t border-border space-y-3">
+          <div className="flex items-center justify-center">
+            <ThemeToggle />
+          </div>
           <p className="text-xs text-muted-foreground text-center">
             © 2025 ProjectHub
           </p>
