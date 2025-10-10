@@ -13,6 +13,7 @@ import Projects from "./pages/Projects";
 import ProjectDetails from "./pages/ProjectDetails";
 import NewProject from "./pages/NewProject";
 import Dashboard from "./pages/Dashboard";
+import Features from "./pages/Features";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,7 @@ const App = () => (
               <Route path="/projects" element={<Layout><Projects /></Layout>} />
               <Route path="/projects/new" element={<Layout><NewProject /></Layout>} />
               <Route path="/projects/:id" element={<Layout><ProjectDetails /></Layout>} />
+              <Route path="/features" element={<Layout><Features /></Layout>} />
               <Route path="/settings" element={<Layout><Settings /></Layout>} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

@@ -14,14 +14,63 @@ export type Database = {
   }
   public: {
     Tables: {
+      document_templates: {
+        Row: {
+          category: string
+          created_at: string | null
+          dependencies: string[] | null
+          description: string | null
+          estimated_days: number | null
+          id: string
+          is_critical_milestone: boolean | null
+          name: string
+          phase_name: string
+          template_content: string | null
+          typical_owner: string | null
+        }
+        Insert: {
+          category: string
+          created_at?: string | null
+          dependencies?: string[] | null
+          description?: string | null
+          estimated_days?: number | null
+          id?: string
+          is_critical_milestone?: boolean | null
+          name: string
+          phase_name: string
+          template_content?: string | null
+          typical_owner?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string | null
+          dependencies?: string[] | null
+          description?: string | null
+          estimated_days?: number | null
+          id?: string
+          is_critical_milestone?: boolean | null
+          name?: string
+          phase_name?: string
+          template_content?: string | null
+          typical_owner?: string | null
+        }
+        Relationships: []
+      }
       documents: {
         Row: {
+          approval_status: string | null
+          approved_by: string | null
+          approved_date: string | null
           content: string | null
           created_at: string
+          document_category: string | null
+          document_template_id: string | null
           editor_state: Json | null
           id: string
+          is_critical_milestone: boolean | null
           name: string
           phase: string
+          phase_id: string | null
           project_id: string
           status: string
           type: string
@@ -31,12 +80,19 @@ export type Database = {
           version: string
         }
         Insert: {
+          approval_status?: string | null
+          approved_by?: string | null
+          approved_date?: string | null
           content?: string | null
           created_at?: string
+          document_category?: string | null
+          document_template_id?: string | null
           editor_state?: Json | null
           id?: string
+          is_critical_milestone?: boolean | null
           name: string
           phase: string
+          phase_id?: string | null
           project_id: string
           status?: string
           type: string
@@ -46,12 +102,19 @@ export type Database = {
           version?: string
         }
         Update: {
+          approval_status?: string | null
+          approved_by?: string | null
+          approved_date?: string | null
           content?: string | null
           created_at?: string
+          document_category?: string | null
+          document_template_id?: string | null
           editor_state?: Json | null
           id?: string
+          is_critical_milestone?: boolean | null
           name?: string
           phase?: string
+          phase_id?: string | null
           project_id?: string
           status?: string
           type?: string
@@ -60,7 +123,22 @@ export type Database = {
           url?: string | null
           version?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "documents_document_template_id_fkey"
+            columns: ["document_template_id"]
+            isOneToOne: false
+            referencedRelation: "document_templates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "documents_phase_id_fkey"
+            columns: ["phase_id"]
+            isOneToOne: false
+            referencedRelation: "project_phases"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       ideas: {
         Row: {
@@ -134,6 +212,124 @@ export type Database = {
           success_metrics?: string[]
           updated_at?: string
           validation_criteria?: string[]
+        }
+        Relationships: []
+      }
+      project_document_checklist: {
+        Row: {
+          assigned_to: string | null
+          completed_date: string | null
+          completion_status: string | null
+          created_at: string | null
+          document_id: string | null
+          document_template_id: string | null
+          due_date: string | null
+          id: string
+          is_required: boolean | null
+          notes: string | null
+          phase_id: string | null
+          project_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          assigned_to?: string | null
+          completed_date?: string | null
+          completion_status?: string | null
+          created_at?: string | null
+          document_id?: string | null
+          document_template_id?: string | null
+          due_date?: string | null
+          id?: string
+          is_required?: boolean | null
+          notes?: string | null
+          phase_id?: string | null
+          project_id: string
+          updated_at?: string | null
+        }
+        Update: {
+          assigned_to?: string | null
+          completed_date?: string | null
+          completion_status?: string | null
+          created_at?: string | null
+          document_id?: string | null
+          document_template_id?: string | null
+          due_date?: string | null
+          id?: string
+          is_required?: boolean | null
+          notes?: string | null
+          phase_id?: string | null
+          project_id?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_document_checklist_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "project_document_checklist_document_template_id_fkey"
+            columns: ["document_template_id"]
+            isOneToOne: false
+            referencedRelation: "document_templates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "project_document_checklist_phase_id_fkey"
+            columns: ["phase_id"]
+            isOneToOne: false
+            referencedRelation: "project_phases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      project_phases: {
+        Row: {
+          created_at: string | null
+          end_date: string | null
+          gate_approval_date: string | null
+          gate_approved: boolean | null
+          gate_approved_by: string | null
+          id: string
+          phase_name: string
+          phase_number: number
+          project_id: string
+          start_date: string | null
+          status: string | null
+          target_end_date: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          end_date?: string | null
+          gate_approval_date?: string | null
+          gate_approved?: boolean | null
+          gate_approved_by?: string | null
+          id?: string
+          phase_name: string
+          phase_number: number
+          project_id: string
+          start_date?: string | null
+          status?: string | null
+          target_end_date?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          end_date?: string | null
+          gate_approval_date?: string | null
+          gate_approved?: boolean | null
+          gate_approved_by?: string | null
+          id?: string
+          phase_name?: string
+          phase_number?: number
+          project_id?: string
+          start_date?: string | null
+          status?: string | null
+          target_end_date?: string | null
+          updated_at?: string | null
         }
         Relationships: []
       }
