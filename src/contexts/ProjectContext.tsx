@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { Project, Milestone, Risk, StatusUpdate, Document } from '@/types/project';
+import { Project, Milestone, Risk, StatusUpdate, Document, PerformanceRating, PerformanceMetrics } from '@/types/project';
+import { updateProjectPerformance } from '@/utils/performanceCalculations';
 
 interface ProjectContextType {
   projects: Project[];
@@ -30,6 +31,11 @@ interface ProjectContextType {
   updateDocument: (id: string, document: Partial<Document>) => void;
   deleteDocument: (id: string) => void;
   getDocumentsByProject: (projectId: string) => Document[];
+  
+  updateProjectPerformanceMetrics: (projectId: string) => void;
+  setUserAdoptionRate: (projectId: string, rate: number, measurementDate: string) => void;
+  getProjectsByPerformanceRating: (rating: PerformanceRating) => Project[];
+  getPerformanceStats: () => { critical: number; high: number; medium: number; low: number };
 }
 
 const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
@@ -187,6 +193,69 @@ export const ProjectProvider = ({ children }: { children: ReactNode }) => {
       new Date(b.uploadDate).getTime() - new Date(a.uploadDate).getTime()
     );
 
+  // Performance tracking functions
+  const updateProjectPerformanceMetrics = (projectId: string) => {
+    const project = projects.find(p => p.id === projectId);
+    if (!project) return;
+
+    const projectMilestones = getMilestonesByProject(projectId);
+    const updatedMetrics = updateProjectPerformance(project, projectMilestones);
+
+    updateProject(projectId, { performanceMetrics: updatedMetrics });
+  };
+
+  const setUserAdoptionRate = (projectId: string, rate: number, measurementDate: string) => {
+    const project = projects.find(p => p.id === projectId);
+    if (!project) return;
+
+    const projectMilestones = getMilestonesByProject(projectId);
+    const currentMetrics = project.performanceMetrics || updateProjectPerformance(project, projectMilestones);
+
+    const updatedMetrics: PerformanceMetrics = {
+      ...currentMetrics,
+      userAdoptionRate: rate,
+      adoptionMeasurementDate: measurementDate,
+      lastCalculated: new Date().toISOString(),
+    };
+
+    // Recalculate rating with new adoption rate
+    const delayPercentage = updatedMetrics.projectDelayPercentage;
+    const { determinePerformanceRating } = require('@/utils/performanceCalculations');
+    updatedMetrics.performanceRating = determinePerformanceRating(delayPercentage, rate);
+
+    updateProject(projectId, { performanceMetrics: updatedMetrics });
+  };
+
+  const getProjectsByPerformanceRating = (rating: PerformanceRating): Project[] => {
+    return projects.filter(p => p.performanceMetrics?.performanceRating === rating);
+  };
+
+  const getPerformanceStats = () => {
+    return {
+      critical: projects.filter(p => p.performanceMetrics?.performanceRating === 'critical').length,
+      high: projects.filter(p => p.performanceMetrics?.performanceRating === 'high').length,
+      medium: projects.filter(p => p.performanceMetrics?.performanceRating === 'medium').length,
+      low: projects.filter(p => p.performanceMetrics?.performanceRating === 'low').length,
+    };
+  };
+
+  // Auto-update performance metrics when milestones change
+  useEffect(() => {
+    projects.forEach(project => {
+      const projectMilestones = getMilestonesByProject(project.id);
+      const currentMetrics = project.performanceMetrics;
+      
+      // Only update if metrics don't exist or if it's been more than 1 hour since last calculation
+      if (!currentMetrics || 
+          (new Date().getTime() - new Date(currentMetrics.lastCalculated).getTime() > 3600000)) {
+        const updatedMetrics = updateProjectPerformance(project, projectMilestones);
+        if (JSON.stringify(currentMetrics) !== JSON.stringify(updatedMetrics)) {
+          updateProject(project.id, { performanceMetrics: updatedMetrics });
+        }
+      }
+    });
+  }, [milestones]);
+
   return (
     <ProjectContext.Provider
       value={{
@@ -213,6 +282,10 @@ export const ProjectProvider = ({ children }: { children: ReactNode }) => {
         updateDocument,
         deleteDocument,
         getDocumentsByProject,
+        updateProjectPerformanceMetrics,
+        setUserAdoptionRate,
+        getProjectsByPerformanceRating,
+        getPerformanceStats,
       }}
     >
       {children}

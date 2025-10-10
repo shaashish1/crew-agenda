@@ -6,12 +6,15 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useProjectContext } from "@/contexts/ProjectContext";
 import { RAGStatusBadge } from "@/components/RAGStatusBadge";
+import { PerformanceRatingBadge } from "@/components/PerformanceRatingBadge";
 import { format } from "date-fns";
 
 const Projects = () => {
   const navigate = useNavigate();
-  const { projects } = useProjectContext();
+  const { projects, getPerformanceStats } = useProjectContext();
   const [searchQuery, setSearchQuery] = useState("");
+  
+  const performanceStats = getPerformanceStats();
 
   const filteredProjects = projects.filter(project =>
     project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -64,7 +67,7 @@ const Projects = () => {
             <div className="text-2xl font-bold text-success">
               {projects.filter(p => p.overallRAG === 'green').length}
             </div>
-            <p className="text-sm text-muted-foreground">On Track</p>
+            <p className="text-sm text-muted-foreground">On Track (RAG)</p>
           </CardContent>
         </Card>
         <Card>
@@ -72,7 +75,7 @@ const Projects = () => {
             <div className="text-2xl font-bold text-warning">
               {projects.filter(p => p.overallRAG === 'amber').length}
             </div>
-            <p className="text-sm text-muted-foreground">At Risk</p>
+            <p className="text-sm text-muted-foreground">At Risk (RAG)</p>
           </CardContent>
         </Card>
         <Card>
@@ -80,7 +83,39 @@ const Projects = () => {
             <div className="text-2xl font-bold text-destructive">
               {projects.filter(p => p.overallRAG === 'red').length}
             </div>
-            <p className="text-sm text-muted-foreground">Delayed</p>
+            <p className="text-sm text-muted-foreground">Delayed (RAG)</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Performance Metrics Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <Card className="border-2 border-success/30 bg-success/5">
+          <CardContent className="pt-6">
+            <div className="text-2xl font-bold text-success">{performanceStats.low}</div>
+            <p className="text-sm text-muted-foreground">Excellent Performance</p>
+            <p className="text-xs text-muted-foreground mt-1">&lt;5% delay, &gt;90% adoption</p>
+          </CardContent>
+        </Card>
+        <Card className="border-2 border-[hsl(38,92%,60%)]/30 bg-[hsl(38,92%,60%)]/5">
+          <CardContent className="pt-6">
+            <div className="text-2xl font-bold text-[hsl(38,92%,60%)]">{performanceStats.medium}</div>
+            <p className="text-sm text-muted-foreground">Medium Performance</p>
+            <p className="text-xs text-muted-foreground mt-1">5-10% delay, 80-90% adoption</p>
+          </CardContent>
+        </Card>
+        <Card className="border-2 border-warning/30 bg-warning/5">
+          <CardContent className="pt-6">
+            <div className="text-2xl font-bold text-warning">{performanceStats.high}</div>
+            <p className="text-sm text-muted-foreground">High Risk Performance</p>
+            <p className="text-xs text-muted-foreground mt-1">10-20% delay, 70-80% adoption</p>
+          </CardContent>
+        </Card>
+        <Card className="border-2 border-destructive/30 bg-destructive/5">
+          <CardContent className="pt-6">
+            <div className="text-2xl font-bold text-destructive">{performanceStats.critical}</div>
+            <p className="text-sm text-muted-foreground">Critical Performance</p>
+            <p className="text-xs text-muted-foreground mt-1">&gt;20% delay, &lt;70% adoption</p>
           </CardContent>
         </Card>
       </div>
@@ -105,7 +140,17 @@ const Projects = () => {
               <CardHeader>
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
-                    <CardTitle className="text-xl">{project.name}</CardTitle>
+                    <div className="flex items-center gap-2 mb-2">
+                      <CardTitle className="text-xl">{project.name}</CardTitle>
+                      {project.performanceMetrics && (
+                        <PerformanceRatingBadge 
+                          rating={project.performanceMetrics.performanceRating}
+                          delayPercentage={project.performanceMetrics.projectDelayPercentage}
+                          adoptionRate={project.performanceMetrics.userAdoptionRate}
+                          size="sm"
+                        />
+                      )}
+                    </div>
                     <CardDescription className="mt-2">
                       <span className="font-medium">PM:</span> {project.projectManager} | 
                       <span className="font-medium ml-2">Owner:</span> {project.businessOwner}

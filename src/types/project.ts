@@ -45,6 +45,9 @@ export interface Project {
   createdAt: string;
   updatedAt: string;
   lastStatusUpdate?: string;
+  
+  // Performance Metrics
+  performanceMetrics?: PerformanceMetrics;
 }
 
 export interface Milestone {
@@ -94,4 +97,23 @@ export interface Document {
   status: 'draft' | 'review' | 'approved' | 'rejected';
   version: string;
   url?: string;
+}
+
+export type PerformanceRating = 'critical' | 'high' | 'medium' | 'low';
+
+export interface PerformanceCriteria {
+  driver: string;
+  criteria: string;
+  critical: string;
+  high: string;
+  medium: string;
+  low: string;
+}
+
+export interface PerformanceMetrics {
+  projectDelayPercentage: number; // 0-100
+  userAdoptionRate: number | null; // 0-100, null until 6 months post go-live
+  performanceRating: PerformanceRating;
+  adoptionMeasurementDate?: string; // When adoption was measured
+  lastCalculated: string; // Last time metrics were calculated
 }

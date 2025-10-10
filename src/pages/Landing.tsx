@@ -22,6 +22,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { PerformanceCriteriaTable } from "@/components/PerformanceCriteriaTable";
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -182,6 +183,9 @@ const Landing = () => {
           </div>
         </div>
       </section>
+
+      {/* Performance Criteria Framework */}
+      <PerformanceCriteriaTable />
 
       {/* Platform Features */}
       <section className="py-20 px-4">
