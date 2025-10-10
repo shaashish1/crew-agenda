@@ -4,6 +4,7 @@ import { Plus, Search, Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { useProjectContext } from "@/contexts/ProjectContext";
 import { RAGStatusBadge } from "@/components/RAGStatusBadge";
 import { PerformanceRatingBadge } from "@/components/PerformanceRatingBadge";
@@ -155,6 +156,11 @@ const Projects = () => {
                       <span className="font-medium">PM:</span> {project.projectManager} | 
                       <span className="font-medium ml-2">Owner:</span> {project.businessOwner}
                     </CardDescription>
+                    <div className="mt-2">
+                      <Badge variant="outline" className="text-xs">
+                        Phase 0: Initiation
+                      </Badge>
+                    </div>
                   </div>
                   <RAGStatusBadge status={project.overallRAG} />
                 </div>

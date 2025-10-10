@@ -17,6 +17,9 @@ import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
 import { getPerformanceInsights, canMeasureAdoption, getAdoptionMeasurementDate } from "@/utils/performanceCalculations";
 import { RefreshCw, TrendingDown, Users, Calendar } from "lucide-react";
+import { PhaseSelector } from "@/components/PhaseSelector";
+import { PhaseManagement } from "@/components/PhaseManagement";
+import { DocumentChecklist } from "@/components/DocumentChecklist";
 
 const ProjectDetails = () => {
   const { id } = useParams();
@@ -24,6 +27,15 @@ const ProjectDetails = () => {
   const { getProjectById, getMilestonesByProject, updateProjectPerformanceMetrics, setUserAdoptionRate } = useProjectContext();
   const [activeTab, setActiveTab] = useState("overview");
   const [adoptionInput, setAdoptionInput] = useState("");
+  const [currentPhase, setCurrentPhase] = useState("Phase 0: Initiation");
+
+  const handlePhaseChange = (phase: string) => {
+    setCurrentPhase(phase);
+    toast({
+      title: "Phase Updated",
+      description: `Project phase changed to ${phase}`,
+    });
+  };
 
   const project = getProjectById(id || "");
   const milestones = getMilestonesByProject(id || "");
@@ -89,6 +101,12 @@ const ProjectDetails = () => {
           </Button>
         </div>
       </div>
+
+      {/* Phase Selector */}
+      <PhaseSelector 
+        currentPhase={currentPhase} 
+        onPhaseChange={handlePhaseChange}
+      />
 
       {/* Main Content */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
@@ -188,10 +206,11 @@ const ProjectDetails = () => {
         {/* Right Content - Tabs */}
         <div className="lg:col-span-3">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="grid w-full grid-cols-6">
+            <TabsList className="grid w-full grid-cols-7">
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="performance">Performance</TabsTrigger>
               <TabsTrigger value="milestones">Milestones</TabsTrigger>
+              <TabsTrigger value="phases">Phases</TabsTrigger>
               <TabsTrigger value="risks">Risks</TabsTrigger>
               <TabsTrigger value="status">Status</TabsTrigger>
               <TabsTrigger value="documents">Documents</TabsTrigger>
@@ -494,6 +513,12 @@ const ProjectDetails = () => {
               <MilestoneTimeline projectId={project.id} milestones={milestones} />
             </TabsContent>
 
+            {/* Phases Tab */}
+            <TabsContent value="phases" className="space-y-6">
+              <PhaseManagement projectId={project.id} currentPhaseName={currentPhase} />
+              <DocumentChecklist projectId={project.id} phaseName={currentPhase} />
+            </TabsContent>
+
             {/* Risks Tab */}
             <TabsContent value="risks">
               <RiskManagement projectId={project.id} />
@@ -520,11 +545,11 @@ const ProjectDetails = () => {
             </TabsContent>
 
             {/* Documents Tab */}
-            <TabsContent value="documents">
+            <TabsContent value="documents" className="space-y-6">
               <Card>
                 <CardHeader>
                   <div className="flex justify-between items-center">
-                    <CardTitle>Project Documents</CardTitle>
+                    <CardTitle>Document Repository</CardTitle>
                     <Button size="sm" className="gap-2">
                       <Plus className="w-4 h-4" />
                       Upload Document
@@ -533,10 +558,11 @@ const ProjectDetails = () => {
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground text-center py-8">
-                    Document management feature coming soon
+                    Document upload and management coming soon
                   </p>
                 </CardContent>
               </Card>
+              <DocumentChecklist projectId={project.id} phaseName={currentPhase} />
             </TabsContent>
           </Tabs>
         </div>
