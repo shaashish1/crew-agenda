@@ -1,9 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
-import { CheckSquare, Settings, LayoutDashboard, FolderKanban, BookOpen } from "lucide-react";
+import { CheckSquare, Settings, LayoutDashboard, FolderKanban, BookOpen, BrainCircuit } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navigation = [
   { name: "Home", href: "/", icon: LayoutDashboard },
+  { name: "AI Executive", href: "/dashboard/executive", icon: BrainCircuit },
   { name: "Projects", href: "/projects", icon: FolderKanban },
   { name: "Tasks", href: "/dashboard", icon: CheckSquare },
   { name: "Features", href: "/features", icon: BookOpen },
