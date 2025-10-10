@@ -18,3 +18,12 @@ verify_jwt = false
 
 [functions.ai-generate-status-report]
 verify_jwt = false
+
+[functions.ai-portfolio-insights]
+verify_jwt = false
+
+[functions.ai-predict-milestones]
+verify_jwt = false
+
+[functions.ai-forecast-risks]
+verify_jwt = false

@@ -20,6 +20,7 @@ import { RefreshCw, TrendingDown, Users, Calendar } from "lucide-react";
 import { PhaseSelector } from "@/components/PhaseSelector";
 import { PhaseManagement } from "@/components/PhaseManagement";
 import { DocumentChecklist } from "@/components/DocumentChecklist";
+import { PredictiveAnalyticsPanel } from "@/components/PredictiveAnalyticsPanel";
 
 const ProjectDetails = () => {
   const { id } = useParams();
@@ -206,8 +207,9 @@ const ProjectDetails = () => {
         {/* Right Content - Tabs */}
         <div className="lg:col-span-3">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="grid w-full grid-cols-7">
+            <TabsList className="grid w-full grid-cols-8">
               <TabsTrigger value="overview">Overview</TabsTrigger>
+              <TabsTrigger value="ai-insights">AI Insights</TabsTrigger>
               <TabsTrigger value="performance">Performance</TabsTrigger>
               <TabsTrigger value="milestones">Milestones</TabsTrigger>
               <TabsTrigger value="phases">Phases</TabsTrigger>
@@ -249,57 +251,18 @@ const ProjectDetails = () => {
                         <RAGStatusBadge status={project.scopeRAG} />
                       </div>
                     </div>
-                    <div className="pt-4 border-t">
-                      <h4 className="font-medium mb-2">Status Summary</h4>
-                      <p className="text-muted-foreground whitespace-pre-wrap">
-                        {project.currentStatus || 'No status update provided'}
-                      </p>
+                    <div className="pt-4">
+                      <p className="text-sm text-muted-foreground mb-2">Current Status Description</p>
+                      <p className="text-sm whitespace-pre-wrap">{project.currentStatus}</p>
                     </div>
-                    {project.comments && project.comments.length > 0 && (
-                      <div className="pt-4 border-t">
-                        <h4 className="font-medium mb-3">Comment History ({project.comments.length})</h4>
-                        <div className="space-y-3 max-h-96 overflow-y-auto">
-                          {project.comments.map((comment) => (
-                            <div key={comment.id} className="bg-muted/30 p-3 rounded-lg border">
-                              <div className="flex justify-between items-start mb-1">
-                                <span className="text-sm font-medium text-foreground">
-                                  {comment.author}
-                                </span>
-                                <span className="text-xs text-muted-foreground">
-                                  {format(new Date(comment.timestamp), "dd MMM yyyy, HH:mm")}
-                                </span>
-                              </div>
-                              <p className="text-sm text-foreground whitespace-pre-wrap">{comment.text}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
                   </div>
                 </CardContent>
               </Card>
+            </TabsContent>
 
-              <Card>
-                <CardHeader className="bg-[hsl(180,50%,40%)] text-white">
-                  <CardTitle>Business Benefits</CardTitle>
-                </CardHeader>
-                <CardContent className="pt-6">
-                  <p className="text-muted-foreground whitespace-pre-wrap">
-                    {project.businessBenefits || 'No business benefits defined'}
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader className="bg-[hsl(180,50%,40%)] text-white">
-                  <CardTitle>Key Activities Planned</CardTitle>
-                </CardHeader>
-                <CardContent className="pt-6">
-                  <p className="text-muted-foreground whitespace-pre-wrap">
-                    {project.keyActivities || 'No key activities defined'}
-                  </p>
-                </CardContent>
-              </Card>
+            {/* AI Insights Tab */}
+            <TabsContent value="ai-insights" className="space-y-4">
+              <PredictiveAnalyticsPanel projectId={id!} />
             </TabsContent>
 
             {/* Performance Tab */}
