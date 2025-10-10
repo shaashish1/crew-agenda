@@ -14,6 +14,84 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_insights: {
+        Row: {
+          acknowledged_at: string | null
+          acknowledged_by: string | null
+          action_items: string[] | null
+          affected_projects: string[] | null
+          description: string
+          generated_at: string
+          id: string
+          insight_type: string
+          severity: string | null
+          status: string | null
+          title: string
+        }
+        Insert: {
+          acknowledged_at?: string | null
+          acknowledged_by?: string | null
+          action_items?: string[] | null
+          affected_projects?: string[] | null
+          description: string
+          generated_at?: string
+          id?: string
+          insight_type: string
+          severity?: string | null
+          status?: string | null
+          title: string
+        }
+        Update: {
+          acknowledged_at?: string | null
+          acknowledged_by?: string | null
+          action_items?: string[] | null
+          affected_projects?: string[] | null
+          description?: string
+          generated_at?: string
+          id?: string
+          insight_type?: string
+          severity?: string | null
+          status?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
+      ai_predictions: {
+        Row: {
+          confidence_score: number | null
+          expires_at: string | null
+          generated_at: string
+          id: string
+          metadata: Json | null
+          model_version: string | null
+          prediction_data: Json
+          prediction_type: string
+          project_id: string
+        }
+        Insert: {
+          confidence_score?: number | null
+          expires_at?: string | null
+          generated_at?: string
+          id?: string
+          metadata?: Json | null
+          model_version?: string | null
+          prediction_data: Json
+          prediction_type: string
+          project_id: string
+        }
+        Update: {
+          confidence_score?: number | null
+          expires_at?: string | null
+          generated_at?: string
+          id?: string
+          metadata?: Json | null
+          model_version?: string | null
+          prediction_data?: Json
+          prediction_type?: string
+          project_id?: string
+        }
+        Relationships: []
+      }
       document_templates: {
         Row: {
           category: string
@@ -284,6 +362,51 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      project_metrics_history: {
+        Row: {
+          budget_variance: number | null
+          completed_milestones: number | null
+          critical_risks: number | null
+          delay_percentage: number | null
+          id: string
+          open_risks: number | null
+          performance_rating: string | null
+          project_id: string
+          rag_status: string | null
+          resource_utilization: number | null
+          snapshot_date: string
+          total_milestones: number | null
+        }
+        Insert: {
+          budget_variance?: number | null
+          completed_milestones?: number | null
+          critical_risks?: number | null
+          delay_percentage?: number | null
+          id?: string
+          open_risks?: number | null
+          performance_rating?: string | null
+          project_id: string
+          rag_status?: string | null
+          resource_utilization?: number | null
+          snapshot_date?: string
+          total_milestones?: number | null
+        }
+        Update: {
+          budget_variance?: number | null
+          completed_milestones?: number | null
+          critical_risks?: number | null
+          delay_percentage?: number | null
+          id?: string
+          open_risks?: number | null
+          performance_rating?: string | null
+          project_id?: string
+          rag_status?: string | null
+          resource_utilization?: number | null
+          snapshot_date?: string
+          total_milestones?: number | null
+        }
+        Relationships: []
       }
       project_phases: {
         Row: {
