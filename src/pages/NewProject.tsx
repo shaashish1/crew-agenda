@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { MultiSelectInput } from "@/components/ui/multi-select-input";
 import { useProjectContext } from "@/contexts/ProjectContext";
 import { RAGStatus, Comment } from "@/types/project";
 import { toast } from "sonner";
@@ -19,9 +20,9 @@ const NewProject = () => {
   
   const [formData, setFormData] = useState({
     name: "",
-    projectManager: "",
-    businessOwner: "",
-    projectTeam: "",
+    projectManager: [] as string[],
+    businessOwner: [] as string[],
+    projectTeam: [] as string[],
     tco: "",
     capex: "",
     opex: "",
@@ -57,7 +58,7 @@ const NewProject = () => {
       return;
     }
 
-    if (!formData.projectManager) {
+    if (!formData.projectManager || formData.projectManager.length === 0) {
       toast.error("Please enter Project Manager name first");
       return;
     }
@@ -65,7 +66,7 @@ const NewProject = () => {
     const comment: Comment = {
       id: crypto.randomUUID(),
       text: newComment.trim(),
-      author: formData.projectManager,
+      author: formData.projectManager[0],
       timestamp: new Date().toISOString(),
     };
 
@@ -77,14 +78,16 @@ const NewProject = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.name || !formData.projectManager || !formData.businessOwner) {
+    if (!formData.name || formData.projectManager.length === 0 || formData.businessOwner.length === 0) {
       toast.error("Please fill in all required fields");
       return;
     }
 
     addProject({
       ...formData,
-      projectTeam: formData.projectTeam.split(',').map(m => m.trim()).filter(Boolean),
+      projectManager: formData.projectManager.join(', '),
+      businessOwner: formData.businessOwner.join(', '),
+      projectTeam: formData.projectTeam,
       tco: Number(formData.tco) || 0,
       capex: Number(formData.capex) || 0,
       opex: Number(formData.opex) || 0,
@@ -129,32 +132,26 @@ const NewProject = () => {
                 </div>
                 <div>
                   <Label htmlFor="projectManager">Project Manager *</Label>
-                  <Input
-                    id="projectManager"
-                    value={formData.projectManager}
-                    onChange={(e) => setFormData({ ...formData, projectManager: e.target.value })}
-                    placeholder="Enter PM name"
-                    required
+                  <MultiSelectInput
+                    values={formData.projectManager}
+                    onChange={(values) => setFormData({ ...formData, projectManager: values })}
+                    placeholder="Enter PM names"
                   />
                 </div>
                 <div>
                   <Label htmlFor="businessOwner">Business Owner *</Label>
-                  <Input
-                    id="businessOwner"
-                    value={formData.businessOwner}
-                    onChange={(e) => setFormData({ ...formData, businessOwner: e.target.value })}
-                    placeholder="Enter owner name"
-                    required
+                  <MultiSelectInput
+                    values={formData.businessOwner}
+                    onChange={(values) => setFormData({ ...formData, businessOwner: values })}
+                    placeholder="Enter owner names"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="projectTeam">Project Team (comma separated)</Label>
-                  <Textarea
-                    id="projectTeam"
-                    value={formData.projectTeam}
-                    onChange={(e) => setFormData({ ...formData, projectTeam: e.target.value })}
-                    placeholder="Member 1, Member 2, Member 3"
-                    rows={3}
+                  <Label htmlFor="projectTeam">Project Team</Label>
+                  <MultiSelectInput
+                    values={formData.projectTeam}
+                    onChange={(values) => setFormData({ ...formData, projectTeam: values })}
+                    placeholder="Enter team member names"
                   />
                 </div>
               </CardContent>
@@ -299,13 +296,14 @@ const NewProject = () => {
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <Label htmlFor="overallRAG">Overall Status</Label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button variant="ghost" size="icon" type="button">
-                          <MessageSquare className="w-4 h-4" />
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-80">
+                    {formData.overallRAG !== "green" && (
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button variant="ghost" size="icon" type="button">
+                            <MessageSquare className="w-4 h-4" />
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-80">
                         <div className="space-y-4">
                           <div>
                             <Label>Justification</Label>
@@ -330,6 +328,7 @@ const NewProject = () => {
                         </div>
                       </PopoverContent>
                     </Popover>
+                    )}
                   </div>
                   <Select value={formData.overallRAG} onValueChange={(value) => setFormData({ ...formData, overallRAG: value as RAGStatus })}>
                     <SelectTrigger>
@@ -345,13 +344,14 @@ const NewProject = () => {
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <Label htmlFor="timelineRAG">Timeline Status</Label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button variant="ghost" size="icon" type="button">
-                          <MessageSquare className="w-4 h-4" />
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-80">
+                    {formData.timelineRAG !== "green" && (
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button variant="ghost" size="icon" type="button">
+                            <MessageSquare className="w-4 h-4" />
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-80">
                         <div className="space-y-4">
                           <div>
                             <Label>Justification</Label>
@@ -376,6 +376,7 @@ const NewProject = () => {
                         </div>
                       </PopoverContent>
                     </Popover>
+                    )}
                   </div>
                   <Select value={formData.timelineRAG} onValueChange={(value) => setFormData({ ...formData, timelineRAG: value as RAGStatus })}>
                     <SelectTrigger>
@@ -391,13 +392,14 @@ const NewProject = () => {
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <Label htmlFor="budgetRAG">Budget Status</Label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button variant="ghost" size="icon" type="button">
-                          <MessageSquare className="w-4 h-4" />
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-80">
+                    {formData.budgetRAG !== "green" && (
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button variant="ghost" size="icon" type="button">
+                            <MessageSquare className="w-4 h-4" />
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-80">
                         <div className="space-y-4">
                           <div>
                             <Label>Justification</Label>
@@ -422,6 +424,7 @@ const NewProject = () => {
                         </div>
                       </PopoverContent>
                     </Popover>
+                    )}
                   </div>
                   <Select value={formData.budgetRAG} onValueChange={(value) => setFormData({ ...formData, budgetRAG: value as RAGStatus })}>
                     <SelectTrigger>
@@ -437,13 +440,14 @@ const NewProject = () => {
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <Label htmlFor="scopeRAG">Scope Status</Label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button variant="ghost" size="icon" type="button">
-                          <MessageSquare className="w-4 h-4" />
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-80">
+                    {formData.scopeRAG !== "green" && (
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button variant="ghost" size="icon" type="button">
+                            <MessageSquare className="w-4 h-4" />
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-80">
                         <div className="space-y-4">
                           <div>
                             <Label>Justification</Label>
@@ -468,6 +472,7 @@ const NewProject = () => {
                         </div>
                       </PopoverContent>
                     </Popover>
+                    )}
                   </div>
                   <Select value={formData.scopeRAG} onValueChange={(value) => setFormData({ ...formData, scopeRAG: value as RAGStatus })}>
                     <SelectTrigger>
