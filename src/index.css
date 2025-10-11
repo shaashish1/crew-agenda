@@ -70,6 +70,18 @@ All colors MUST be HSL.
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(210 25% 98%) 100%);
     --gradient-button: linear-gradient(135deg, hsl(208 100% 33%) 0%, hsl(208 100% 28%) 100%);
     --gradient-glow: radial-gradient(circle at top left, hsl(208 100% 33% / 0.08), transparent 50%);
+    
+    /* Neon Gradient Styles */
+    --neon-blue: 210 100% 60%;
+    --neon-cyan: 180 100% 50%;
+    --neon-purple: 270 100% 65%;
+    --neon-pink: 330 100% 65%;
+    --gradient-neon-primary: linear-gradient(135deg, hsl(210 100% 60%) 0%, hsl(180 100% 50%) 100%);
+    --gradient-neon-secondary: linear-gradient(135deg, hsl(270 100% 65%) 0%, hsl(330 100% 65%) 100%);
+    --gradient-neon-accent: linear-gradient(90deg, hsl(210 100% 60%) 0%, hsl(270 100% 65%) 50%, hsl(330 100% 65%) 100%);
+    --shadow-neon-blue: 0 0 20px hsl(210 100% 60% / 0.5), 0 0 40px hsl(210 100% 60% / 0.3);
+    --shadow-neon-purple: 0 0 20px hsl(270 100% 65% / 0.5), 0 0 40px hsl(270 100% 65% / 0.3);
+    --shadow-neon-pink: 0 0 20px hsl(330 100% 65% / 0.5), 0 0 40px hsl(330 100% 65% / 0.3);
 
     --sidebar-background: 208 100% 33%;
     --sidebar-foreground: 0 0% 100%;
@@ -516,5 +528,79 @@ All colors MUST be HSL.
     50% {
       transform: translateY(-10px);
     }
+  }
+
+  /* Neon Button Styles */
+  .btn-neon {
+    position: relative;
+    background: var(--gradient-neon-primary);
+    border: 2px solid transparent;
+    box-shadow: var(--shadow-neon-blue);
+    transition: all 0.3s ease;
+  }
+
+  .btn-neon:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px hsl(210 100% 60% / 0.6), 0 0 60px hsl(210 100% 60% / 0.4);
+  }
+
+  .btn-neon-purple {
+    background: var(--gradient-neon-secondary);
+    box-shadow: var(--shadow-neon-purple);
+  }
+
+  .btn-neon-purple:hover {
+    box-shadow: 0 0 30px hsl(270 100% 65% / 0.6), 0 0 60px hsl(270 100% 65% / 0.4);
+  }
+
+  .progress-neon {
+    background: hsl(var(--muted));
+    border-radius: 9999px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .progress-neon-bar {
+    background: var(--gradient-neon-accent);
+    height: 100%;
+    border-radius: 9999px;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 15px hsl(210 100% 60% / 0.5);
+  }
+
+  .stat-card-neon {
+    background: var(--gradient-card);
+    border: 2px solid hsl(var(--border));
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-card-neon::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: var(--gradient-neon-accent);
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .stat-card-neon:hover::before {
+    opacity: 0.3;
+  }
+
+  .icon-neon {
+    filter: drop-shadow(0 0 10px currentColor);
+    transition: all 0.3s ease;
+  }
+
+
+  .icon-neon:hover {
+    filter: drop-shadow(0 0 20px currentColor);
+    transform: scale(1.1);
   }
 }

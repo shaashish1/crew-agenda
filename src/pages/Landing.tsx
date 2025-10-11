@@ -255,7 +255,7 @@ const Landing = () => {
             </div>
             <div className="flex items-center gap-4">
               <ThemeToggle />
-              <Button onClick={() => navigate("/projects")} size="lg" className="shadow-md">
+              <Button onClick={() => navigate("/projects")} size="lg" className="btn-neon shadow-md text-white">
                 Get Started
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
@@ -346,7 +346,7 @@ const Landing = () => {
             {performanceMetrics.map((metric, index) => (
               <Card 
                 key={index}
-                className={`border-2 transition-all duration-300 hover:scale-105 hover:shadow-xl ${
+                className={`stat-card-neon border-2 transition-all duration-300 hover:scale-105 hover:shadow-xl ${
                   metric.trend === 'positive' 
                     ? 'border-success/30 bg-success/5' 
                     : 'border-warning/30 bg-warning/5'
@@ -355,18 +355,24 @@ const Landing = () => {
                 <CardHeader className="pb-3">
                   <CardTitle className="text-lg font-semibold text-muted-foreground flex items-center gap-2">
                     {metric.trend === 'positive' ? (
-                      <Award className="w-5 h-5 text-success" />
+                      <Award className="w-5 h-5 text-success icon-neon" />
                     ) : (
-                      <TrendingUp className="w-5 h-5 text-warning" />
+                      <TrendingUp className="w-5 h-5 text-warning icon-neon" />
                     )}
                     {metric.title}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className={`text-4xl font-bold mb-2 ${
+                  <div className={`text-4xl font-bold mb-3 ${
                     metric.trend === 'positive' ? 'text-success' : 'text-warning'
                   }`}>
                     {metric.value}
+                  </div>
+                  <div className="progress-neon h-2 mb-3">
+                    <div 
+                      className="progress-neon-bar" 
+                      style={{ width: metric.value }}
+                    />
                   </div>
                   <p className="text-sm text-muted-foreground">{metric.description}</p>
                 </CardContent>
@@ -473,19 +479,28 @@ const Landing = () => {
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 animate-fade-in">
-            <Card className="border-2 border-primary/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
+            <Card className="stat-card-neon border-2 border-primary/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <CardHeader className="pb-3">
-                <CardTitle className="text-lg font-semibold text-muted-foreground">Total Projects</CardTitle>
+                <CardTitle className="text-lg font-semibold text-muted-foreground flex items-center gap-2">
+                  <Target className="w-5 h-5 text-primary icon-neon" />
+                  Total Projects
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-4xl font-bold text-foreground mb-1">{totalProjects}</div>
+                <div className="progress-neon h-2 mb-2 mt-3">
+                  <div className="progress-neon-bar" style={{ width: `${(activeProjects / Math.max(totalProjects, 1)) * 100}%` }} />
+                </div>
                 <p className="text-base text-muted-foreground mt-1">{activeProjects} active</p>
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-success/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
+            <Card className="stat-card-neon border-2 border-success/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <CardHeader className="pb-3">
-                <CardTitle className="text-lg font-semibold text-muted-foreground">Project Health</CardTitle>
+                <CardTitle className="text-lg font-semibold text-muted-foreground flex items-center gap-2">
+                  <Activity className="w-5 h-5 text-success icon-neon" />
+                  Project Health
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex items-center gap-4">
@@ -505,21 +520,30 @@ const Landing = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-accent/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
+            <Card className="stat-card-neon border-2 border-accent/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <CardHeader className="pb-3">
-                <CardTitle className="text-lg font-semibold text-muted-foreground">Task Progress</CardTitle>
+                <CardTitle className="text-lg font-semibold text-muted-foreground flex items-center gap-2">
+                  <CheckCircle2 className="w-5 h-5 text-accent icon-neon" />
+                  Task Progress
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-4xl font-bold text-foreground mb-1">{completedTasks}/{totalTasks}</div>
+                <div className="progress-neon h-2 mb-2 mt-3">
+                  <div className="progress-neon-bar" style={{ width: `${taskCompletionRate}%` }} />
+                </div>
                 <p className="text-base text-muted-foreground mt-1">
-                  {totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0}% complete
+                  {taskCompletionRate}% complete
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-destructive/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
+            <Card className="stat-card-neon border-2 border-destructive/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <CardHeader className="pb-3">
-                <CardTitle className="text-lg font-semibold text-muted-foreground">Overdue Tasks</CardTitle>
+                <CardTitle className="text-lg font-semibold text-muted-foreground flex items-center gap-2">
+                  <AlertTriangle className="w-5 h-5 text-destructive icon-neon" />
+                  Overdue Tasks
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-4xl font-bold text-destructive mb-1">{overdueTasks}</div>
@@ -527,9 +551,12 @@ const Landing = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-warning/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
+            <Card className="stat-card-neon border-2 border-warning/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <CardHeader className="pb-3">
-                <CardTitle className="text-lg font-semibold text-muted-foreground">Project Defaulters</CardTitle>
+                <CardTitle className="text-lg font-semibold text-muted-foreground flex items-center gap-2">
+                  <Clock className="w-5 h-5 text-warning icon-neon" />
+                  Project Defaulters
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-4xl font-bold text-warning mb-1">{projectDefaulters}</div>
@@ -537,9 +564,12 @@ const Landing = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-destructive/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
+            <Card className="stat-card-neon border-2 border-destructive/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <CardHeader className="pb-3">
-                <CardTitle className="text-lg font-semibold text-muted-foreground">Over Budget</CardTitle>
+                <CardTitle className="text-lg font-semibold text-muted-foreground flex items-center gap-2">
+                  <DollarSign className="w-5 h-5 text-destructive icon-neon" />
+                  Over Budget
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-4xl font-bold text-destructive mb-1">{overBudgetProjects}</div>
@@ -547,9 +577,12 @@ const Landing = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-warning/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
+            <Card className="stat-card-neon border-2 border-warning/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <CardHeader className="pb-3">
-                <CardTitle className="text-lg font-semibold text-muted-foreground">Task Defaulters</CardTitle>
+                <CardTitle className="text-lg font-semibold text-muted-foreground flex items-center gap-2">
+                  <FileText className="w-5 h-5 text-warning icon-neon" />
+                  Task Defaulters
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-4xl font-bold text-warning mb-1">{taskDefaulters}</div>
@@ -557,9 +590,12 @@ const Landing = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-destructive/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
+            <Card className="stat-card-neon border-2 border-destructive/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <CardHeader className="pb-3">
-                <CardTitle className="text-lg font-semibold text-muted-foreground">High Risk</CardTitle>
+                <CardTitle className="text-lg font-semibold text-muted-foreground flex items-center gap-2">
+                  <Shield className="w-5 h-5 text-destructive icon-neon" />
+                  High Risk
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-4xl font-bold text-destructive mb-1">{redProjects}</div>
@@ -569,11 +605,11 @@ const Landing = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-            <Button onClick={() => navigate("/projects")} size="lg" className="shadow-lg text-lg py-6 px-8 hover:scale-105 transition-transform">
+            <Button onClick={() => navigate("/projects")} size="lg" className="btn-neon shadow-lg text-lg py-6 px-8 hover:scale-105 transition-transform text-white">
               Update Our Projects
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
-            <Button onClick={() => navigate("/dashboard")} variant="outline" size="lg" className="text-lg py-6 px-8 hover:scale-105 transition-transform">
+            <Button onClick={() => navigate("/dashboard")} size="lg" className="btn-neon-purple text-lg py-6 px-8 hover:scale-105 transition-transform text-white">
               Update Our Tasks
             </Button>
           </div>
@@ -662,14 +698,14 @@ const Landing = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {kras.map((kra, index) => (
-              <Card key={index} className="border-2 border-primary/20 hover:border-primary/40 transition-all duration-300 hover:scale-105 hover:shadow-2xl animate-fade-in group">
+              <Card key={index} className="stat-card-neon border-2 border-primary/20 hover:border-primary/40 transition-all duration-300 hover:scale-105 hover:shadow-2xl animate-fade-in group">
                 <CardHeader>
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
                       <CardTitle className="text-2xl mb-3 group-hover:text-primary transition-colors">{kra.title}</CardTitle>
                       <Badge variant="outline" className="text-sm py-1 px-3 font-semibold">Target: {kra.target}</Badge>
                     </div>
-                    <img src={kra.icon} alt={kra.title} className="w-16 h-16 opacity-80 group-hover:opacity-100 transition-opacity" />
+                    <img src={kra.icon} alt={kra.title} className="w-16 h-16 opacity-80 group-hover:opacity-100 transition-opacity icon-neon animate-float" />
                   </div>
                 </CardHeader>
                 <CardContent>
