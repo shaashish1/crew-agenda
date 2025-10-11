@@ -81,6 +81,72 @@ All colors MUST be HSL.
     --sidebar-ring: 0 0% 100%;
   }
 
+  .light-grey {
+    /* Light Grey Theme - Soft Professional */
+    --background: 0 0% 94%;
+    --foreground: 0 0% 15%;
+
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 15%;
+
+    --popover: 0 0% 98%;
+    --popover-foreground: 0 0% 15%;
+
+    --primary: 213 94% 45%;
+    --primary-foreground: 0 0% 100%;
+    
+    --primary-light: 213 94% 55%;
+    --primary-dark: 213 94% 38%;
+    --primary-glow: 213 80% 65%;
+
+    --secondary: 0 0% 90%;
+    --secondary-foreground: 0 0% 20%;
+
+    --accent: 195 75% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --muted: 0 0% 88%;
+    --muted-foreground: 0 0% 45%;
+
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 145 65% 42%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 35 90% 55%;
+    --warning-foreground: 0 0% 100%;
+
+    --info: 213 94% 45%;
+    --info-foreground: 0 0% 100%;
+
+    --border: 0 0% 85%;
+    --input: 0 0% 85%;
+    --ring: 213 94% 45%;
+
+    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.06);
+    --shadow-md: 0 4px 8px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 12px 24px -4px rgb(0 0 0 / 0.12);
+    --shadow-xl: 0 24px 48px -8px rgb(0 0 0 / 0.15);
+    --shadow-card: 0 2px 12px 0 rgb(0 0 0 / 0.05);
+    --shadow-card-hover: 0 8px 24px 0 rgb(0 0 0 / 0.1);
+    --shadow-glow: 0 0 32px hsl(213 94% 45% / 0.12);
+    
+    --gradient-primary: linear-gradient(135deg, hsl(213 94% 45%) 0%, hsl(195 75% 45%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 98%) 0%, hsl(0 0% 96%) 100%);
+    --gradient-button: linear-gradient(135deg, hsl(213 94% 45%) 0%, hsl(213 94% 38%) 100%);
+    --gradient-glow: radial-gradient(circle at top left, hsl(213 94% 45% / 0.06), transparent 50%);
+
+    --sidebar-background: 213 94% 45%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 0 0% 100%;
+    --sidebar-primary-foreground: 213 94% 45%;
+    --sidebar-accent: 213 90% 50%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 213 85% 50%;
+    --sidebar-ring: 0 0% 100%;
+  }
+
   .dark {
     /* Dark Mode - Corporate Professional Blue */
     --background: 215 30% 10%;
