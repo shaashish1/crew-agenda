@@ -332,6 +332,16 @@ const Landing = () => {
           </div>
 
           {/* Performance Highlights */}
+          <div className="mb-8 text-center animate-fade-in">
+            <Badge className="mb-3 text-base py-2 px-4" variant="outline">
+              <TrendingUp className="w-4 h-4 mr-2" />
+              How We Measure Our Performance
+            </Badge>
+            <h2 className="text-3xl font-bold text-foreground mb-3">Our Current Performance</h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              These metrics are calculated in real-time from the data we enter into the system. Our accuracy depends on our timely updates.
+            </p>
+          </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 animate-fade-in">
             {performanceMetrics.map((metric, index) => (
               <Card 
@@ -364,10 +374,103 @@ const Landing = () => {
             ))}
           </div>
 
+          {/* Measurement Methodology */}
+          <Card className="mb-12 border-2 border-primary/20 bg-gradient-to-br from-background to-muted/20 animate-fade-in">
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <BarChart3 className="w-7 h-7 text-primary" />
+                <CardTitle className="text-2xl">How We Calculate These Numbers</CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-3">
+                  <h4 className="font-semibold text-lg text-foreground flex items-center gap-2">
+                    <Target className="w-5 h-5 text-primary" />
+                    Delivery Excellence Calculation
+                  </h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    <strong className="text-foreground">Formula:</strong> (Completed Projects ÷ Total Projects) × 100
+                  </p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    <strong className="text-foreground">Data Source:</strong> We compare each project&apos;s Go-Live Date against Hypercare End Date. Projects past their hypercare phase are counted as complete.
+                  </p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    <strong className="text-foreground">What We Track:</strong> Project status, Go-Live dates, Hypercare End dates from our project records
+                  </p>
+                </div>
+
+                <div className="space-y-3">
+                  <h4 className="font-semibold text-lg text-foreground flex items-center gap-2">
+                    <DollarSign className="w-5 h-5 text-primary" />
+                    Budget Performance Calculation
+                  </h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    <strong className="text-foreground">Formula:</strong> ((Total Projects - Over Budget Projects) ÷ Total Projects) × 100
+                  </p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    <strong className="text-foreground">Data Source:</strong> We compare Actual Spent vs Total Cost of Ownership (TCO) for each project. When actual exceeds TCO, it&apos;s flagged.
+                  </p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    <strong className="text-foreground">What We Track:</strong> TCO, Actual Spent, Budget variances updated in project financial data
+                  </p>
+                </div>
+
+                <div className="space-y-3">
+                  <h4 className="font-semibold text-lg text-foreground flex items-center gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-primary" />
+                    Task Completion Rate
+                  </h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    <strong className="text-foreground">Formula:</strong> (Tasks with Status = Done ÷ Total Tasks) × 100
+                  </p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    <strong className="text-foreground">Data Source:</strong> Every task we create and mark as done in our task management system
+                  </p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    <strong className="text-foreground">What We Track:</strong> Task status changes, completion dates, task assignments across all projects
+                  </p>
+                </div>
+
+                <div className="space-y-3">
+                  <h4 className="font-semibold text-lg text-foreground flex items-center gap-2">
+                    <Activity className="w-5 h-5 text-primary" />
+                    Data Quality Score
+                  </h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    <strong className="text-foreground">Formula:</strong> ((Total Active Projects - Projects Not Updated in 7 Days) ÷ Total Active Projects) × 100
+                  </p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    <strong className="text-foreground">Data Source:</strong> Last updated timestamp on each project record compared to current date
+                  </p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    <strong className="text-foreground">What We Track:</strong> Project update timestamps, ensuring we maintain weekly update discipline
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-border">
+                <div className="flex items-start gap-3">
+                  <Shield className="w-6 h-6 text-primary shrink-0 mt-1" />
+                  <div>
+                    <p className="text-sm font-semibold text-foreground mb-1">Why Transparency Matters</p>
+                    <p className="text-sm text-muted-foreground">
+                      By clearly showing how we calculate our metrics, everyone on our team understands what data we need to maintain and why. 
+                      Each metric directly reflects our collective discipline in updating project information, tracking tasks, and managing budgets. 
+                      When we see a metric drop, we know exactly which data quality issue to address.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* Portfolio Summary Cards */}
-          <div className="mb-4 text-center">
+          <div className="mb-6 text-center">
             <h2 className="text-3xl font-bold text-foreground mb-2">Our Portfolio at a Glance</h2>
-            <p className="text-lg text-muted-foreground">Real-time visibility into all our active IT initiatives</p>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Live data from all our project updates, task tracking, and team inputs. Updated automatically as we work.
+            </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 animate-fade-in">
             <Card className="border-2 border-primary/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
@@ -467,13 +570,77 @@ const Landing = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
             <Button onClick={() => navigate("/projects")} size="lg" className="shadow-lg text-lg py-6 px-8 hover:scale-105 transition-transform">
-              View All Projects
+              Update Our Projects
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
             <Button onClick={() => navigate("/dashboard")} variant="outline" size="lg" className="text-lg py-6 px-8 hover:scale-105 transition-transform">
-              Manage Tasks
+              Update Our Tasks
             </Button>
           </div>
+
+          {/* Data Flow Explanation */}
+          <Card className="mt-12 border-2 border-accent/30 bg-gradient-to-br from-accent/5 to-background animate-fade-in">
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <Zap className="w-7 h-7 text-accent" />
+                <CardTitle className="text-2xl">From Our Data Entry to These Metrics</CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">1</div>
+                    <h4 className="font-semibold text-foreground">We Enter Data</h4>
+                  </div>
+                  <ul className="space-y-1 text-sm text-muted-foreground ml-10">
+                    <li>• Create and update projects</li>
+                    <li>• Set Go-Live and Hypercare dates</li>
+                    <li>• Track budget (TCO vs Actual)</li>
+                    <li>• Create and complete tasks</li>
+                    <li>• Update RAG status weekly</li>
+                    <li>• Log risks and milestones</li>
+                  </ul>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">2</div>
+                    <h4 className="font-semibold text-foreground">System Calculates</h4>
+                  </div>
+                  <ul className="space-y-1 text-sm text-muted-foreground ml-10">
+                    <li>• Counts completed vs total</li>
+                    <li>• Compares actual vs planned dates</li>
+                    <li>• Checks budget adherence</li>
+                    <li>• Identifies overdue items</li>
+                    <li>• Detects stale updates</li>
+                    <li>• Aggregates portfolio health</li>
+                  </ul>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">3</div>
+                    <h4 className="font-semibold text-foreground">We See Results</h4>
+                  </div>
+                  <ul className="space-y-1 text-sm text-muted-foreground ml-10">
+                    <li>• Real-time performance scores</li>
+                    <li>• Instant portfolio overview</li>
+                    <li>• Team accountability metrics</li>
+                    <li>• Data quality indicators</li>
+                    <li>• Risk and budget alerts</li>
+                    <li>• Progress visibility</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="mt-6 p-4 bg-primary/5 rounded-lg border border-primary/20">
+                <p className="text-sm text-muted-foreground">
+                  <strong className="text-foreground">The Bottom Line:</strong> Every metric on this page is a direct reflection of our team&apos;s 
+                  discipline in maintaining accurate, timely project data. When we update projects weekly, mark tasks complete promptly, 
+                  and track budgets accurately, these numbers tell our success story to leadership. When we don&apos;t, the gaps show 
+                  immediately—giving us clear signals about where to improve our data habits.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
@@ -485,8 +652,11 @@ const Landing = () => {
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
               How We Measure Our Success
             </h2>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto">
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto mb-6">
               These are the Key Result Areas (KRAs) that we use to measure our team performance and drive organizational value
+            </p>
+            <p className="text-base text-muted-foreground max-w-3xl mx-auto">
+              Each KRA is measured using specific data points we maintain in our project management system. Our consistent data entry directly impacts these measurements.
             </p>
           </div>
 
