@@ -17,13 +17,29 @@ import {
   DollarSign,
   AlertTriangle,
   XCircle,
-  Activity
+  Activity,
+  Award,
+  Rocket
 } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useProjectContext } from "@/contexts/ProjectContext";
 import { useTaskContext } from "@/contexts/TaskContext";
 import { RAGStatusBadge } from "@/components/RAGStatusBadge";
 import { Badge } from "@/components/ui/badge";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import heroProjects from "@/assets/hero-projects.png";
+import heroPerformance from "@/assets/hero-performance.png";
+import heroDelivery from "@/assets/hero-delivery.png";
+import iconTarget from "@/assets/icon-target.png";
+import iconGrowth from "@/assets/icon-growth.png";
+import iconQuality from "@/assets/icon-quality.png";
+import iconSatisfaction from "@/assets/icon-satisfaction.png";
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -68,30 +84,75 @@ const Landing = () => {
     return !t.progressComments || t.progressComments.trim() === '';
   }).length;
 
+  // Calculate performance metrics
+  const onTimeDeliveryRate = totalProjects > 0 
+    ? Math.round((completedProjects / totalProjects) * 100) 
+    : 0;
+  const budgetAdherenceRate = projects.length > 0 
+    ? Math.round(((projects.length - overBudgetProjects) / projects.length) * 100) 
+    : 100;
+  const taskCompletionRate = totalTasks > 0 
+    ? Math.round((completedTasks / totalTasks) * 100) 
+    : 0;
+  const dataQualityScore = projects.length > 0 
+    ? Math.round(((projects.length - projectDefaulters) / projects.length) * 100) 
+    : 100;
+
+  const performanceMetrics = [
+    {
+      title: "Delivery Excellence",
+      value: `${onTimeDeliveryRate}%`,
+      trend: onTimeDeliveryRate >= 85 ? "positive" : "warning",
+      description: "Projects delivered on schedule"
+    },
+    {
+      title: "Budget Performance",
+      value: `${budgetAdherenceRate}%`,
+      trend: budgetAdherenceRate >= 90 ? "positive" : "warning",
+      description: "Projects within approved budget"
+    },
+    {
+      title: "Task Completion",
+      value: `${taskCompletionRate}%`,
+      trend: taskCompletionRate >= 80 ? "positive" : "warning",
+      description: "Overall task completion rate"
+    },
+    {
+      title: "Data Quality",
+      value: `${dataQualityScore}%`,
+      trend: dataQualityScore >= 90 ? "positive" : "warning",
+      description: "Projects with timely updates"
+    }
+  ];
+
   const kras = [
     {
       title: "On-Time Delivery",
       measure: "% of projects delivered by target date",
       target: "≥ 85%",
-      description: "Track milestone completion and identify delays early"
+      description: "Track milestone completion and identify delays early",
+      icon: iconTarget
     },
     {
       title: "Budget Adherence",
       measure: "% of projects within approved budget",
       target: "≥ 90%",
-      description: "Monitor spending and flag budget variances proactively"
+      description: "Monitor spending and flag budget variances proactively",
+      icon: iconGrowth
     },
     {
       title: "Quality Standards",
       measure: "% of deliverables meeting acceptance criteria",
       target: "≥ 95%",
-      description: "Ensure all outputs meet defined quality benchmarks"
+      description: "Ensure all outputs meet defined quality benchmarks",
+      icon: iconQuality
     },
     {
       title: "Stakeholder Satisfaction",
       measure: "Average satisfaction score from key stakeholders",
       target: "≥ 4.0/5.0",
-      description: "Regular feedback and transparent communication"
+      description: "Regular feedback and transparent communication",
+      icon: iconSatisfaction
     }
   ];
 
@@ -161,121 +222,213 @@ const Landing = () => {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="py-16 px-4 bg-gradient-to-b from-primary/5 to-background">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 leading-tight">
-              Welcome to Digital IT PMO
+      {/* Hero Section with Carousel */}
+      <section className="py-20 px-4 bg-gradient-to-br from-primary/10 via-accent/5 to-background overflow-hidden">
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center mb-16 animate-fade-in">
+            <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-6 leading-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-in">
+              Digital IT PMO Excellence
             </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Your central hub for managing IT projects, tracking performance, and delivering value across the organization
+            <p className="text-2xl md:text-3xl text-muted-foreground max-w-4xl mx-auto font-medium">
+              Driving Digital Transformation Through Data-Driven Project Management
             </p>
           </div>
 
+          {/* Hero Carousel */}
+          <div className="mb-16 animate-scale-in">
+            <Carousel className="w-full max-w-5xl mx-auto" opts={{ loop: true }}>
+              <CarouselContent>
+                <CarouselItem>
+                  <div className="relative rounded-2xl overflow-hidden shadow-2xl group">
+                    <img 
+                      src={heroProjects} 
+                      alt="Project Management Dashboard" 
+                      className="w-full h-[400px] object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/50 to-transparent flex items-end p-8">
+                      <div className="text-left">
+                        <h3 className="text-3xl font-bold text-foreground mb-2">Unified Project Portfolio</h3>
+                        <p className="text-lg text-muted-foreground">Track all IT initiatives in one centralized platform with real-time insights</p>
+                      </div>
+                    </div>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="relative rounded-2xl overflow-hidden shadow-2xl group">
+                    <img 
+                      src={heroPerformance} 
+                      alt="Team Performance Analytics" 
+                      className="w-full h-[400px] object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/50 to-transparent flex items-end p-8">
+                      <div className="text-left">
+                        <h3 className="text-3xl font-bold text-foreground mb-2">Performance Excellence</h3>
+                        <p className="text-lg text-muted-foreground">Measure success with comprehensive KPIs and team performance metrics</p>
+                      </div>
+                    </div>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="relative rounded-2xl overflow-hidden shadow-2xl group">
+                    <img 
+                      src={heroDelivery} 
+                      alt="Value Delivery" 
+                      className="w-full h-[400px] object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/50 to-transparent flex items-end p-8">
+                      <div className="text-left">
+                        <h3 className="text-3xl font-bold text-foreground mb-2">Delivering Business Value</h3>
+                        <p className="text-lg text-muted-foreground">Transform IT operations into strategic business enablers with measurable outcomes</p>
+                      </div>
+                    </div>
+                  </div>
+                </CarouselItem>
+              </CarouselContent>
+              <CarouselPrevious className="left-4" />
+              <CarouselNext className="right-4" />
+            </Carousel>
+          </div>
+
+          {/* Performance Highlights */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 animate-fade-in">
+            {performanceMetrics.map((metric, index) => (
+              <Card 
+                key={index}
+                className={`border-2 transition-all duration-300 hover:scale-105 hover:shadow-xl ${
+                  metric.trend === 'positive' 
+                    ? 'border-success/30 bg-success/5' 
+                    : 'border-warning/30 bg-warning/5'
+                }`}
+              >
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-lg font-semibold text-muted-foreground flex items-center gap-2">
+                    {metric.trend === 'positive' ? (
+                      <Award className="w-5 h-5 text-success" />
+                    ) : (
+                      <TrendingUp className="w-5 h-5 text-warning" />
+                    )}
+                    {metric.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className={`text-4xl font-bold mb-2 ${
+                    metric.trend === 'positive' ? 'text-success' : 'text-warning'
+                  }`}>
+                    {metric.value}
+                  </div>
+                  <p className="text-sm text-muted-foreground">{metric.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
           {/* Portfolio Summary Cards */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <Card className="border-2 border-primary/20">
+          <div className="mb-4 text-center">
+            <h2 className="text-3xl font-bold text-foreground mb-2">Portfolio at a Glance</h2>
+            <p className="text-lg text-muted-foreground">Real-time visibility into all active IT initiatives</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 animate-fade-in">
+            <Card className="border-2 border-primary/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <CardHeader className="pb-3">
-                <CardTitle className="text-base font-medium text-muted-foreground">Total Projects</CardTitle>
+                <CardTitle className="text-lg font-semibold text-muted-foreground">Total Projects</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-foreground">{totalProjects}</div>
-                <p className="text-sm text-muted-foreground mt-1">{activeProjects} active</p>
+                <div className="text-4xl font-bold text-foreground mb-1">{totalProjects}</div>
+                <p className="text-base text-muted-foreground mt-1">{activeProjects} active</p>
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-success/20">
+            <Card className="border-2 border-success/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <CardHeader className="pb-3">
-                <CardTitle className="text-base font-medium text-muted-foreground">Project Health</CardTitle>
+                <CardTitle className="text-lg font-semibold text-muted-foreground">Project Health</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="flex items-center gap-3">
-                  <div className="text-center">
-                    <div className="text-xl font-bold text-success">{greenProjects}</div>
-                    <div className="text-xs text-muted-foreground">Green</div>
+                <div className="flex items-center gap-4">
+                  <div className="text-center flex-1">
+                    <div className="text-2xl font-bold text-success mb-1">{greenProjects}</div>
+                    <div className="text-sm text-muted-foreground">Green</div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-xl font-bold text-warning">{amberProjects}</div>
-                    <div className="text-xs text-muted-foreground">Amber</div>
+                  <div className="text-center flex-1">
+                    <div className="text-2xl font-bold text-warning mb-1">{amberProjects}</div>
+                    <div className="text-sm text-muted-foreground">Amber</div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-xl font-bold text-destructive">{redProjects}</div>
-                    <div className="text-xs text-muted-foreground">Red</div>
+                  <div className="text-center flex-1">
+                    <div className="text-2xl font-bold text-destructive mb-1">{redProjects}</div>
+                    <div className="text-sm text-muted-foreground">Red</div>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-accent/20">
+            <Card className="border-2 border-accent/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <CardHeader className="pb-3">
-                <CardTitle className="text-base font-medium text-muted-foreground">Task Progress</CardTitle>
+                <CardTitle className="text-lg font-semibold text-muted-foreground">Task Progress</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-foreground">{completedTasks}/{totalTasks}</div>
-                <p className="text-sm text-muted-foreground mt-1">
+                <div className="text-4xl font-bold text-foreground mb-1">{completedTasks}/{totalTasks}</div>
+                <p className="text-base text-muted-foreground mt-1">
                   {totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0}% complete
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-destructive/20">
+            <Card className="border-2 border-destructive/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <CardHeader className="pb-3">
-                <CardTitle className="text-base font-medium text-muted-foreground">Overdue Tasks</CardTitle>
+                <CardTitle className="text-lg font-semibold text-muted-foreground">Overdue Tasks</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-destructive">{overdueTasks}</div>
-                <p className="text-sm text-muted-foreground mt-1">Require attention</p>
+                <div className="text-4xl font-bold text-destructive mb-1">{overdueTasks}</div>
+                <p className="text-base text-muted-foreground mt-1">Require attention</p>
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-warning/20">
+            <Card className="border-2 border-warning/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <CardHeader className="pb-3">
-                <CardTitle className="text-base font-medium text-muted-foreground">Project Defaulters</CardTitle>
+                <CardTitle className="text-lg font-semibold text-muted-foreground">Project Defaulters</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-warning">{projectDefaulters}</div>
-                <p className="text-sm text-muted-foreground mt-1">Not updated in 7 days</p>
+                <div className="text-4xl font-bold text-warning mb-1">{projectDefaulters}</div>
+                <p className="text-base text-muted-foreground mt-1">Not updated in 7 days</p>
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-destructive/20">
+            <Card className="border-2 border-destructive/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <CardHeader className="pb-3">
-                <CardTitle className="text-base font-medium text-muted-foreground">Over Budget</CardTitle>
+                <CardTitle className="text-lg font-semibold text-muted-foreground">Over Budget</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-destructive">{overBudgetProjects}</div>
-                <p className="text-sm text-muted-foreground mt-1">Projects exceeding budget</p>
+                <div className="text-4xl font-bold text-destructive mb-1">{overBudgetProjects}</div>
+                <p className="text-base text-muted-foreground mt-1">Projects exceeding budget</p>
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-warning/20">
+            <Card className="border-2 border-warning/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <CardHeader className="pb-3">
-                <CardTitle className="text-base font-medium text-muted-foreground">Task Defaulters</CardTitle>
+                <CardTitle className="text-lg font-semibold text-muted-foreground">Task Defaulters</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-warning">{taskDefaulters}</div>
-                <p className="text-sm text-muted-foreground mt-1">Tasks need updates</p>
+                <div className="text-4xl font-bold text-warning mb-1">{taskDefaulters}</div>
+                <p className="text-base text-muted-foreground mt-1">Tasks need updates</p>
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-destructive/20">
+            <Card className="border-2 border-destructive/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <CardHeader className="pb-3">
-                <CardTitle className="text-base font-medium text-muted-foreground">High Risk</CardTitle>
+                <CardTitle className="text-lg font-semibold text-muted-foreground">High Risk</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-destructive">{redProjects}</div>
-                <p className="text-sm text-muted-foreground mt-1">Red status projects</p>
+                <div className="text-4xl font-bold text-destructive mb-1">{redProjects}</div>
+                <p className="text-base text-muted-foreground mt-1">Red status projects</p>
               </CardContent>
             </Card>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button onClick={() => navigate("/projects")} size="lg" className="shadow-lg">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+            <Button onClick={() => navigate("/projects")} size="lg" className="shadow-lg text-lg py-6 px-8 hover:scale-105 transition-transform">
               View All Projects
-              <ArrowRight className="ml-2 w-4 h-4" />
+              <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
-            <Button onClick={() => navigate("/dashboard")} variant="outline" size="lg">
+            <Button onClick={() => navigate("/dashboard")} variant="outline" size="lg" className="text-lg py-6 px-8 hover:scale-105 transition-transform">
               Manage Tasks
             </Button>
           </div>
@@ -283,34 +436,35 @@ const Landing = () => {
       </section>
 
       {/* KRA Section */}
-      <section className="py-16 px-4 bg-muted/30">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">
-              Key Result Areas (KRAs) & Performance Measurement
+      <section className="py-20 px-4 bg-gradient-to-br from-muted/50 to-muted/30">
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center mb-16 animate-fade-in">
+            <Badge className="mb-4 text-base py-2 px-4">Performance Framework</Badge>
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+              Key Result Areas (KRAs)
             </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Our Digital IT team's success is measured by these critical performance indicators
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto">
+              Our Digital IT team's success is measured by these critical performance indicators that drive organizational value
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-8">
             {kras.map((kra, index) => (
-              <Card key={index} className="border-2 border-primary/10">
+              <Card key={index} className="border-2 border-primary/20 hover:border-primary/40 transition-all duration-300 hover:scale-105 hover:shadow-2xl animate-fade-in group">
                 <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <CardTitle className="text-xl mb-2">{kra.title}</CardTitle>
-                      <Badge variant="outline" className="text-xs">Target: {kra.target}</Badge>
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex-1">
+                      <CardTitle className="text-2xl mb-3 group-hover:text-primary transition-colors">{kra.title}</CardTitle>
+                      <Badge variant="outline" className="text-sm py-1 px-3 font-semibold">Target: {kra.target}</Badge>
                     </div>
-                    <Target className="w-8 h-8 text-primary opacity-50" />
+                    <img src={kra.icon} alt={kra.title} className="w-16 h-16 opacity-80 group-hover:opacity-100 transition-opacity" />
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm font-medium text-muted-foreground mb-2">
-                    <strong>Measure:</strong> {kra.measure}
+                  <p className="text-base font-medium text-muted-foreground mb-3">
+                    <strong className="text-foreground">Measure:</strong> {kra.measure}
                   </p>
-                  <p className="text-sm text-muted-foreground">{kra.description}</p>
+                  <p className="text-base text-muted-foreground">{kra.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -319,78 +473,82 @@ const Landing = () => {
       </section>
 
       {/* Best Practices Section */}
-      <section className="py-16 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">
-              Data Quality is Everyone's Responsibility
+      <section className="py-20 px-4 bg-gradient-to-b from-background to-muted/20">
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center mb-16 animate-fade-in">
+            <Badge className="mb-4 text-base py-2 px-4" variant="outline">
+              <Rocket className="w-4 h-4 mr-2" />
+              Team Excellence
+            </Badge>
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+              Data Quality Drives Team Success
             </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
               Accurate, timely data enables better decision-making, effective resource allocation, and demonstrates our team's value to the organization
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-8">
             {bestPractices.map((practice, index) => (
               <Card 
                 key={index} 
-                className={`border-2 ${
+                className={`border-2 transition-all duration-300 hover:scale-105 hover:shadow-xl animate-fade-in ${
                   practice.type === 'do' 
-                    ? 'border-success/30 bg-success/5' 
-                    : 'border-destructive/30 bg-destructive/5'
+                    ? 'border-success/40 bg-success/5 hover:bg-success/10' 
+                    : 'border-destructive/40 bg-destructive/5 hover:bg-destructive/10'
                 }`}
               >
                 <CardHeader>
                   <div className="flex items-start gap-4">
-                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${
+                    <div className={`w-14 h-14 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-110 ${
                       practice.type === 'do' 
                         ? 'bg-success/20' 
                         : 'bg-destructive/20'
                     }`}>
-                      <practice.icon className={`w-5 h-5 ${
+                      <practice.icon className={`w-7 h-7 ${
                         practice.type === 'do' ? 'text-success' : 'text-destructive'
                       }`} />
                     </div>
-                    <CardTitle className="text-lg">{practice.title}</CardTitle>
+                    <CardTitle className="text-xl leading-tight">{practice.title}</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-muted-foreground">{practice.description}</p>
+                  <p className="text-base text-muted-foreground leading-relaxed">{practice.description}</p>
                 </CardContent>
               </Card>
             ))}
           </div>
 
-          <Card className="mt-8 border-2 border-primary/20 bg-primary/5">
+          <Card className="mt-12 border-2 border-primary/30 bg-gradient-to-br from-primary/10 to-accent/5 hover:shadow-2xl transition-all duration-300 animate-fade-in">
             <CardHeader>
-              <div className="flex items-center gap-3">
-                <Activity className="w-6 h-6 text-primary" />
-                <CardTitle>Why Data Quality Matters</CardTitle>
+              <div className="flex items-center gap-4">
+                <Activity className="w-8 h-8 text-primary" />
+                <CardTitle className="text-2xl">Why Data Quality Matters</CardTitle>
               </div>
             </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="flex items-start gap-3">
-                <TrendingUp className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                <p className="text-sm text-muted-foreground">
-                  <strong>Better Reporting:</strong> Leadership can make informed decisions about priorities and resource allocation
+            <CardContent className="space-y-5">
+              <div className="flex items-start gap-4 group">
+                <TrendingUp className="w-7 h-7 text-primary shrink-0 mt-1 group-hover:scale-110 transition-transform" />
+                <p className="text-base text-muted-foreground">
+                  <strong className="text-foreground text-lg">Better Reporting:</strong> Leadership can make informed decisions about priorities and resource allocation with accurate, real-time data
                 </p>
               </div>
-              <div className="flex items-start gap-3">
-                <Shield className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                <p className="text-sm text-muted-foreground">
-                  <strong>Proactive Risk Management:</strong> Early visibility into issues allows us to address problems before they escalate
+              <div className="flex items-start gap-4 group">
+                <Shield className="w-7 h-7 text-primary shrink-0 mt-1 group-hover:scale-110 transition-transform" />
+                <p className="text-base text-muted-foreground">
+                  <strong className="text-foreground text-lg">Proactive Risk Management:</strong> Early visibility into issues allows us to address problems before they escalate into critical situations
                 </p>
               </div>
-              <div className="flex items-start gap-3">
-                <Users className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                <p className="text-sm text-muted-foreground">
-                  <strong>Team Credibility:</strong> Consistent, accurate updates demonstrate professionalism and build stakeholder trust
+              <div className="flex items-start gap-4 group">
+                <Users className="w-7 h-7 text-primary shrink-0 mt-1 group-hover:scale-110 transition-transform" />
+                <p className="text-base text-muted-foreground">
+                  <strong className="text-foreground text-lg">Team Credibility:</strong> Consistent, accurate updates demonstrate professionalism and build stakeholder trust across the organization
                 </p>
               </div>
-              <div className="flex items-start gap-3">
-                <BarChart3 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                <p className="text-sm text-muted-foreground">
-                  <strong>Performance Visibility:</strong> Accurate data showcases our team's contributions and value to the organization
+              <div className="flex items-start gap-4 group">
+                <BarChart3 className="w-7 h-7 text-primary shrink-0 mt-1 group-hover:scale-110 transition-transform" />
+                <p className="text-base text-muted-foreground">
+                  <strong className="text-foreground text-lg">Performance Visibility:</strong> Accurate data showcases our team's contributions, achievements, and value delivered to the organization
                 </p>
               </div>
             </CardContent>
@@ -399,39 +557,42 @@ const Landing = () => {
       </section>
 
       {/* Quick Actions */}
-      <section className="py-16 px-4 bg-gradient-to-r from-primary/10 to-accent/10">
-        <div className="container mx-auto max-w-5xl">
-          <h2 className="text-3xl font-bold text-foreground mb-8 text-center">
-            Quick Actions
-          </h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            <Card className="border-2 border-primary/20 hover:shadow-lg transition-all cursor-pointer" onClick={() => navigate("/projects")}>
+      <section className="py-20 px-4 bg-gradient-to-r from-primary/15 via-accent/10 to-primary/15">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12 animate-fade-in">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+              Quick Actions
+            </h2>
+            <p className="text-xl text-muted-foreground">Jump straight to the tools you need</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card className="border-2 border-primary/30 hover:border-primary/50 hover:shadow-2xl transition-all duration-300 cursor-pointer hover:scale-105 animate-fade-in group" onClick={() => navigate("/projects")}>
               <CardHeader>
-                <Target className="w-10 h-10 text-primary mb-3" />
-                <CardTitle className="text-lg">Manage Projects</CardTitle>
+                <Target className="w-14 h-14 text-primary mb-4 group-hover:scale-110 transition-transform" />
+                <CardTitle className="text-2xl group-hover:text-primary transition-colors">Manage Projects</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground">View portfolio, update RAG status, track budgets and milestones</p>
+                <p className="text-base text-muted-foreground">View portfolio, update RAG status, track budgets and milestones</p>
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-primary/20 hover:shadow-lg transition-all cursor-pointer" onClick={() => navigate("/dashboard")}>
+            <Card className="border-2 border-primary/30 hover:border-primary/50 hover:shadow-2xl transition-all duration-300 cursor-pointer hover:scale-105 animate-fade-in group" onClick={() => navigate("/dashboard")}>
               <CardHeader>
-                <CheckCircle2 className="w-10 h-10 text-primary mb-3" />
-                <CardTitle className="text-lg">Track Tasks</CardTitle>
+                <CheckCircle2 className="w-14 h-14 text-primary mb-4 group-hover:scale-110 transition-transform" />
+                <CardTitle className="text-2xl group-hover:text-primary transition-colors">Track Tasks</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground">Manage assignments, update progress, and close completed items</p>
+                <p className="text-base text-muted-foreground">Manage assignments, update progress, and close completed items</p>
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-primary/20 hover:shadow-lg transition-all cursor-pointer" onClick={() => navigate("/features")}>
+            <Card className="border-2 border-primary/30 hover:border-primary/50 hover:shadow-2xl transition-all duration-300 cursor-pointer hover:scale-105 animate-fade-in group" onClick={() => navigate("/features")}>
               <CardHeader>
-                <BarChart3 className="w-10 h-10 text-primary mb-3" />
-                <CardTitle className="text-lg">View Reports</CardTitle>
+                <BarChart3 className="w-14 h-14 text-primary mb-4 group-hover:scale-110 transition-transform" />
+                <CardTitle className="text-2xl group-hover:text-primary transition-colors">View Reports</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground">Access dashboards, generate status reports, and analyze performance</p>
+                <p className="text-base text-muted-foreground">Access dashboards, generate status reports, and analyze performance</p>
               </CardContent>
             </Card>
           </div>
