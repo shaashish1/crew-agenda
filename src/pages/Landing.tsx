@@ -223,59 +223,47 @@ const Landing = () => {
             </h2>
           </div>
 
-          <div className="row g-4">
-            <div className="col-md-4">
-              <div className="d-flex align-items-start gap-3 mb-4">
-                <CheckCircle2 className="text-primary shrink-0 mt-1" size={20} />
-                <div>
-                  <h5 className="fw-bold mb-1">RAG Status Tracking</h5>
-                  <p className="text-muted-foreground small mb-0">Red-Amber-Green indicators with justification and corrective actions</p>
-                </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="flex items-start gap-3">
+              <CheckCircle2 className="text-primary shrink-0 mt-1" size={20} />
+              <div>
+                <h5 className="font-bold mb-1">RAG Status Tracking</h5>
+                <p className="text-muted-foreground text-sm">Red-Amber-Green indicators with justification and corrective actions</p>
               </div>
             </div>
-            <div className="col-md-4">
-              <div className="d-flex align-items-start gap-3 mb-4">
-                <CheckCircle2 className="text-primary shrink-0 mt-1" size={20} />
-                <div>
-                  <h5 className="fw-bold mb-1">Multi-Owner Tasks</h5>
-                  <p className="text-muted-foreground small mb-0">Assign multiple team members to collaborative tasks</p>
-                </div>
+            <div className="flex items-start gap-3">
+              <CheckCircle2 className="text-primary shrink-0 mt-1" size={20} />
+              <div>
+                <h5 className="font-bold mb-1">Multi-Owner Tasks</h5>
+                <p className="text-muted-foreground text-sm">Assign multiple team members to collaborative tasks</p>
               </div>
             </div>
-            <div className="col-md-4">
-              <div className="d-flex align-items-start gap-3 mb-4">
-                <CheckCircle2 className="text-primary shrink-0 mt-1" size={20} />
-                <div>
-                  <h5 className="fw-bold mb-1">Resource Utilization</h5>
-                  <p className="text-muted-foreground small mb-0">Track department allocation and capacity planning</p>
-                </div>
+            <div className="flex items-start gap-3">
+              <CheckCircle2 className="text-primary shrink-0 mt-1" size={20} />
+              <div>
+                <h5 className="font-bold mb-1">Resource Utilization</h5>
+                <p className="text-muted-foreground text-sm">Track department allocation and capacity planning</p>
               </div>
             </div>
-            <div className="col-md-4">
-              <div className="d-flex align-items-start gap-3 mb-4">
-                <CheckCircle2 className="text-primary shrink-0 mt-1" size={20} />
-                <div>
-                  <h5 className="fw-bold mb-1">Risk Register</h5>
-                  <p className="text-muted-foreground small mb-0">Comprehensive risk assessment and mitigation planning</p>
-                </div>
+            <div className="flex items-start gap-3">
+              <CheckCircle2 className="text-primary shrink-0 mt-1" size={20} />
+              <div>
+                <h5 className="font-bold mb-1">Risk Register</h5>
+                <p className="text-muted-foreground text-sm">Comprehensive risk assessment and mitigation planning</p>
               </div>
             </div>
-            <div className="col-md-4">
-              <div className="d-flex align-items-start gap-3 mb-4">
-                <CheckCircle2 className="text-primary shrink-0 mt-1" size={20} />
-                <div>
-                  <h5 className="fw-bold mb-1">AI-Powered Insights</h5>
-                  <p className="text-muted-foreground small mb-0">Smart recommendations and predictive analytics</p>
-                </div>
+            <div className="flex items-start gap-3">
+              <CheckCircle2 className="text-primary shrink-0 mt-1" size={20} />
+              <div>
+                <h5 className="font-bold mb-1">AI-Powered Insights</h5>
+                <p className="text-muted-foreground text-sm">Smart recommendations and predictive analytics</p>
               </div>
             </div>
-            <div className="col-md-4">
-              <div className="d-flex align-items-start gap-3 mb-4">
-                <CheckCircle2 className="text-primary shrink-0 mt-1" size={20} />
-                <div>
-                  <h5 className="fw-bold mb-1">Executive Dashboards</h5>
-                  <p className="text-muted-foreground small mb-0">Portfolio-level health reporting for leadership</p>
-                </div>
+            <div className="flex items-start gap-3">
+              <CheckCircle2 className="text-primary shrink-0 mt-1" size={20} />
+              <div>
+                <h5 className="font-bold mb-1">Executive Dashboards</h5>
+                <p className="text-muted-foreground text-sm">Portfolio-level health reporting for leadership</p>
               </div>
             </div>
           </div>
