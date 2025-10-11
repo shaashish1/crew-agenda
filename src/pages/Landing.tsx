@@ -14,51 +14,105 @@ import {
   Zap,
   TrendingUp,
   Clock,
-  DollarSign
+  DollarSign,
+  AlertTriangle,
+  XCircle,
+  Activity
 } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { useProjectContext } from "@/contexts/ProjectContext";
+import { useTaskContext } from "@/contexts/TaskContext";
+import { RAGStatusBadge } from "@/components/RAGStatusBadge";
+import { Badge } from "@/components/ui/badge";
 
 const Landing = () => {
   const navigate = useNavigate();
+  const { projects } = useProjectContext();
+  const { tasks } = useTaskContext();
 
-  const keyBenefits = [
+  // Calculate metrics
+  const totalProjects = projects.length;
+  const activeProjects = projects.filter(p => {
+    const goLiveDate = new Date(p.goLiveDate);
+    const hypercareEndDate = new Date(p.hypercareEndDate);
+    const now = new Date();
+    return now < hypercareEndDate;
+  }).length;
+  const completedProjects = projects.filter(p => {
+    const hypercareEndDate = new Date(p.hypercareEndDate);
+    return new Date() >= hypercareEndDate;
+  }).length;
+  const totalTasks = tasks.length;
+  const completedTasks = tasks.filter(t => t.status === 'done').length;
+  const overdueTasks = tasks.filter(t => t.status !== 'done' && t.targetDate && new Date(t.targetDate) < new Date()).length;
+  
+  const redProjects = projects.filter(p => p.overallRAG === 'red').length;
+  const amberProjects = projects.filter(p => p.overallRAG === 'amber').length;
+  const greenProjects = projects.filter(p => p.overallRAG === 'green').length;
+
+  const kras = [
     {
-      icon: TrendingUp,
-      title: "Increase Project Success Rate by 40%",
-      description: "Data-driven insights and proactive risk management ensure your projects stay on track and deliver results."
+      title: "On-Time Delivery",
+      measure: "% of projects delivered by target date",
+      target: "≥ 85%",
+      description: "Track milestone completion and identify delays early"
     },
     {
-      icon: Clock,
-      title: "Save 15+ Hours Per Week",
-      description: "Automated workflows, integrated tools, and centralized dashboards eliminate manual reporting and admin work."
+      title: "Budget Adherence",
+      measure: "% of projects within approved budget",
+      target: "≥ 90%",
+      description: "Monitor spending and flag budget variances proactively"
     },
     {
-      icon: DollarSign,
-      title: "Reduce Budget Overruns by 30%",
-      description: "Real-time budget tracking and predictive analytics help you stay within budget and optimize resource allocation."
+      title: "Quality Standards",
+      measure: "% of deliverables meeting acceptance criteria",
+      target: "≥ 95%",
+      description: "Ensure all outputs meet defined quality benchmarks"
+    },
+    {
+      title: "Stakeholder Satisfaction",
+      measure: "Average satisfaction score from key stakeholders",
+      target: "≥ 4.0/5.0",
+      description: "Regular feedback and transparent communication"
     }
   ];
 
-  const coreFeatures = [
+  const bestPractices = [
     {
-      icon: Target,
-      title: "Portfolio Management",
-      description: "Manage multiple IT projects with RAG status tracking, performance metrics, and executive dashboards."
+      icon: CheckCircle2,
+      title: "DO: Update Status Weekly",
+      description: "Update project RAG status every week with clear justifications. This enables accurate reporting and early risk detection.",
+      type: "do"
     },
     {
-      icon: Users,
-      title: "Task & Team Management",
-      description: "Assign tasks with multi-owner support, track progress in Kanban/Table views, and manage milestones."
+      icon: CheckCircle2,
+      title: "DO: Log All Tasks & Milestones",
+      description: "Record all work items in the system. Complete task tracking provides visibility into team capacity and project health.",
+      type: "do"
     },
     {
-      icon: Shield,
-      title: "Risk Management",
-      description: "Identify, assess, and mitigate risks proactively with comprehensive risk registers and mitigation plans."
+      icon: CheckCircle2,
+      title: "DO: Document Risks Promptly",
+      description: "Add risks to the register as soon as identified. Early documentation allows for proactive mitigation planning.",
+      type: "do"
     },
     {
-      icon: BarChart3,
-      title: "Analytics & Reporting",
-      description: "Generate automated status reports, track KPIs, and visualize resource utilization across portfolios."
+      icon: XCircle,
+      title: "DON'T: Skip Status Updates",
+      description: "Never skip weekly updates even if 'nothing changed'. Outdated data leads to poor decisions and missed opportunities to help.",
+      type: "dont"
+    },
+    {
+      icon: XCircle,
+      title: "DON'T: Update Only Before Reviews",
+      description: "Avoid last-minute data entry before meetings. This creates inaccurate historical data and defeats real-time monitoring.",
+      type: "dont"
+    },
+    {
+      icon: XCircle,
+      title: "DON'T: Leave Fields Incomplete",
+      description: "Don't save projects or tasks with missing critical fields. Complete data ensures meaningful analytics and reporting.",
+      type: "dont"
     }
   ];
 
@@ -90,203 +144,238 @@ const Landing = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="py-20 px-4 bg-gradient-to-b from-card/30 to-background">
-        <div className="container mx-auto max-w-6xl text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
-            IT Project Management
-            <span className="block mt-2 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Made Simple & Effective
-            </span>
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-12">
-            The complete PMO platform for CTO offices to plan, track, and deliver digital initiatives on time and within budget.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            <Button onClick={() => navigate("/projects")} size="lg" className="text-lg px-8 shadow-lg">
-              Access Platform
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-            <Button onClick={() => navigate("/features")} variant="outline" size="lg" className="text-lg px-8">
-              Explore Features
-            </Button>
-          </div>
-
-          {/* Key Benefits - Top Priority */}
-          <div className="grid md:grid-cols-3 gap-8 mt-16">
-            {keyBenefits.map((benefit, index) => (
-              <Card key={index} className="border-2 border-primary/20 shadow-lg hover:shadow-xl transition-all bg-card/80 backdrop-blur">
-                <CardHeader>
-                  <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                    <benefit.icon className="w-7 h-7 text-primary" />
-                  </div>
-                  <CardTitle className="text-xl text-center">{benefit.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground text-center">{benefit.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Core Features - Simplified */}
-      <section className="py-20 px-4 bg-muted/30">
+      <section className="py-16 px-4 bg-gradient-to-b from-primary/5 to-background">
         <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">
-              Everything You Need in One Platform
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Comprehensive tools designed specifically for IT project managers and PMO offices
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 leading-tight">
+              Welcome to Digital IT PMO
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Your central hub for managing IT projects, tracking performance, and delivering value across the organization
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {coreFeatures.map((feature, index) => (
-              <Card key={index} className="border border-border shadow-md hover:shadow-lg transition-all bg-card">
-                <CardHeader>
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                      <feature.icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <CardTitle className="text-xl">{feature.title}</CardTitle>
+          {/* Portfolio Summary Cards */}
+          <div className="grid md:grid-cols-4 gap-6 mb-8">
+            <Card className="border-2 border-primary/20">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base font-medium text-muted-foreground">Total Projects</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold text-foreground">{totalProjects}</div>
+                <p className="text-sm text-muted-foreground mt-1">{activeProjects} active</p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 border-success/20">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base font-medium text-muted-foreground">Project Health</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center gap-3">
+                  <div className="text-center">
+                    <div className="text-xl font-bold text-success">{greenProjects}</div>
+                    <div className="text-xs text-muted-foreground">Green</div>
                   </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">{feature.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works - Streamlined */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">
-              Get Started in 3 Simple Steps
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              From project setup to delivery tracking - all in one integrated platform
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-2 border-primary/20 bg-card shadow-md">
-              <CardHeader>
-                <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xl font-bold mb-4">
-                  1
+                  <div className="text-center">
+                    <div className="text-xl font-bold text-warning">{amberProjects}</div>
+                    <div className="text-xs text-muted-foreground">Amber</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-xl font-bold text-destructive">{redProjects}</div>
+                    <div className="text-xs text-muted-foreground">Red</div>
+                  </div>
                 </div>
-                <CardTitle className="text-xl">Create Project Blueprint</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">Define objectives, budget, timeline, and stakeholders. Set RAG status criteria and success metrics.</p>
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-primary/20 bg-card shadow-md">
-              <CardHeader>
-                <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xl font-bold mb-4">
-                  2
-                </div>
-                <CardTitle className="text-xl">Plan & Execute Tasks</CardTitle>
+            <Card className="border-2 border-accent/20">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base font-medium text-muted-foreground">Task Progress</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">Break down work into tasks, assign to team members, track milestones, and manage risks proactively.</p>
+                <div className="text-3xl font-bold text-foreground">{completedTasks}/{totalTasks}</div>
+                <p className="text-sm text-muted-foreground mt-1">
+                  {totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0}% complete
+                </p>
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-primary/20 bg-card shadow-md">
-              <CardHeader>
-                <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xl font-bold mb-4">
-                  3
-                </div>
-                <CardTitle className="text-xl">Monitor & Report</CardTitle>
+            <Card className="border-2 border-destructive/20">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base font-medium text-muted-foreground">Overdue Tasks</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">Track performance with dashboards, generate automated reports, and optimize resource utilization.</p>
+                <div className="text-3xl font-bold text-destructive">{overdueTasks}</div>
+                <p className="text-sm text-muted-foreground mt-1">Require attention</p>
               </CardContent>
             </Card>
           </div>
-        </div>
-      </section>
 
-      {/* Feature Highlights - Bootstrap Grid */}
-      <section className="py-20 px-4 bg-muted/30">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">
-              Complete Feature Set
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="flex items-start gap-3">
-              <CheckCircle2 className="text-primary shrink-0 mt-1" size={20} />
-              <div>
-                <h5 className="font-bold mb-1">RAG Status Tracking</h5>
-                <p className="text-muted-foreground text-sm">Red-Amber-Green indicators with justification and corrective actions</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <CheckCircle2 className="text-primary shrink-0 mt-1" size={20} />
-              <div>
-                <h5 className="font-bold mb-1">Multi-Owner Tasks</h5>
-                <p className="text-muted-foreground text-sm">Assign multiple team members to collaborative tasks</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <CheckCircle2 className="text-primary shrink-0 mt-1" size={20} />
-              <div>
-                <h5 className="font-bold mb-1">Resource Utilization</h5>
-                <p className="text-muted-foreground text-sm">Track department allocation and capacity planning</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <CheckCircle2 className="text-primary shrink-0 mt-1" size={20} />
-              <div>
-                <h5 className="font-bold mb-1">Risk Register</h5>
-                <p className="text-muted-foreground text-sm">Comprehensive risk assessment and mitigation planning</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <CheckCircle2 className="text-primary shrink-0 mt-1" size={20} />
-              <div>
-                <h5 className="font-bold mb-1">AI-Powered Insights</h5>
-                <p className="text-muted-foreground text-sm">Smart recommendations and predictive analytics</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <CheckCircle2 className="text-primary shrink-0 mt-1" size={20} />
-              <div>
-                <h5 className="font-bold mb-1">Executive Dashboards</h5>
-                <p className="text-muted-foreground text-sm">Portfolio-level health reporting for leadership</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 px-4 bg-gradient-to-r from-primary/10 to-accent/10">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-4xl font-bold text-foreground mb-6">
-            Ready to Get Started?
-          </h2>
-          <p className="text-xl text-muted-foreground mb-8">
-            Streamline your IT project management and improve delivery success rates
-          </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button onClick={() => navigate("/projects")} size="lg" className="text-lg px-8 shadow-lg">
-              Access Platform
-              <ArrowRight className="ml-2 w-5 h-5" />
+            <Button onClick={() => navigate("/projects")} size="lg" className="shadow-lg">
+              View All Projects
+              <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
-            <Button onClick={() => navigate("/features")} variant="outline" size="lg" className="text-lg px-8">
-              View All Features
+            <Button onClick={() => navigate("/dashboard")} variant="outline" size="lg">
+              Manage Tasks
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* KRA Section */}
+      <section className="py-16 px-4 bg-muted/30">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-foreground mb-4">
+              Key Result Areas (KRAs) & Performance Measurement
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Our Digital IT team's success is measured by these critical performance indicators
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {kras.map((kra, index) => (
+              <Card key={index} className="border-2 border-primary/10">
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <CardTitle className="text-xl mb-2">{kra.title}</CardTitle>
+                      <Badge variant="outline" className="text-xs">Target: {kra.target}</Badge>
+                    </div>
+                    <Target className="w-8 h-8 text-primary opacity-50" />
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm font-medium text-muted-foreground mb-2">
+                    <strong>Measure:</strong> {kra.measure}
+                  </p>
+                  <p className="text-sm text-muted-foreground">{kra.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Best Practices Section */}
+      <section className="py-16 px-4">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-foreground mb-4">
+              Data Quality is Everyone's Responsibility
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Accurate, timely data enables better decision-making, effective resource allocation, and demonstrates our team's value to the organization
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {bestPractices.map((practice, index) => (
+              <Card 
+                key={index} 
+                className={`border-2 ${
+                  practice.type === 'do' 
+                    ? 'border-success/30 bg-success/5' 
+                    : 'border-destructive/30 bg-destructive/5'
+                }`}
+              >
+                <CardHeader>
+                  <div className="flex items-start gap-4">
+                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${
+                      practice.type === 'do' 
+                        ? 'bg-success/20' 
+                        : 'bg-destructive/20'
+                    }`}>
+                      <practice.icon className={`w-5 h-5 ${
+                        practice.type === 'do' ? 'text-success' : 'text-destructive'
+                      }`} />
+                    </div>
+                    <CardTitle className="text-lg">{practice.title}</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">{practice.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <Card className="mt-8 border-2 border-primary/20 bg-primary/5">
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <Activity className="w-6 h-6 text-primary" />
+                <CardTitle>Why Data Quality Matters</CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <div className="flex items-start gap-3">
+                <TrendingUp className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                <p className="text-sm text-muted-foreground">
+                  <strong>Better Reporting:</strong> Leadership can make informed decisions about priorities and resource allocation
+                </p>
+              </div>
+              <div className="flex items-start gap-3">
+                <Shield className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                <p className="text-sm text-muted-foreground">
+                  <strong>Proactive Risk Management:</strong> Early visibility into issues allows us to address problems before they escalate
+                </p>
+              </div>
+              <div className="flex items-start gap-3">
+                <Users className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                <p className="text-sm text-muted-foreground">
+                  <strong>Team Credibility:</strong> Consistent, accurate updates demonstrate professionalism and build stakeholder trust
+                </p>
+              </div>
+              <div className="flex items-start gap-3">
+                <BarChart3 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                <p className="text-sm text-muted-foreground">
+                  <strong>Performance Visibility:</strong> Accurate data showcases our team's contributions and value to the organization
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Quick Actions */}
+      <section className="py-16 px-4 bg-gradient-to-r from-primary/10 to-accent/10">
+        <div className="container mx-auto max-w-5xl">
+          <h2 className="text-3xl font-bold text-foreground mb-8 text-center">
+            Quick Actions
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <Card className="border-2 border-primary/20 hover:shadow-lg transition-all cursor-pointer" onClick={() => navigate("/projects")}>
+              <CardHeader>
+                <Target className="w-10 h-10 text-primary mb-3" />
+                <CardTitle className="text-lg">Manage Projects</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">View portfolio, update RAG status, track budgets and milestones</p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 border-primary/20 hover:shadow-lg transition-all cursor-pointer" onClick={() => navigate("/dashboard")}>
+              <CardHeader>
+                <CheckCircle2 className="w-10 h-10 text-primary mb-3" />
+                <CardTitle className="text-lg">Track Tasks</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">Manage assignments, update progress, and close completed items</p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 border-primary/20 hover:shadow-lg transition-all cursor-pointer" onClick={() => navigate("/features")}>
+              <CardHeader>
+                <BarChart3 className="w-10 h-10 text-primary mb-3" />
+                <CardTitle className="text-lg">View Reports</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">Access dashboards, generate status reports, and analyze performance</p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
