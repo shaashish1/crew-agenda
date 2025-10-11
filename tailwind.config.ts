@@ -15,6 +15,12 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Inter', 'Arial', 'sans-serif'],
+        inter: ['Inter', 'Arial', 'sans-serif'],
+        roboto: ['Roboto', 'Arial', 'sans-serif'],
+        opensans: ['Open Sans', 'Arial', 'sans-serif'],
+        poppins: ['Poppins', 'Arial', 'sans-serif'],
+        lato: ['Lato', 'Arial', 'sans-serif'],
+        montserrat: ['Montserrat', 'Arial', 'sans-serif'],
       },
       fontSize: {
         'h1': ['52px', { lineHeight: '64px', fontWeight: '600' }],
