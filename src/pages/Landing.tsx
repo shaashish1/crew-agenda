@@ -100,97 +100,139 @@ const Landing = () => {
 
   const performanceMetrics = [
     {
-      title: "Delivery Excellence",
+      title: "Our Delivery Excellence",
       value: `${onTimeDeliveryRate}%`,
       trend: onTimeDeliveryRate >= 85 ? "positive" : "warning",
-      description: "Projects delivered on schedule"
+      description: "Projects we delivered on schedule"
     },
     {
-      title: "Budget Performance",
+      title: "Our Budget Performance",
       value: `${budgetAdherenceRate}%`,
       trend: budgetAdherenceRate >= 90 ? "positive" : "warning",
-      description: "Projects within approved budget"
+      description: "Projects we kept within budget"
     },
     {
-      title: "Task Completion",
+      title: "Our Task Completion",
       value: `${taskCompletionRate}%`,
       trend: taskCompletionRate >= 80 ? "positive" : "warning",
-      description: "Overall task completion rate"
+      description: "Tasks we have completed"
     },
     {
-      title: "Data Quality",
+      title: "Our Data Quality",
       value: `${dataQualityScore}%`,
       trend: dataQualityScore >= 90 ? "positive" : "warning",
-      description: "Projects with timely updates"
+      description: "Our projects with timely updates"
     }
   ];
 
   const kras = [
     {
       title: "On-Time Delivery",
-      measure: "% of projects delivered by target date",
+      measure: "% of our projects delivered by target date",
       target: "≥ 85%",
-      description: "Track milestone completion and identify delays early",
+      description: "We track milestone completion and identify delays early to keep our commitments",
       icon: iconTarget
     },
     {
       title: "Budget Adherence",
-      measure: "% of projects within approved budget",
+      measure: "% of our projects within approved budget",
       target: "≥ 90%",
-      description: "Monitor spending and flag budget variances proactively",
+      description: "We monitor our spending and flag budget variances proactively",
       icon: iconGrowth
     },
     {
       title: "Quality Standards",
-      measure: "% of deliverables meeting acceptance criteria",
+      measure: "% of our deliverables meeting acceptance criteria",
       target: "≥ 95%",
-      description: "Ensure all outputs meet defined quality benchmarks",
+      description: "We ensure all our outputs meet defined quality benchmarks",
       icon: iconQuality
     },
     {
       title: "Stakeholder Satisfaction",
-      measure: "Average satisfaction score from key stakeholders",
+      measure: "Average satisfaction score from our key stakeholders",
       target: "≥ 4.0/5.0",
-      description: "Regular feedback and transparent communication",
+      description: "We maintain regular feedback and transparent communication with stakeholders",
       icon: iconSatisfaction
+    },
+    {
+      title: "Resource Utilization",
+      measure: "% of team capacity effectively allocated",
+      target: "≥ 80%",
+      description: "We optimize our team workload to balance productivity and prevent burnout",
+      icon: iconTarget
+    },
+    {
+      title: "Change Request Management",
+      measure: "Average time to assess and respond to change requests",
+      target: "≤ 3 days",
+      description: "We respond quickly to business needs while maintaining project stability",
+      icon: iconGrowth
+    },
+    {
+      title: "Risk Mitigation",
+      measure: "% of identified risks with active mitigation plans",
+      target: "100%",
+      description: "We proactively identify and address risks before they impact our delivery",
+      icon: iconQuality
+    },
+    {
+      title: "Knowledge Transfer",
+      measure: "% of projects with complete documentation",
+      target: "≥ 95%",
+      description: "We ensure proper handover and documentation for long-term sustainability",
+      icon: iconSatisfaction
+    },
+    {
+      title: "Business Value Realization",
+      measure: "% of projects achieving stated business benefits",
+      target: "≥ 90%",
+      description: "We measure and track the actual business value our projects deliver",
+      icon: iconTarget
+    },
+    {
+      title: "Team Development",
+      measure: "Average skill growth and training hours per team member",
+      target: "≥ 40 hrs/year",
+      description: "We invest in our team capabilities to stay current with technology trends",
+      icon: iconGrowth
     }
   ];
 
   const bestPractices = [
     {
       icon: CheckCircle2,
-      title: "DO: Update Status Weekly",
-      description: "Update project RAG status every week with clear justifications. This enables accurate reporting and early risk detection.",
+      title: "DO: We Update Status Weekly",
+      description: "We update our project RAG status every week with clear justifications. This enables accurate reporting and helps us detect risks early.",
       type: "do"
     },
     {
       icon: CheckCircle2,
-      title: "DO: Log All Tasks & Milestones",
-      description: "Record all work items in the system. Complete task tracking provides visibility into team capacity and project health.",
+      title: "DO: We Log All Tasks & Milestones",
+      description: "We record all our work items in the system. Complete task tracking gives us visibility into our team capacity and project health.",
       type: "do"
     },
     {
       icon: CheckCircle2,
-      title: "DO: Document Risks Promptly",
-      description: "Add risks to the register as soon as identified. Early documentation allows for proactive mitigation planning.",
+      title: "DO: We Document Risks Promptly",
+      description: "We add risks to the register as soon as we identify them. Early documentation allows us to plan mitigation proactively.",
       type: "do"
     },
     {
       icon: XCircle,
-      title: "DON'T: Skip Status Updates",
-      description: "Never skip weekly updates even if 'nothing changed'. Outdated data leads to poor decisions and missed opportunities to help.",
+      title: "DON'T: We Never Skip Status Updates",
+      description: "We never skip weekly updates even if nothing changed. Outdated data leads to poor decisions and we miss opportunities to get help.",
       type: "dont"
     },
     {
       icon: XCircle,
-      title: "DON'T: Update Only Before Reviews",
-      description: "Avoid last-minute data entry before meetings. This creates inaccurate historical data and defeats real-time monitoring.",
+      title: "DON'T: We Don't Update Only Before Reviews",
+      description: "We avoid last-minute data entry before meetings. This creates inaccurate historical data and defeats our real-time monitoring.",
       type: "dont"
     },
     {
       icon: XCircle,
-      title: "DON'T: Leave Fields Incomplete",
-      description: "Don't save projects or tasks with missing critical fields. Complete data ensures meaningful analytics and reporting.",
+      title: "DON'T: We Don't Leave Fields Incomplete",
+      description: "We don't save projects or tasks with missing critical fields. Complete data ensures our analytics and reporting are meaningful.",
       type: "dont"
     }
   ];
@@ -227,10 +269,10 @@ const Landing = () => {
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16 animate-fade-in">
             <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-6 leading-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-in">
-              Digital IT PMO Excellence
+              Our Digital IT Team Hub
             </h1>
             <p className="text-2xl md:text-3xl text-muted-foreground max-w-4xl mx-auto font-medium">
-              Driving Digital Transformation Through Data-Driven Project Management
+              Together, we drive digital transformation through disciplined project management and data-driven decisions
             </p>
           </div>
 
@@ -247,8 +289,8 @@ const Landing = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/50 to-transparent flex items-end p-8">
                       <div className="text-left">
-                        <h3 className="text-3xl font-bold text-foreground mb-2">Unified Project Portfolio</h3>
-                        <p className="text-lg text-muted-foreground">Track all IT initiatives in one centralized platform with real-time insights</p>
+                        <h3 className="text-3xl font-bold text-foreground mb-2">Our Unified Portfolio</h3>
+                        <p className="text-lg text-muted-foreground">We track all our IT initiatives in one place with real-time insights</p>
                       </div>
                     </div>
                   </div>
@@ -262,8 +304,8 @@ const Landing = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/50 to-transparent flex items-end p-8">
                       <div className="text-left">
-                        <h3 className="text-3xl font-bold text-foreground mb-2">Performance Excellence</h3>
-                        <p className="text-lg text-muted-foreground">Measure success with comprehensive KPIs and team performance metrics</p>
+                        <h3 className="text-3xl font-bold text-foreground mb-2">How We Perform</h3>
+                        <p className="text-lg text-muted-foreground">We measure our success with comprehensive KPIs and track our team performance</p>
                       </div>
                     </div>
                   </div>
@@ -277,8 +319,8 @@ const Landing = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/50 to-transparent flex items-end p-8">
                       <div className="text-left">
-                        <h3 className="text-3xl font-bold text-foreground mb-2">Delivering Business Value</h3>
-                        <p className="text-lg text-muted-foreground">Transform IT operations into strategic business enablers with measurable outcomes</p>
+                        <h3 className="text-3xl font-bold text-foreground mb-2">The Value We Deliver</h3>
+                        <p className="text-lg text-muted-foreground">We transform IT operations into strategic business enablers with measurable outcomes</p>
                       </div>
                     </div>
                   </div>
@@ -324,8 +366,8 @@ const Landing = () => {
 
           {/* Portfolio Summary Cards */}
           <div className="mb-4 text-center">
-            <h2 className="text-3xl font-bold text-foreground mb-2">Portfolio at a Glance</h2>
-            <p className="text-lg text-muted-foreground">Real-time visibility into all active IT initiatives</p>
+            <h2 className="text-3xl font-bold text-foreground mb-2">Our Portfolio at a Glance</h2>
+            <p className="text-lg text-muted-foreground">Real-time visibility into all our active IT initiatives</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 animate-fade-in">
             <Card className="border-2 border-primary/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
@@ -439,16 +481,16 @@ const Landing = () => {
       <section className="py-20 px-4 bg-gradient-to-br from-muted/50 to-muted/30">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16 animate-fade-in">
-            <Badge className="mb-4 text-base py-2 px-4">Performance Framework</Badge>
+            <Badge className="mb-4 text-base py-2 px-4">Our Performance Framework</Badge>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Key Result Areas (KRAs)
+              How We Measure Our Success
             </h2>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto">
-              Our Digital IT team's success is measured by these critical performance indicators that drive organizational value
+              These are the Key Result Areas (KRAs) that we use to measure our team performance and drive organizational value
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {kras.map((kra, index) => (
               <Card key={index} className="border-2 border-primary/20 hover:border-primary/40 transition-all duration-300 hover:scale-105 hover:shadow-2xl animate-fade-in group">
                 <CardHeader>
@@ -478,13 +520,13 @@ const Landing = () => {
           <div className="text-center mb-16 animate-fade-in">
             <Badge className="mb-4 text-base py-2 px-4" variant="outline">
               <Rocket className="w-4 h-4 mr-2" />
-              Team Excellence
+              Our Team Excellence
             </Badge>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Data Quality Drives Team Success
+              How We Keep Our Data Quality High
             </h2>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              Accurate, timely data enables better decision-making, effective resource allocation, and demonstrates our team's value to the organization
+              Accurate, timely data enables us to make better decisions, allocate our resources effectively, and demonstrate our team value to the organization
             </p>
           </div>
 
@@ -523,32 +565,32 @@ const Landing = () => {
             <CardHeader>
               <div className="flex items-center gap-4">
                 <Activity className="w-8 h-8 text-primary" />
-                <CardTitle className="text-2xl">Why Data Quality Matters</CardTitle>
+                <CardTitle className="text-2xl">Why Our Data Quality Matters</CardTitle>
               </div>
             </CardHeader>
             <CardContent className="space-y-5">
               <div className="flex items-start gap-4 group">
                 <TrendingUp className="w-7 h-7 text-primary shrink-0 mt-1 group-hover:scale-110 transition-transform" />
                 <p className="text-base text-muted-foreground">
-                  <strong className="text-foreground text-lg">Better Reporting:</strong> Leadership can make informed decisions about priorities and resource allocation with accurate, real-time data
+                  <strong className="text-foreground text-lg">Better Reporting:</strong> Our leadership can make informed decisions about our priorities and resource allocation with accurate, real-time data
                 </p>
               </div>
               <div className="flex items-start gap-4 group">
                 <Shield className="w-7 h-7 text-primary shrink-0 mt-1 group-hover:scale-110 transition-transform" />
                 <p className="text-base text-muted-foreground">
-                  <strong className="text-foreground text-lg">Proactive Risk Management:</strong> Early visibility into issues allows us to address problems before they escalate into critical situations
+                  <strong className="text-foreground text-lg">Proactive Risk Management:</strong> Early visibility into issues allows us to address our problems before they escalate into critical situations
                 </p>
               </div>
               <div className="flex items-start gap-4 group">
                 <Users className="w-7 h-7 text-primary shrink-0 mt-1 group-hover:scale-110 transition-transform" />
                 <p className="text-base text-muted-foreground">
-                  <strong className="text-foreground text-lg">Team Credibility:</strong> Consistent, accurate updates demonstrate professionalism and build stakeholder trust across the organization
+                  <strong className="text-foreground text-lg">Our Team Credibility:</strong> Our consistent, accurate updates demonstrate our professionalism and build stakeholder trust across the organization
                 </p>
               </div>
               <div className="flex items-start gap-4 group">
                 <BarChart3 className="w-7 h-7 text-primary shrink-0 mt-1 group-hover:scale-110 transition-transform" />
                 <p className="text-base text-muted-foreground">
-                  <strong className="text-foreground text-lg">Performance Visibility:</strong> Accurate data showcases our team's contributions, achievements, and value delivered to the organization
+                  <strong className="text-foreground text-lg">Our Performance Visibility:</strong> Accurate data showcases our team contributions, achievements, and the value we deliver to the organization
                 </p>
               </div>
             </CardContent>
@@ -561,38 +603,38 @@ const Landing = () => {
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12 animate-fade-in">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Quick Actions
+              Our Quick Actions
             </h2>
-            <p className="text-xl text-muted-foreground">Jump straight to the tools you need</p>
+            <p className="text-xl text-muted-foreground">Jump straight to what we need to work on</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             <Card className="border-2 border-primary/30 hover:border-primary/50 hover:shadow-2xl transition-all duration-300 cursor-pointer hover:scale-105 animate-fade-in group" onClick={() => navigate("/projects")}>
               <CardHeader>
                 <Target className="w-14 h-14 text-primary mb-4 group-hover:scale-110 transition-transform" />
-                <CardTitle className="text-2xl group-hover:text-primary transition-colors">Manage Projects</CardTitle>
+                <CardTitle className="text-2xl group-hover:text-primary transition-colors">Our Projects</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-base text-muted-foreground">View portfolio, update RAG status, track budgets and milestones</p>
+                <p className="text-base text-muted-foreground">View our portfolio, update RAG status, track our budgets and milestones</p>
               </CardContent>
             </Card>
 
             <Card className="border-2 border-primary/30 hover:border-primary/50 hover:shadow-2xl transition-all duration-300 cursor-pointer hover:scale-105 animate-fade-in group" onClick={() => navigate("/dashboard")}>
               <CardHeader>
                 <CheckCircle2 className="w-14 h-14 text-primary mb-4 group-hover:scale-110 transition-transform" />
-                <CardTitle className="text-2xl group-hover:text-primary transition-colors">Track Tasks</CardTitle>
+                <CardTitle className="text-2xl group-hover:text-primary transition-colors">Our Tasks</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-base text-muted-foreground">Manage assignments, update progress, and close completed items</p>
+                <p className="text-base text-muted-foreground">Manage our assignments, update our progress, and close completed items</p>
               </CardContent>
             </Card>
 
             <Card className="border-2 border-primary/30 hover:border-primary/50 hover:shadow-2xl transition-all duration-300 cursor-pointer hover:scale-105 animate-fade-in group" onClick={() => navigate("/features")}>
               <CardHeader>
                 <BarChart3 className="w-14 h-14 text-primary mb-4 group-hover:scale-110 transition-transform" />
-                <CardTitle className="text-2xl group-hover:text-primary transition-colors">View Reports</CardTitle>
+                <CardTitle className="text-2xl group-hover:text-primary transition-colors">Our Reports</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-base text-muted-foreground">Access dashboards, generate status reports, and analyze performance</p>
+                <p className="text-base text-muted-foreground">Access our dashboards, generate status reports, and analyze our performance</p>
               </CardContent>
             </Card>
           </div>
