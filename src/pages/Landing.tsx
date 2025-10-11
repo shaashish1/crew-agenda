@@ -388,70 +388,138 @@ const Landing = () => {
                 <CardTitle className="text-2xl">How We Calculate These Numbers</CardTitle>
               </div>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-3">
-                  <h4 className="font-semibold text-lg text-foreground flex items-center gap-2">
-                    <Target className="w-5 h-5 text-primary" />
-                    Delivery Excellence Calculation
-                  </h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    <strong className="text-foreground">Formula:</strong> (Completed Projects ÷ Total Projects) × 100
-                  </p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    <strong className="text-foreground">Data Source:</strong> We compare each project&apos;s Go-Live Date against Hypercare End Date. Projects past their hypercare phase are counted as complete.
-                  </p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    <strong className="text-foreground">What We Track:</strong> Project status, Go-Live dates, Hypercare End dates from our project records
-                  </p>
+                {/* Delivery Excellence Box */}
+                <div className="stat-card-neon border-2 border-primary/30 bg-gradient-to-br from-primary/5 to-transparent rounded-xl p-6 hover:border-primary/50 transition-all duration-300 hover:shadow-xl">
+                  <div className="flex items-center gap-3 mb-4 pb-4 border-b border-primary/20">
+                    <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center">
+                      <Target className="w-6 h-6 text-primary icon-neon" />
+                    </div>
+                    <h4 className="font-bold text-xl text-foreground">Delivery Excellence</h4>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="bg-background/50 rounded-lg p-4 border border-primary/10">
+                      <div className="text-xs font-semibold text-primary uppercase tracking-wide mb-2">Formula</div>
+                      <div className="text-sm text-foreground font-mono bg-primary/5 p-2 rounded">
+                        (Completed ÷ Total Projects) × 100
+                      </div>
+                    </div>
+                    
+                    <div className="bg-background/50 rounded-lg p-4 border border-primary/10">
+                      <div className="text-xs font-semibold text-primary uppercase tracking-wide mb-2">Data Source</div>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Go-Live Date vs Hypercare End Date comparison. Projects past hypercare = complete.
+                      </p>
+                    </div>
+                    
+                    <div className="bg-background/50 rounded-lg p-4 border border-primary/10">
+                      <div className="text-xs font-semibold text-primary uppercase tracking-wide mb-2">What We Track</div>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Project status, Go-Live dates, Hypercare End dates
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="space-y-3">
-                  <h4 className="font-semibold text-lg text-foreground flex items-center gap-2">
-                    <DollarSign className="w-5 h-5 text-primary" />
-                    Budget Performance Calculation
-                  </h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    <strong className="text-foreground">Formula:</strong> ((Total Projects - Over Budget Projects) ÷ Total Projects) × 100
-                  </p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    <strong className="text-foreground">Data Source:</strong> We compare Actual Spent vs Total Cost of Ownership (TCO) for each project. When actual exceeds TCO, it&apos;s flagged.
-                  </p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    <strong className="text-foreground">What We Track:</strong> TCO, Actual Spent, Budget variances updated in project financial data
-                  </p>
+                {/* Budget Performance Box */}
+                <div className="stat-card-neon border-2 border-accent/30 bg-gradient-to-br from-accent/5 to-transparent rounded-xl p-6 hover:border-accent/50 transition-all duration-300 hover:shadow-xl">
+                  <div className="flex items-center gap-3 mb-4 pb-4 border-b border-accent/20">
+                    <div className="w-12 h-12 rounded-lg bg-accent/20 flex items-center justify-center">
+                      <DollarSign className="w-6 h-6 text-accent icon-neon" />
+                    </div>
+                    <h4 className="font-bold text-xl text-foreground">Budget Performance</h4>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="bg-background/50 rounded-lg p-4 border border-accent/10">
+                      <div className="text-xs font-semibold text-accent uppercase tracking-wide mb-2">Formula</div>
+                      <div className="text-sm text-foreground font-mono bg-accent/5 p-2 rounded">
+                        ((Total - Over Budget) ÷ Total) × 100
+                      </div>
+                    </div>
+                    
+                    <div className="bg-background/50 rounded-lg p-4 border border-accent/10">
+                      <div className="text-xs font-semibold text-accent uppercase tracking-wide mb-2">Data Source</div>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Actual Spent vs TCO comparison. When actual exceeds TCO, it's flagged.
+                      </p>
+                    </div>
+                    
+                    <div className="bg-background/50 rounded-lg p-4 border border-accent/10">
+                      <div className="text-xs font-semibold text-accent uppercase tracking-wide mb-2">What We Track</div>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        TCO, Actual Spent, Budget variance data
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="space-y-3">
-                  <h4 className="font-semibold text-lg text-foreground flex items-center gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-primary" />
-                    Task Completion Rate
-                  </h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    <strong className="text-foreground">Formula:</strong> (Tasks with Status = Done ÷ Total Tasks) × 100
-                  </p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    <strong className="text-foreground">Data Source:</strong> Every task we create and mark as done in our task management system
-                  </p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    <strong className="text-foreground">What We Track:</strong> Task status changes, completion dates, task assignments across all projects
-                  </p>
+                {/* Task Completion Box */}
+                <div className="stat-card-neon border-2 border-success/30 bg-gradient-to-br from-success/5 to-transparent rounded-xl p-6 hover:border-success/50 transition-all duration-300 hover:shadow-xl">
+                  <div className="flex items-center gap-3 mb-4 pb-4 border-b border-success/20">
+                    <div className="w-12 h-12 rounded-lg bg-success/20 flex items-center justify-center">
+                      <CheckCircle2 className="w-6 h-6 text-success icon-neon" />
+                    </div>
+                    <h4 className="font-bold text-xl text-foreground">Task Completion</h4>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="bg-background/50 rounded-lg p-4 border border-success/10">
+                      <div className="text-xs font-semibold text-success uppercase tracking-wide mb-2">Formula</div>
+                      <div className="text-sm text-foreground font-mono bg-success/5 p-2 rounded">
+                        (Status = Done ÷ Total Tasks) × 100
+                      </div>
+                    </div>
+                    
+                    <div className="bg-background/50 rounded-lg p-4 border border-success/10">
+                      <div className="text-xs font-semibold text-success uppercase tracking-wide mb-2">Data Source</div>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Every task created and marked as done in our task management system.
+                      </p>
+                    </div>
+                    
+                    <div className="bg-background/50 rounded-lg p-4 border border-success/10">
+                      <div className="text-xs font-semibold text-success uppercase tracking-wide mb-2">What We Track</div>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Task status changes, completion dates, assignments
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="space-y-3">
-                  <h4 className="font-semibold text-lg text-foreground flex items-center gap-2">
-                    <Activity className="w-5 h-5 text-primary" />
-                    Data Quality Score
-                  </h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    <strong className="text-foreground">Formula:</strong> ((Total Active Projects - Projects Not Updated in 7 Days) ÷ Total Active Projects) × 100
-                  </p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    <strong className="text-foreground">Data Source:</strong> Last updated timestamp on each project record compared to current date
-                  </p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    <strong className="text-foreground">What We Track:</strong> Project update timestamps, ensuring we maintain weekly update discipline
-                  </p>
+                {/* Data Quality Box */}
+                <div className="stat-card-neon border-2 border-warning/30 bg-gradient-to-br from-warning/5 to-transparent rounded-xl p-6 hover:border-warning/50 transition-all duration-300 hover:shadow-xl">
+                  <div className="flex items-center gap-3 mb-4 pb-4 border-b border-warning/20">
+                    <div className="w-12 h-12 rounded-lg bg-warning/20 flex items-center justify-center">
+                      <Activity className="w-6 h-6 text-warning icon-neon" />
+                    </div>
+                    <h4 className="font-bold text-xl text-foreground">Data Quality Score</h4>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="bg-background/50 rounded-lg p-4 border border-warning/10">
+                      <div className="text-xs font-semibold text-warning uppercase tracking-wide mb-2">Formula</div>
+                      <div className="text-sm text-foreground font-mono bg-warning/5 p-2 rounded">
+                        ((Total - Not Updated 7d) ÷ Total) × 100
+                      </div>
+                    </div>
+                    
+                    <div className="bg-background/50 rounded-lg p-4 border border-warning/10">
+                      <div className="text-xs font-semibold text-warning uppercase tracking-wide mb-2">Data Source</div>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Last updated timestamp on each project record vs current date.
+                      </p>
+                    </div>
+                    
+                    <div className="bg-background/50 rounded-lg p-4 border border-warning/10">
+                      <div className="text-xs font-semibold text-warning uppercase tracking-wide mb-2">What We Track</div>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Project update timestamps for weekly discipline
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
 
