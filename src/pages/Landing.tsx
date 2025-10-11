@@ -103,7 +103,7 @@ const Landing = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
             <Button onClick={() => navigate("/projects")} size="lg" className="text-lg px-8 shadow-lg">
-              Start Free Trial
+              Access Platform
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
             <Button onClick={() => navigate("/features")} variant="outline" size="lg" className="text-lg px-8">
@@ -274,14 +274,14 @@ const Landing = () => {
       <section className="py-20 px-4 bg-gradient-to-r from-primary/10 to-accent/10">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-4xl font-bold text-foreground mb-6">
-            Ready to Transform Your PMO?
+            Ready to Get Started?
           </h2>
           <p className="text-xl text-muted-foreground mb-8">
-            Join leading CTO offices managing successful digital transformations with ProjectHub
+            Streamline your IT project management and improve delivery success rates
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button onClick={() => navigate("/projects")} size="lg" className="text-lg px-8 shadow-lg">
-              Start Free Trial
+              Access Platform
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
             <Button onClick={() => navigate("/features")} variant="outline" size="lg" className="text-lg px-8">
