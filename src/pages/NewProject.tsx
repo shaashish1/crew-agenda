@@ -47,6 +47,9 @@ const NewProject = () => {
     budgetCorrectiveAction: "",
     scopeJustification: "",
     scopeCorrectiveAction: "",
+    resourceUtilization: [
+      { department: "", totalResources: 0, allocatedPercentage: 0 }
+    ],
   });
 
   const [comments, setComments] = useState<Comment[]>([]);
@@ -92,6 +95,7 @@ const NewProject = () => {
       capex: Number(formData.capex) || 0,
       opex: Number(formData.opex) || 0,
       actualSpent: Number(formData.actualSpent) || 0,
+      resourceUtilization: formData.resourceUtilization.filter(r => r.department),
       comments,
     });
 
@@ -556,6 +560,89 @@ const NewProject = () => {
                     Press Ctrl+Enter to add comment
                   </p>
                 </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Resource Utilization by Department</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {formData.resourceUtilization.map((resource, index) => (
+                  <div key={index} className="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 border rounded-lg bg-muted/20">
+                    <div>
+                      <Label htmlFor={`dept-${index}`}>Department</Label>
+                      <Input
+                        id={`dept-${index}`}
+                        value={resource.department}
+                        onChange={(e) => {
+                          const updated = [...formData.resourceUtilization];
+                          updated[index].department = e.target.value;
+                          setFormData({ ...formData, resourceUtilization: updated });
+                        }}
+                        placeholder="e.g., Engineering"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor={`total-${index}`}>Total Resources</Label>
+                      <Input
+                        id={`total-${index}`}
+                        type="number"
+                        min="0"
+                        value={resource.totalResources}
+                        onChange={(e) => {
+                          const updated = [...formData.resourceUtilization];
+                          updated[index].totalResources = parseInt(e.target.value) || 0;
+                          setFormData({ ...formData, resourceUtilization: updated });
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor={`allocated-${index}`}>Allocated %</Label>
+                      <Input
+                        id={`allocated-${index}`}
+                        type="number"
+                        min="0"
+                        max="100"
+                        value={resource.allocatedPercentage}
+                        onChange={(e) => {
+                          const updated = [...formData.resourceUtilization];
+                          updated[index].allocatedPercentage = parseInt(e.target.value) || 0;
+                          setFormData({ ...formData, resourceUtilization: updated });
+                        }}
+                      />
+                    </div>
+                    <div className="flex items-end">
+                      <Button
+                        type="button"
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => {
+                          const updated = formData.resourceUtilization.filter((_, i) => i !== index);
+                          setFormData({ ...formData, resourceUtilization: updated });
+                        }}
+                        disabled={formData.resourceUtilization.length === 1}
+                      >
+                        Remove
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => {
+                    setFormData({
+                      ...formData,
+                      resourceUtilization: [
+                        ...formData.resourceUtilization,
+                        { department: "", totalResources: 0, allocatedPercentage: 0 }
+                      ]
+                    });
+                  }}
+                >
+                  Add Department
+                </Button>
               </CardContent>
             </Card>
 

@@ -48,6 +48,15 @@ export interface Project {
   
   // Performance Metrics
   performanceMetrics?: PerformanceMetrics;
+  
+  // Resource Utilization
+  resourceUtilization?: ResourceUtilization[];
+}
+
+export interface ResourceUtilization {
+  department: string;
+  totalResources: number;
+  allocatedPercentage: number;
 }
 
 export interface Milestone {

@@ -21,6 +21,8 @@ import {
 import { AIInsightsCard } from "./AIInsightsCard";
 import { PortfolioHealthChart } from "./PortfolioHealthChart";
 import { EnhancedAnalyticsCharts } from "./EnhancedAnalyticsCharts";
+import { useProjectContext } from "@/contexts/ProjectContext";
+import { ResourceUtilization } from "@/types/project";
 
 interface PortfolioInsights {
   executive_summary: string;
@@ -64,6 +66,23 @@ export const AIExecutiveDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const { toast } = useToast();
+  const { projects } = useProjectContext();
+
+  // Aggregate resource utilization from all projects
+  const aggregatedResourceData: ResourceUtilization[] = projects
+    .flatMap(p => p.resourceUtilization || [])
+    .reduce((acc, curr) => {
+      const existing = acc.find(r => r.department === curr.department);
+      if (existing) {
+        existing.totalResources += curr.totalResources;
+        existing.allocatedPercentage = Math.round(
+          (existing.allocatedPercentage + curr.allocatedPercentage) / 2
+        );
+      } else {
+        acc.push({ ...curr });
+      }
+      return acc;
+    }, [] as ResourceUtilization[]);
 
   const fetchPortfolioInsights = async () => {
     try {
@@ -346,7 +365,7 @@ export const AIExecutiveDashboard = () => {
       {/* Enhanced Analytics and Charts */}
       <div className="pt-6 border-t">
         <h2 className="text-2xl font-bold mb-6">Advanced Analytics Dashboard</h2>
-        <EnhancedAnalyticsCharts />
+        <EnhancedAnalyticsCharts resourceData={aggregatedResourceData} />
       </div>
     </div>
   );

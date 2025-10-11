@@ -1,5 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { BarChart, Bar, LineChart, Line, AreaChart, Area, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
+import { ResourceUtilization } from "@/types/project";
 
 // Sample data - in production, this would come from the AI insights
 const projectPerformanceData = [
@@ -44,7 +45,19 @@ const resourceUtilizationData = [
   { dept: 'Data', allocated: 80, available: 20 },
 ];
 
-export const EnhancedAnalyticsCharts = () => {
+interface EnhancedAnalyticsChartsProps {
+  resourceData?: ResourceUtilization[];
+}
+
+export const EnhancedAnalyticsCharts = ({ resourceData }: EnhancedAnalyticsChartsProps) => {
+  // Transform resource data for the chart
+  const chartResourceData = resourceData && resourceData.length > 0
+    ? resourceData.map(r => ({
+        dept: r.department,
+        allocated: r.allocatedPercentage,
+        available: 100 - r.allocatedPercentage
+      }))
+    : resourceUtilizationData;
   return (
     <div className="space-y-6">
       {/* Project Performance Trend */}
@@ -197,7 +210,7 @@ export const EnhancedAnalyticsCharts = () => {
         </CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={resourceUtilizationData} layout="vertical">
+            <BarChart data={chartResourceData} layout="vertical">
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
               <XAxis type="number" domain={[0, 100]} stroke="hsl(var(--muted-foreground))" />
               <YAxis dataKey="dept" type="category" stroke="hsl(var(--muted-foreground))" width={100} />
