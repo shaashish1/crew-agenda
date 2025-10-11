@@ -18,14 +18,14 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 215 25% 15%;
 
-    /* Primary - Trust Blue (Corporate) */
-    --primary: 213 94% 45%;
+    /* Primary - Trust Blue (Corporate) #005baa */
+    --primary: 208 100% 33%;
     --primary-foreground: 0 0% 100%;
     
     /* Primary variants for gradients */
-    --primary-light: 213 94% 55%;
-    --primary-dark: 213 94% 38%;
-    --primary-glow: 213 80% 65%;
+    --primary-light: 208 100% 43%;
+    --primary-dark: 208 100% 28%;
+    --primary-glow: 208 85% 55%;
 
     /* Secondary - Professional Gray Blue */
     --secondary: 210 25% 94%;
@@ -52,7 +52,7 @@ All colors MUST be HSL.
 
     --border: 215 20% 88%;
     --input: 215 20% 88%;
-    --ring: 213 94% 45%;
+    --ring: 208 100% 33%;
 
     --radius: 0.75rem;
 
@@ -63,21 +63,21 @@ All colors MUST be HSL.
     --shadow-xl: 0 24px 48px -8px rgb(0 0 0 / 0.18);
     --shadow-card: 0 2px 12px 0 rgb(0 0 0 / 0.06);
     --shadow-card-hover: 0 8px 24px 0 rgb(0 0 0 / 0.12);
-    --shadow-glow: 0 0 32px hsl(213 94% 45% / 0.15);
+    --shadow-glow: 0 0 32px hsl(208 100% 33% / 0.15);
     
     /* Corporate Gradient backgrounds */
-    --gradient-primary: linear-gradient(135deg, hsl(213 94% 45%) 0%, hsl(195 75% 45%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(208 100% 33%) 0%, hsl(195 75% 45%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(210 25% 98%) 100%);
-    --gradient-button: linear-gradient(135deg, hsl(213 94% 45%) 0%, hsl(213 94% 38%) 100%);
-    --gradient-glow: radial-gradient(circle at top left, hsl(213 94% 45% / 0.08), transparent 50%);
+    --gradient-button: linear-gradient(135deg, hsl(208 100% 33%) 0%, hsl(208 100% 28%) 100%);
+    --gradient-glow: radial-gradient(circle at top left, hsl(208 100% 33% / 0.08), transparent 50%);
 
-    --sidebar-background: 213 94% 45%;
+    --sidebar-background: 208 100% 33%;
     --sidebar-foreground: 0 0% 100%;
     --sidebar-primary: 0 0% 100%;
-    --sidebar-primary-foreground: 213 94% 45%;
-    --sidebar-accent: 213 90% 50%;
+    --sidebar-primary-foreground: 208 100% 33%;
+    --sidebar-accent: 208 95% 40%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 213 85% 50%;
+    --sidebar-border: 208 90% 40%;
     --sidebar-ring: 0 0% 100%;
   }
 
