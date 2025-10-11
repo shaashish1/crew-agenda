@@ -50,6 +50,24 @@ const Landing = () => {
   const amberProjects = projects.filter(p => p.overallRAG === 'amber').length;
   const greenProjects = projects.filter(p => p.overallRAG === 'green').length;
 
+  // Defaulters - projects not updated in last 7 days
+  const sevenDaysAgo = new Date();
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+  const projectDefaulters = projects.filter(p => {
+    const lastUpdate = new Date(p.updatedAt);
+    return lastUpdate < sevenDaysAgo && new Date() < new Date(p.hypercareEndDate);
+  }).length;
+
+  // Budget at risk - projects where actual spent exceeds TCO
+  const overBudgetProjects = projects.filter(p => p.actualSpent > p.tco).length;
+
+  // Tasks not progressed recently
+  const taskDefaulters = tasks.filter(t => {
+    if (t.status === 'done') return false;
+    // Count tasks with no progress comments or not updated recently
+    return !t.progressComments || t.progressComments.trim() === '';
+  }).length;
+
   const kras = [
     {
       title: "On-Time Delivery",
@@ -156,7 +174,7 @@ const Landing = () => {
           </div>
 
           {/* Portfolio Summary Cards */}
-          <div className="grid md:grid-cols-4 gap-6 mb-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <Card className="border-2 border-primary/20">
               <CardHeader className="pb-3">
                 <CardTitle className="text-base font-medium text-muted-foreground">Total Projects</CardTitle>
@@ -208,6 +226,46 @@ const Landing = () => {
               <CardContent>
                 <div className="text-3xl font-bold text-destructive">{overdueTasks}</div>
                 <p className="text-sm text-muted-foreground mt-1">Require attention</p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 border-warning/20">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base font-medium text-muted-foreground">Project Defaulters</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold text-warning">{projectDefaulters}</div>
+                <p className="text-sm text-muted-foreground mt-1">Not updated in 7 days</p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 border-destructive/20">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base font-medium text-muted-foreground">Over Budget</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold text-destructive">{overBudgetProjects}</div>
+                <p className="text-sm text-muted-foreground mt-1">Projects exceeding budget</p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 border-warning/20">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base font-medium text-muted-foreground">Task Defaulters</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold text-warning">{taskDefaulters}</div>
+                <p className="text-sm text-muted-foreground mt-1">Tasks need updates</p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 border-destructive/20">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base font-medium text-muted-foreground">High Risk</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold text-destructive">{redProjects}</div>
+                <p className="text-sm text-muted-foreground mt-1">Red status projects</p>
               </CardContent>
             </Card>
           </div>
