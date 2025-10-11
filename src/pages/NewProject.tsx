@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Send } from "lucide-react";
+import { ArrowLeft, Send, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useProjectContext } from "@/contexts/ProjectContext";
 import { RAGStatus, Comment } from "@/types/project";
 import { toast } from "sonner";
@@ -37,6 +38,14 @@ const NewProject = () => {
     timelineRAG: "green" as RAGStatus,
     budgetRAG: "green" as RAGStatus,
     scopeRAG: "green" as RAGStatus,
+    overallJustification: "",
+    overallCorrectiveAction: "",
+    timelineJustification: "",
+    timelineCorrectiveAction: "",
+    budgetJustification: "",
+    budgetCorrectiveAction: "",
+    scopeJustification: "",
+    scopeCorrectiveAction: "",
   });
 
   const [comments, setComments] = useState<Comment[]>([]);
@@ -288,7 +297,40 @@ const NewProject = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label htmlFor="overallRAG">Overall Status</Label>
+                  <div className="flex items-center justify-between mb-2">
+                    <Label htmlFor="overallRAG">Overall Status</Label>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button variant="ghost" size="icon" type="button">
+                          <MessageSquare className="w-4 h-4" />
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-80">
+                        <div className="space-y-4">
+                          <div>
+                            <Label>Justification</Label>
+                            <Textarea
+                              value={formData.overallJustification}
+                              onChange={(e) => setFormData({ ...formData, overallJustification: e.target.value })}
+                              placeholder="Enter justification for this status..."
+                              rows={3}
+                            />
+                          </div>
+                          {(formData.overallRAG === "amber" || formData.overallRAG === "red") && (
+                            <div>
+                              <Label>Corrective Action</Label>
+                              <Textarea
+                                value={formData.overallCorrectiveAction}
+                                onChange={(e) => setFormData({ ...formData, overallCorrectiveAction: e.target.value })}
+                                placeholder="How can this project be brought back to Green?"
+                                rows={3}
+                              />
+                            </div>
+                          )}
+                        </div>
+                      </PopoverContent>
+                    </Popover>
+                  </div>
                   <Select value={formData.overallRAG} onValueChange={(value) => setFormData({ ...formData, overallRAG: value as RAGStatus })}>
                     <SelectTrigger>
                       <SelectValue />
@@ -301,7 +343,40 @@ const NewProject = () => {
                   </Select>
                 </div>
                 <div>
-                  <Label htmlFor="timelineRAG">Timeline Status</Label>
+                  <div className="flex items-center justify-between mb-2">
+                    <Label htmlFor="timelineRAG">Timeline Status</Label>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button variant="ghost" size="icon" type="button">
+                          <MessageSquare className="w-4 h-4" />
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-80">
+                        <div className="space-y-4">
+                          <div>
+                            <Label>Justification</Label>
+                            <Textarea
+                              value={formData.timelineJustification}
+                              onChange={(e) => setFormData({ ...formData, timelineJustification: e.target.value })}
+                              placeholder="Enter justification for this status..."
+                              rows={3}
+                            />
+                          </div>
+                          {(formData.timelineRAG === "amber" || formData.timelineRAG === "red") && (
+                            <div>
+                              <Label>Corrective Action</Label>
+                              <Textarea
+                                value={formData.timelineCorrectiveAction}
+                                onChange={(e) => setFormData({ ...formData, timelineCorrectiveAction: e.target.value })}
+                                placeholder="How can this project be brought back to Green?"
+                                rows={3}
+                              />
+                            </div>
+                          )}
+                        </div>
+                      </PopoverContent>
+                    </Popover>
+                  </div>
                   <Select value={formData.timelineRAG} onValueChange={(value) => setFormData({ ...formData, timelineRAG: value as RAGStatus })}>
                     <SelectTrigger>
                       <SelectValue />
@@ -314,7 +389,40 @@ const NewProject = () => {
                   </Select>
                 </div>
                 <div>
-                  <Label htmlFor="budgetRAG">Budget Status</Label>
+                  <div className="flex items-center justify-between mb-2">
+                    <Label htmlFor="budgetRAG">Budget Status</Label>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button variant="ghost" size="icon" type="button">
+                          <MessageSquare className="w-4 h-4" />
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-80">
+                        <div className="space-y-4">
+                          <div>
+                            <Label>Justification</Label>
+                            <Textarea
+                              value={formData.budgetJustification}
+                              onChange={(e) => setFormData({ ...formData, budgetJustification: e.target.value })}
+                              placeholder="Enter justification for this status..."
+                              rows={3}
+                            />
+                          </div>
+                          {(formData.budgetRAG === "amber" || formData.budgetRAG === "red") && (
+                            <div>
+                              <Label>Corrective Action</Label>
+                              <Textarea
+                                value={formData.budgetCorrectiveAction}
+                                onChange={(e) => setFormData({ ...formData, budgetCorrectiveAction: e.target.value })}
+                                placeholder="How can this project be brought back to Green?"
+                                rows={3}
+                              />
+                            </div>
+                          )}
+                        </div>
+                      </PopoverContent>
+                    </Popover>
+                  </div>
                   <Select value={formData.budgetRAG} onValueChange={(value) => setFormData({ ...formData, budgetRAG: value as RAGStatus })}>
                     <SelectTrigger>
                       <SelectValue />
@@ -327,7 +435,40 @@ const NewProject = () => {
                   </Select>
                 </div>
                 <div>
-                  <Label htmlFor="scopeRAG">Scope Status</Label>
+                  <div className="flex items-center justify-between mb-2">
+                    <Label htmlFor="scopeRAG">Scope Status</Label>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button variant="ghost" size="icon" type="button">
+                          <MessageSquare className="w-4 h-4" />
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-80">
+                        <div className="space-y-4">
+                          <div>
+                            <Label>Justification</Label>
+                            <Textarea
+                              value={formData.scopeJustification}
+                              onChange={(e) => setFormData({ ...formData, scopeJustification: e.target.value })}
+                              placeholder="Enter justification for this status..."
+                              rows={3}
+                            />
+                          </div>
+                          {(formData.scopeRAG === "amber" || formData.scopeRAG === "red") && (
+                            <div>
+                              <Label>Corrective Action</Label>
+                              <Textarea
+                                value={formData.scopeCorrectiveAction}
+                                onChange={(e) => setFormData({ ...formData, scopeCorrectiveAction: e.target.value })}
+                                placeholder="How can this project be brought back to Green?"
+                                rows={3}
+                              />
+                            </div>
+                          )}
+                        </div>
+                      </PopoverContent>
+                    </Popover>
+                  </div>
                   <Select value={formData.scopeRAG} onValueChange={(value) => setFormData({ ...formData, scopeRAG: value as RAGStatus })}>
                     <SelectTrigger>
                       <SelectValue />
