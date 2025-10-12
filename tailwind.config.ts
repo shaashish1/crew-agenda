@@ -199,18 +199,6 @@ export default {
         "bounce-in": "bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)",
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
         "shimmer": "shimmer 2s linear infinite",
-        "float": "float 3s ease-in-out infinite",
-        "gradient-shift": "gradient-shift 15s ease infinite",
-        "glow-pulse": "glow-pulse 2s ease-in-out infinite",
-        "skeleton-loading": "skeleton-loading 1.5s ease-in-out infinite",
-      },
-      transitionTimingFunction: {
-        'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
-      },
-      transitionDuration: {
-        '400': '400ms',
-        '600': '600ms',
-        '800': '800ms',
       },
     },
   },
