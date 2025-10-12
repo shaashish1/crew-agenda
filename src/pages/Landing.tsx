@@ -265,13 +265,13 @@ const Landing = () => {
       </nav>
 
       {/* Hero Section with Carousel */}
-      <section className="py-20 px-4 bg-gradient-to-br from-primary/10 via-accent/5 to-background overflow-hidden">
+      <section className="py-32 px-4 bg-gradient-to-br from-primary/10 via-accent/5 to-background overflow-hidden">
         <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-16 animate-fade-in">
-            <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-6 leading-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-in">
+          <div className="text-center mb-20 animate-fade-in space-y-8">
+            <h1 className="text-display bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
               Our Digital IT Team Hub
             </h1>
-            <p className="text-2xl md:text-3xl text-muted-foreground max-w-4xl mx-auto font-medium">
+            <p className="text-body-large text-muted-foreground max-w-4xl mx-auto leading-relaxed">
               Together, we drive digital transformation through disciplined project management and data-driven decisions
             </p>
           </div>
@@ -332,60 +332,70 @@ const Landing = () => {
           </div>
 
           {/* Performance Highlights */}
-          <div className="mb-8 text-center animate-fade-in">
-            <Badge className="mb-3 text-base py-2 px-4" variant="outline">
+          <div className="mb-12 text-center animate-fade-in space-y-4">
+            <Badge className="mb-3 text-base py-2 px-6" variant="outline">
               <TrendingUp className="w-4 h-4 mr-2" />
               How We Measure Our Performance
             </Badge>
-            <h2 className="text-3xl font-bold text-foreground mb-3">Our Current Performance</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            <h2 className="text-heading mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              Our Current Performance
+            </h2>
+            <p className="text-body-large text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               These metrics are calculated in real-time from the data we enter into the system. Our accuracy depends on our timely updates.
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 animate-fade-in">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16 animate-fade-in">
             {performanceMetrics.map((metric, index) => (
               <Card 
                 key={index}
-                className={`stat-card-neon border-2 transition-all duration-300 hover:scale-105 hover:shadow-xl ${
+                className={`glass-card-premium transition-all duration-300 ${
                   metric.trend === 'positive' 
-                    ? 'border-success/30 bg-success/5' 
-                    : 'border-warning/30 bg-warning/5'
+                    ? 'border-success/40' 
+                    : 'border-warning/40'
                 }`}
               >
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-lg font-semibold text-muted-foreground flex items-center gap-2">
+                <CardHeader className="pb-4 space-y-4">
+                  <div className="flex items-center gap-3">
                     {metric.trend === 'positive' ? (
-                      <Award className="w-5 h-5 text-success icon-neon" />
+                      <div className="w-12 h-12 rounded-2xl bg-success/20 flex items-center justify-center">
+                        <Award className="w-6 h-6 text-success" />
+                      </div>
                     ) : (
-                      <TrendingUp className="w-5 h-5 text-warning icon-neon" />
+                      <div className="w-12 h-12 rounded-2xl bg-warning/20 flex items-center justify-center">
+                        <TrendingUp className="w-6 h-6 text-warning" />
+                      </div>
                     )}
-                    {metric.title}
-                  </CardTitle>
+                    <CardTitle className="text-sm font-semibold text-muted-foreground tracking-wide">
+                      {metric.title}
+                    </CardTitle>
+                  </div>
                 </CardHeader>
-                <CardContent>
-                  <div className={`text-4xl font-bold mb-3 ${
+                <CardContent className="space-y-4">
+                  <div className={`text-5xl font-bold tracking-tight ${
                     metric.trend === 'positive' ? 'text-success' : 'text-warning'
                   }`}>
                     {metric.value}
                   </div>
-                  <div className="progress-neon h-2 mb-3">
+                  <div className="progress-neon h-3 bg-secondary/30 rounded-full overflow-hidden backdrop-blur-sm shadow-inner">
                     <div 
-                      className="progress-neon-bar" 
+                      className="progress-neon-bar h-full rounded-full transition-all duration-1000" 
                       style={{ width: metric.value }}
                     />
                   </div>
-                  <p className="text-sm text-muted-foreground">{metric.description}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{metric.description}</p>
                 </CardContent>
               </Card>
             ))}
           </div>
 
           {/* Measurement Methodology */}
-          <Card className="mb-12 border-2 border-primary/20 bg-gradient-to-br from-background to-muted/20 animate-fade-in">
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <BarChart3 className="w-7 h-7 text-primary" />
-                <CardTitle className="text-2xl">How We Calculate These Numbers</CardTitle>
+          <Card className="mb-16 glass-card-premium border-primary/30 animate-fade-in">
+            <CardHeader className="space-y-4 pb-8">
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 rounded-2xl bg-primary/20 flex items-center justify-center">
+                  <BarChart3 className="w-7 h-7 text-primary" />
+                </div>
+                <CardTitle className="text-heading">How We Calculate These Numbers</CardTitle>
               </div>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -540,154 +550,174 @@ const Landing = () => {
           </Card>
 
           {/* Portfolio Summary Cards */}
-          <div className="mb-6 text-center">
-            <h2 className="text-3xl font-bold text-foreground mb-2">Our Portfolio at a Glance</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+          <div className="mb-12 text-center space-y-4">
+            <h2 className="text-heading bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              Our Portfolio at a Glance
+            </h2>
+            <p className="text-body-large text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Live data from all our project updates, task tracking, and team inputs. Updated automatically as we work.
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 animate-fade-in">
-            <Card className="stat-card-neon border-2 border-primary/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg font-semibold text-muted-foreground flex items-center gap-2">
-                  <Target className="w-5 h-5 text-primary icon-neon" />
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16 animate-fade-in">
+            <Card className="glass-card-premium border-primary/30 transition-all duration-300">
+              <CardHeader className="pb-4 space-y-4">
+                <div className="w-14 h-14 rounded-2xl bg-primary/20 flex items-center justify-center shadow-premium-sm">
+                  <Target className="w-7 h-7 text-primary" />
+                </div>
+                <CardTitle className="text-sm font-semibold text-muted-foreground tracking-wide uppercase">
                   Total Projects
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="text-4xl font-bold text-foreground mb-1">{totalProjects}</div>
-                <div className="progress-neon h-2 mb-2 mt-3">
-                  <div className="progress-neon-bar" style={{ width: `${(activeProjects / Math.max(totalProjects, 1)) * 100}%` }} />
+              <CardContent className="space-y-4">
+                <div className="text-5xl font-bold text-foreground tracking-tight">{totalProjects}</div>
+                <div className="progress-neon h-3 bg-secondary/30 rounded-full overflow-hidden backdrop-blur-sm shadow-inner">
+                  <div className="progress-neon-bar h-full rounded-full" style={{ width: `${(activeProjects / Math.max(totalProjects, 1)) * 100}%` }} />
                 </div>
-                <p className="text-base text-muted-foreground mt-1">{activeProjects} active</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">{activeProjects} active projects</p>
               </CardContent>
             </Card>
 
-            <Card className="stat-card-neon border-2 border-success/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg font-semibold text-muted-foreground flex items-center gap-2">
-                  <Activity className="w-5 h-5 text-success icon-neon" />
+            <Card className="glass-card-premium border-success/30 transition-all duration-300">
+              <CardHeader className="pb-4 space-y-4">
+                <div className="w-14 h-14 rounded-2xl bg-success/20 flex items-center justify-center shadow-premium-sm">
+                  <Activity className="w-7 h-7 text-success" />
+                </div>
+                <CardTitle className="text-sm font-semibold text-muted-foreground tracking-wide uppercase">
                   Project Health
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-6">
                   <div className="text-center flex-1">
-                    <div className="text-2xl font-bold text-success mb-1">{greenProjects}</div>
-                    <div className="text-sm text-muted-foreground">Green</div>
+                    <div className="text-3xl font-bold text-success mb-2 tracking-tight">{greenProjects}</div>
+                    <div className="text-xs text-muted-foreground font-medium">Green</div>
                   </div>
                   <div className="text-center flex-1">
-                    <div className="text-2xl font-bold text-warning mb-1">{amberProjects}</div>
-                    <div className="text-sm text-muted-foreground">Amber</div>
+                    <div className="text-3xl font-bold text-warning mb-2 tracking-tight">{amberProjects}</div>
+                    <div className="text-xs text-muted-foreground font-medium">Amber</div>
                   </div>
                   <div className="text-center flex-1">
-                    <div className="text-2xl font-bold text-destructive mb-1">{redProjects}</div>
-                    <div className="text-sm text-muted-foreground">Red</div>
+                    <div className="text-3xl font-bold text-destructive mb-2 tracking-tight">{redProjects}</div>
+                    <div className="text-xs text-muted-foreground font-medium">Red</div>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="stat-card-neon border-2 border-accent/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg font-semibold text-muted-foreground flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-accent icon-neon" />
+            <Card className="glass-card-premium border-accent/30 transition-all duration-300">
+              <CardHeader className="pb-4 space-y-4">
+                <div className="w-14 h-14 rounded-2xl bg-accent/20 flex items-center justify-center shadow-premium-sm">
+                  <CheckCircle2 className="w-7 h-7 text-accent" />
+                </div>
+                <CardTitle className="text-sm font-semibold text-muted-foreground tracking-wide uppercase">
                   Task Progress
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="text-4xl font-bold text-foreground mb-1">{completedTasks}/{totalTasks}</div>
-                <div className="progress-neon h-2 mb-2 mt-3">
-                  <div className="progress-neon-bar" style={{ width: `${taskCompletionRate}%` }} />
+              <CardContent className="space-y-4">
+                <div className="text-5xl font-bold text-foreground tracking-tight">{completedTasks}/{totalTasks}</div>
+                <div className="progress-neon h-3 bg-secondary/30 rounded-full overflow-hidden backdrop-blur-sm shadow-inner">
+                  <div className="progress-neon-bar h-full rounded-full" style={{ width: `${taskCompletionRate}%` }} />
                 </div>
-                <p className="text-base text-muted-foreground mt-1">
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   {taskCompletionRate}% complete
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="stat-card-neon border-2 border-destructive/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg font-semibold text-muted-foreground flex items-center gap-2">
-                  <AlertTriangle className="w-5 h-5 text-destructive icon-neon" />
+            <Card className="glass-card-premium border-destructive/30 transition-all duration-300">
+              <CardHeader className="pb-4 space-y-4">
+                <div className="w-14 h-14 rounded-2xl bg-destructive/20 flex items-center justify-center shadow-premium-sm">
+                  <AlertTriangle className="w-7 h-7 text-destructive" />
+                </div>
+                <CardTitle className="text-sm font-semibold text-muted-foreground tracking-wide uppercase">
                   Overdue Tasks
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="text-4xl font-bold text-destructive mb-1">{overdueTasks}</div>
-                <p className="text-base text-muted-foreground mt-1">Require attention</p>
+              <CardContent className="space-y-3">
+                <div className="text-5xl font-bold text-destructive tracking-tight">{overdueTasks}</div>
+                <p className="text-sm text-muted-foreground leading-relaxed">Require attention</p>
               </CardContent>
             </Card>
 
-            <Card className="stat-card-neon border-2 border-warning/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg font-semibold text-muted-foreground flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-warning icon-neon" />
+            <Card className="glass-card-premium border-warning/30 transition-all duration-300">
+              <CardHeader className="pb-4 space-y-4">
+                <div className="w-14 h-14 rounded-2xl bg-warning/20 flex items-center justify-center shadow-premium-sm">
+                  <Clock className="w-7 h-7 text-warning" />
+                </div>
+                <CardTitle className="text-sm font-semibold text-muted-foreground tracking-wide uppercase">
                   Project Defaulters
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="text-4xl font-bold text-warning mb-1">{projectDefaulters}</div>
-                <p className="text-base text-muted-foreground mt-1">Not updated in 7 days</p>
+              <CardContent className="space-y-3">
+                <div className="text-5xl font-bold text-warning tracking-tight">{projectDefaulters}</div>
+                <p className="text-sm text-muted-foreground leading-relaxed">Not updated in 7 days</p>
               </CardContent>
             </Card>
 
-            <Card className="stat-card-neon border-2 border-destructive/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg font-semibold text-muted-foreground flex items-center gap-2">
-                  <DollarSign className="w-5 h-5 text-destructive icon-neon" />
+            <Card className="glass-card-premium border-destructive/30 transition-all duration-300">
+              <CardHeader className="pb-4 space-y-4">
+                <div className="w-14 h-14 rounded-2xl bg-destructive/20 flex items-center justify-center shadow-premium-sm">
+                  <DollarSign className="w-7 h-7 text-destructive" />
+                </div>
+                <CardTitle className="text-sm font-semibold text-muted-foreground tracking-wide uppercase">
                   Over Budget
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="text-4xl font-bold text-destructive mb-1">{overBudgetProjects}</div>
-                <p className="text-base text-muted-foreground mt-1">Projects exceeding budget</p>
+              <CardContent className="space-y-3">
+                <div className="text-5xl font-bold text-destructive tracking-tight">{overBudgetProjects}</div>
+                <p className="text-sm text-muted-foreground leading-relaxed">Projects exceeding budget</p>
               </CardContent>
             </Card>
 
-            <Card className="stat-card-neon border-2 border-warning/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg font-semibold text-muted-foreground flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-warning icon-neon" />
+            <Card className="glass-card-premium border-warning/30 transition-all duration-300">
+              <CardHeader className="pb-4 space-y-4">
+                <div className="w-14 h-14 rounded-2xl bg-warning/20 flex items-center justify-center shadow-premium-sm">
+                  <FileText className="w-7 h-7 text-warning" />
+                </div>
+                <CardTitle className="text-sm font-semibold text-muted-foreground tracking-wide uppercase">
                   Task Defaulters
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="text-4xl font-bold text-warning mb-1">{taskDefaulters}</div>
-                <p className="text-base text-muted-foreground mt-1">Tasks need updates</p>
+              <CardContent className="space-y-3">
+                <div className="text-5xl font-bold text-warning tracking-tight">{taskDefaulters}</div>
+                <p className="text-sm text-muted-foreground leading-relaxed">Tasks need updates</p>
               </CardContent>
             </Card>
 
-            <Card className="stat-card-neon border-2 border-destructive/20 transition-all duration-300 hover:scale-105 hover:shadow-lg">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg font-semibold text-muted-foreground flex items-center gap-2">
-                  <Shield className="w-5 h-5 text-destructive icon-neon" />
+            <Card className="glass-card-premium border-destructive/30 transition-all duration-300">
+              <CardHeader className="pb-4 space-y-4">
+                <div className="w-14 h-14 rounded-2xl bg-destructive/20 flex items-center justify-center shadow-premium-sm">
+                  <Shield className="w-7 h-7 text-destructive" />
+                </div>
+                <CardTitle className="text-sm font-semibold text-muted-foreground tracking-wide uppercase">
                   High Risk
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="text-4xl font-bold text-destructive mb-1">{redProjects}</div>
-                <p className="text-base text-muted-foreground mt-1">Red status projects</p>
+              <CardContent className="space-y-3">
+                <div className="text-5xl font-bold text-destructive tracking-tight">{redProjects}</div>
+                <p className="text-sm text-muted-foreground leading-relaxed">Red status projects</p>
               </CardContent>
             </Card>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-            <Button onClick={() => navigate("/projects")} size="lg" className="btn-neon shadow-lg text-lg py-6 px-8 hover:scale-105 transition-transform text-white">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center mt-12">
+            <Button onClick={() => navigate("/projects")} size="lg" className="btn-neon shadow-premium-lg text-lg py-7 px-10 hover:scale-105 transition-all text-white font-semibold">
               Update Our Projects
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
-            <Button onClick={() => navigate("/dashboard")} size="lg" className="btn-neon-purple text-lg py-6 px-8 hover:scale-105 transition-transform text-white">
+            <Button onClick={() => navigate("/dashboard")} size="lg" className="btn-neon-purple shadow-premium-lg text-lg py-7 px-10 hover:scale-105 transition-all text-white font-semibold">
               Update Our Tasks
             </Button>
           </div>
 
           {/* Data Flow Explanation */}
-          <Card className="mt-12 border-2 border-accent/30 bg-gradient-to-br from-accent/5 to-background animate-fade-in">
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <Zap className="w-7 h-7 text-accent" />
-                <CardTitle className="text-2xl">From Our Data Entry to These Metrics</CardTitle>
+          <Card className="mt-16 glass-card-premium border-accent/30 animate-fade-in">
+            <CardHeader className="space-y-4 pb-8">
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 rounded-2xl bg-accent/20 flex items-center justify-center">
+                  <Zap className="w-7 h-7 text-accent" />
+                </div>
+                <CardTitle className="text-heading">From Our Data Entry to These Metrics</CardTitle>
               </div>
             </CardHeader>
             <CardContent>
@@ -749,38 +779,38 @@ const Landing = () => {
       </section>
 
       {/* KRA Section */}
-      <section className="py-20 px-4 bg-gradient-to-br from-muted/50 to-muted/30">
+      <section className="py-32 px-4 bg-gradient-to-br from-muted/50 to-muted/30">
         <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-16 animate-fade-in">
-            <Badge className="mb-4 text-base py-2 px-4">Our Performance Framework</Badge>
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+          <div className="text-center mb-20 animate-fade-in space-y-6">
+            <Badge className="mb-4 text-base py-3 px-6">Our Performance Framework</Badge>
+            <h2 className="text-heading mb-8 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               How We Measure Our Success
             </h2>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto mb-6">
+            <p className="text-body-large text-muted-foreground max-w-4xl mx-auto mb-6 leading-relaxed">
               These are the Key Result Areas (KRAs) that we use to measure our team performance and drive organizational value
             </p>
-            <p className="text-base text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-base text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Each KRA is measured using specific data points we maintain in our project management system. Our consistent data entry directly impacts these measurements.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {kras.map((kra, index) => (
-              <Card key={index} className="stat-card-neon border-2 border-primary/20 hover:border-primary/40 transition-all duration-300 hover:scale-105 hover:shadow-2xl animate-fade-in group">
-                <CardHeader>
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex-1">
-                      <CardTitle className="text-2xl mb-3 group-hover:text-primary transition-colors">{kra.title}</CardTitle>
-                      <Badge variant="outline" className="text-sm py-1 px-3 font-semibold">Target: {kra.target}</Badge>
+              <Card key={index} className="glass-card-premium border-primary/30 animate-fade-in group">
+                <CardHeader className="space-y-6">
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1 space-y-4">
+                      <CardTitle className="text-subheading group-hover:text-primary transition-colors">{kra.title}</CardTitle>
+                      <Badge variant="outline" className="text-sm py-1.5 px-4 font-semibold">Target: {kra.target}</Badge>
                     </div>
-                    <img src={kra.icon} alt={kra.title} className="w-16 h-16 opacity-80 group-hover:opacity-100 transition-opacity icon-neon animate-float" />
+                    <img src={kra.icon} alt={kra.title} className="w-16 h-16 opacity-80 group-hover:opacity-100 transition-opacity animate-float" />
                   </div>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-base font-medium text-muted-foreground mb-3">
+                <CardContent className="space-y-4">
+                  <p className="text-base font-medium text-muted-foreground">
                     <strong className="text-foreground">Measure:</strong> {kra.measure}
                   </p>
-                  <p className="text-base text-muted-foreground">{kra.description}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{kra.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -789,17 +819,17 @@ const Landing = () => {
       </section>
 
       {/* Best Practices Section */}
-      <section className="py-20 px-4 bg-gradient-to-b from-background to-muted/20">
+      <section className="py-32 px-4 bg-gradient-to-b from-background to-muted/20">
         <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-16 animate-fade-in">
-            <Badge className="mb-4 text-base py-2 px-4" variant="outline">
+          <div className="text-center mb-20 animate-fade-in space-y-6">
+            <Badge className="mb-4 text-base py-3 px-6" variant="outline">
               <Rocket className="w-4 h-4 mr-2" />
               Our Team Excellence
             </Badge>
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+            <h2 className="text-heading mb-8 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               How We Keep Our Data Quality High
             </h2>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+            <p className="text-body-large text-muted-foreground max-w-4xl mx-auto leading-relaxed">
               Accurate, timely data enables us to make better decisions, allocate our resources effectively, and demonstrate our team value to the organization
             </p>
           </div>
@@ -808,10 +838,10 @@ const Landing = () => {
             {bestPractices.map((practice, index) => (
               <Card 
                 key={index} 
-                className={`border-2 transition-all duration-300 hover:scale-105 hover:shadow-xl animate-fade-in ${
+                className={`glass-card-premium transition-all duration-300 animate-fade-in ${
                   practice.type === 'do' 
-                    ? 'border-success/40 bg-success/5 hover:bg-success/10' 
-                    : 'border-destructive/40 bg-destructive/5 hover:bg-destructive/10'
+                    ? 'border-success/40' 
+                    : 'border-destructive/40'
                 }`}
               >
                 <CardHeader>

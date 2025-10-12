@@ -90,6 +90,18 @@ export default {
         'card': 'var(--shadow-md)',
         'card-hover': 'var(--shadow-lg)',
         'sm': 'var(--shadow-sm)',
+        'premium-sm': 'var(--shadow-premium-sm)',
+        'premium-md': 'var(--shadow-premium-md)',
+        'premium-lg': 'var(--shadow-premium-lg)',
+        'premium-xl': 'var(--shadow-premium-xl)',
+      },
+      spacing: {
+        '18': '4.5rem',
+        '88': '22rem',
+        '100': '25rem',
+        '112': '28rem',
+        '128': '32rem',
+        '144': '36rem',
       },
       keyframes: {
         "accordion-down": {
