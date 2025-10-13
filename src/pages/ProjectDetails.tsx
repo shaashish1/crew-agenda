@@ -21,6 +21,7 @@ import { PhaseSelector } from "@/components/PhaseSelector";
 import { PhaseManagement } from "@/components/PhaseManagement";
 import { DocumentChecklist } from "@/components/DocumentChecklist";
 import { PredictiveAnalyticsPanel } from "@/components/PredictiveAnalyticsPanel";
+import { VendorManagement } from "@/components/VendorManagement";
 
 const ProjectDetails = () => {
   const { id } = useParams();
@@ -207,13 +208,14 @@ const ProjectDetails = () => {
         {/* Right Content - Tabs */}
         <div className="lg:col-span-3">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="grid w-full grid-cols-8">
+            <TabsList className="grid w-full grid-cols-9">
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="ai-insights">AI Insights</TabsTrigger>
               <TabsTrigger value="performance">Performance</TabsTrigger>
               <TabsTrigger value="milestones">Milestones</TabsTrigger>
               <TabsTrigger value="phases">Phases</TabsTrigger>
               <TabsTrigger value="risks">Risks</TabsTrigger>
+              <TabsTrigger value="vendors">Vendors</TabsTrigger>
               <TabsTrigger value="status">Status</TabsTrigger>
               <TabsTrigger value="documents">Documents</TabsTrigger>
             </TabsList>
@@ -485,6 +487,11 @@ const ProjectDetails = () => {
             {/* Risks Tab */}
             <TabsContent value="risks">
               <RiskManagement projectId={project.id} />
+            </TabsContent>
+
+            {/* Vendors Tab */}
+            <TabsContent value="vendors">
+              <VendorManagement projectId={project.id} />
             </TabsContent>
 
             {/* Status Tab */}

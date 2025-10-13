@@ -456,6 +456,286 @@ export type Database = {
         }
         Relationships: []
       }
+      vendor_contracts: {
+        Row: {
+          approval_date: string | null
+          approved_by: string | null
+          contract_number: string | null
+          contract_type: Database["public"]["Enums"]["vendor_contract_type"]
+          created_at: string
+          description: string | null
+          document_url: string | null
+          end_date: string | null
+          id: string
+          notes: string | null
+          project_id: string | null
+          signed_date: string | null
+          start_date: string | null
+          status: Database["public"]["Enums"]["vendor_contract_status"]
+          title: string
+          updated_at: string
+          value: number | null
+          vendor_id: string
+        }
+        Insert: {
+          approval_date?: string | null
+          approved_by?: string | null
+          contract_number?: string | null
+          contract_type: Database["public"]["Enums"]["vendor_contract_type"]
+          created_at?: string
+          description?: string | null
+          document_url?: string | null
+          end_date?: string | null
+          id?: string
+          notes?: string | null
+          project_id?: string | null
+          signed_date?: string | null
+          start_date?: string | null
+          status?: Database["public"]["Enums"]["vendor_contract_status"]
+          title: string
+          updated_at?: string
+          value?: number | null
+          vendor_id: string
+        }
+        Update: {
+          approval_date?: string | null
+          approved_by?: string | null
+          contract_number?: string | null
+          contract_type?: Database["public"]["Enums"]["vendor_contract_type"]
+          created_at?: string
+          description?: string | null
+          document_url?: string | null
+          end_date?: string | null
+          id?: string
+          notes?: string | null
+          project_id?: string | null
+          signed_date?: string | null
+          start_date?: string | null
+          status?: Database["public"]["Enums"]["vendor_contract_status"]
+          title?: string
+          updated_at?: string
+          value?: number | null
+          vendor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vendor_contracts_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "vendors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vendor_deliverables: {
+        Row: {
+          contract_id: string | null
+          created_at: string
+          deliverable_name: string
+          description: string | null
+          document_url: string | null
+          due_date: string | null
+          id: string
+          project_id: string | null
+          quality_rating:
+            | Database["public"]["Enums"]["vendor_performance_rating"]
+            | null
+          review_notes: string | null
+          reviewed_by: string | null
+          status: string
+          submission_date: string | null
+          updated_at: string
+          vendor_id: string
+        }
+        Insert: {
+          contract_id?: string | null
+          created_at?: string
+          deliverable_name: string
+          description?: string | null
+          document_url?: string | null
+          due_date?: string | null
+          id?: string
+          project_id?: string | null
+          quality_rating?:
+            | Database["public"]["Enums"]["vendor_performance_rating"]
+            | null
+          review_notes?: string | null
+          reviewed_by?: string | null
+          status?: string
+          submission_date?: string | null
+          updated_at?: string
+          vendor_id: string
+        }
+        Update: {
+          contract_id?: string | null
+          created_at?: string
+          deliverable_name?: string
+          description?: string | null
+          document_url?: string | null
+          due_date?: string | null
+          id?: string
+          project_id?: string | null
+          quality_rating?:
+            | Database["public"]["Enums"]["vendor_performance_rating"]
+            | null
+          review_notes?: string | null
+          reviewed_by?: string | null
+          status?: string
+          submission_date?: string | null
+          updated_at?: string
+          vendor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vendor_deliverables_contract_id_fkey"
+            columns: ["contract_id"]
+            isOneToOne: false
+            referencedRelation: "vendor_contracts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vendor_deliverables_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "vendors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vendor_performance_reviews: {
+        Row: {
+          areas_for_improvement: string | null
+          communication_rating:
+            | Database["public"]["Enums"]["vendor_performance_rating"]
+            | null
+          cost_effectiveness_rating:
+            | Database["public"]["Enums"]["vendor_performance_rating"]
+            | null
+          created_at: string
+          id: string
+          overall_rating: Database["public"]["Enums"]["vendor_performance_rating"]
+          project_id: string | null
+          quality_rating:
+            | Database["public"]["Enums"]["vendor_performance_rating"]
+            | null
+          recommendations: string | null
+          review_date: string
+          review_period_end: string
+          review_period_start: string
+          reviewed_by: string
+          strengths: string | null
+          timeliness_rating:
+            | Database["public"]["Enums"]["vendor_performance_rating"]
+            | null
+          updated_at: string
+          vendor_id: string
+        }
+        Insert: {
+          areas_for_improvement?: string | null
+          communication_rating?:
+            | Database["public"]["Enums"]["vendor_performance_rating"]
+            | null
+          cost_effectiveness_rating?:
+            | Database["public"]["Enums"]["vendor_performance_rating"]
+            | null
+          created_at?: string
+          id?: string
+          overall_rating: Database["public"]["Enums"]["vendor_performance_rating"]
+          project_id?: string | null
+          quality_rating?:
+            | Database["public"]["Enums"]["vendor_performance_rating"]
+            | null
+          recommendations?: string | null
+          review_date?: string
+          review_period_end: string
+          review_period_start: string
+          reviewed_by: string
+          strengths?: string | null
+          timeliness_rating?:
+            | Database["public"]["Enums"]["vendor_performance_rating"]
+            | null
+          updated_at?: string
+          vendor_id: string
+        }
+        Update: {
+          areas_for_improvement?: string | null
+          communication_rating?:
+            | Database["public"]["Enums"]["vendor_performance_rating"]
+            | null
+          cost_effectiveness_rating?:
+            | Database["public"]["Enums"]["vendor_performance_rating"]
+            | null
+          created_at?: string
+          id?: string
+          overall_rating?: Database["public"]["Enums"]["vendor_performance_rating"]
+          project_id?: string | null
+          quality_rating?:
+            | Database["public"]["Enums"]["vendor_performance_rating"]
+            | null
+          recommendations?: string | null
+          review_date?: string
+          review_period_end?: string
+          review_period_start?: string
+          reviewed_by?: string
+          strengths?: string | null
+          timeliness_rating?:
+            | Database["public"]["Enums"]["vendor_performance_rating"]
+            | null
+          updated_at?: string
+          vendor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vendor_performance_reviews_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "vendors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vendors: {
+        Row: {
+          address: string | null
+          contact_person: string | null
+          created_at: string
+          email: string | null
+          id: string
+          name: string
+          notes: string | null
+          phone: string | null
+          status: string
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          address?: string | null
+          contact_person?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          name: string
+          notes?: string | null
+          phone?: string | null
+          status?: string
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          address?: string | null
+          contact_person?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          name?: string
+          notes?: string | null
+          phone?: string | null
+          status?: string
+          updated_at?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -464,7 +744,20 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      vendor_contract_status:
+        | "draft"
+        | "pending_approval"
+        | "approved"
+        | "active"
+        | "expired"
+        | "terminated"
+      vendor_contract_type: "NDA" | "MSA" | "SOW" | "SLA" | "Other"
+      vendor_performance_rating:
+        | "excellent"
+        | "good"
+        | "satisfactory"
+        | "needs_improvement"
+        | "poor"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -591,6 +884,23 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      vendor_contract_status: [
+        "draft",
+        "pending_approval",
+        "approved",
+        "active",
+        "expired",
+        "terminated",
+      ],
+      vendor_contract_type: ["NDA", "MSA", "SOW", "SLA", "Other"],
+      vendor_performance_rating: [
+        "excellent",
+        "good",
+        "satisfactory",
+        "needs_improvement",
+        "poor",
+      ],
+    },
   },
 } as const
