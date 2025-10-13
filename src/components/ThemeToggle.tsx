@@ -1,4 +1,4 @@
-import { Moon, Sun, Palette, Waves, Sunset, Trees, Sparkles } from "lucide-react";
+import { Moon, Sun, Palette, Waves, Sunset, Trees, Sparkles, Crown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useEffect, useState } from "react";
 
-type Theme = "light" | "light-grey" | "dark" | "ocean" | "sunset" | "forest" | "purple";
+type Theme = "light" | "light-grey" | "dark" | "ocean" | "sunset" | "forest" | "purple" | "gold";
 
 export const ThemeToggle = () => {
   const [theme, setTheme] = useState<Theme>("dark");
@@ -23,7 +23,7 @@ export const ThemeToggle = () => {
     localStorage.setItem("theme", newTheme);
     
     // Remove all theme classes
-    document.documentElement.classList.remove("dark", "light-grey", "ocean", "sunset", "forest", "purple");
+    document.documentElement.classList.remove("dark", "light-grey", "ocean", "sunset", "forest", "purple", "gold");
     
     // Apply new theme class (light is default, no class needed)
     if (newTheme !== "light") {
@@ -52,6 +52,8 @@ export const ThemeToggle = () => {
             <Trees className="h-5 w-5" />
           ) : theme === "purple" ? (
             <Sparkles className="h-5 w-5" />
+          ) : theme === "gold" ? (
+            <Crown className="h-5 w-5" />
           ) : (
             <Sun className="h-5 w-5" />
           )}
@@ -81,6 +83,10 @@ export const ThemeToggle = () => {
         <DropdownMenuItem onClick={() => applyTheme("purple")}>
           <Sparkles className="mr-2 h-4 w-4" />
           Purple
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => applyTheme("gold")}>
+          <Crown className="mr-2 h-4 w-4" />
+          Gold
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => applyTheme("dark")}>
           <Moon className="mr-2 h-4 w-4" />
