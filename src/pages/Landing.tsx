@@ -717,29 +717,30 @@ const Landing = () => {
             {filteredKRAs.map((kra, index) => (
               <Card 
                 key={index} 
-                className="group border-2 border-border hover:border-primary/40 transition-all duration-300 hover:shadow-premium-lg hover:scale-105 cursor-pointer overflow-hidden"
+                className="group border-2 border-border hover:border-primary/40 transition-all duration-500 hover:shadow-premium-lg hover:scale-105 cursor-pointer overflow-hidden h-full flex flex-col animate-fade-in"
+                style={{ animationDelay: `${index * 100}ms` }}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                <CardHeader className="space-y-4 relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                <CardHeader className="space-y-4 relative flex-none">
                   <div className="flex items-start justify-between">
                     <div className="flex-1 space-y-3">
-                      <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors">{kra.title}</CardTitle>
-                      <Badge variant="outline" className="text-xs py-1.5 px-3 font-semibold border-primary/30 text-primary">
+                      <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors duration-300">{kra.title}</CardTitle>
+                      <Badge variant="outline" className="text-xs py-1.5 px-3 font-semibold border-primary/30 text-primary group-hover:bg-primary/10 transition-all duration-300">
                         Target: {kra.target}
                       </Badge>
                     </div>
                     <img 
                       src={kra.icon} 
                       alt={kra.title} 
-                      className="w-14 h-14 opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all" 
+                      className="w-14 h-14 opacity-70 group-hover:opacity-100 group-hover:scale-125 group-hover:rotate-6 transition-all duration-500" 
                     />
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-3 relative">
+                <CardContent className="space-y-3 relative flex-1 flex flex-col">
                   <p className="text-sm font-medium text-muted-foreground">
                     <strong className="text-foreground">Measure:</strong> {kra.measure}
                   </p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{kra.description}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed flex-1">{kra.description}</p>
                 </CardContent>
               </Card>
             ))}
