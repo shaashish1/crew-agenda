@@ -165,20 +165,21 @@ export const AIExecutiveDashboard = () => {
   }
 
   return (
-    <div className="space-y-6 pb-8">
+    <div className="space-y-4 pb-8">
       {/* Header with Refresh */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <BrainCircuit className="h-8 w-8 text-primary" />
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-2">
+          <BrainCircuit className="h-6 w-6 text-primary" />
           <div>
-            <h1 className="text-3xl font-bold">AI-Powered Executive Dashboard</h1>
-            <p className="text-muted-foreground">Real-time portfolio analytics and predictive insights</p>
+            <h1 className="text-2xl font-bold">AI-Powered Executive Dashboard</h1>
+            <p className="text-sm text-muted-foreground">Real-time portfolio analytics and predictive insights</p>
           </div>
         </div>
         <Button 
           onClick={fetchPortfolioInsights} 
           disabled={refreshing}
           variant="outline"
+          size="sm"
         >
           <RefreshCw className={`mr-2 h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
           Refresh Insights
@@ -188,19 +189,19 @@ export const AIExecutiveDashboard = () => {
       {/* Portfolio Health Score */}
       {insights && (
         <Card className={`border-2 ${getHealthBgColor(insights.portfolio_health_score)}`}>
-          <CardHeader>
-            <CardTitle className="flex items-center justify-between">
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center justify-between text-lg">
               <span className="flex items-center gap-2">
-                <Target className="h-5 w-5" />
+                <Target className="h-4 w-4" />
                 Portfolio Health Score
               </span>
-              <span className={`text-4xl font-bold ${getHealthColor(insights.portfolio_health_score)}`}>
+              <span className={`text-3xl font-bold ${getHealthColor(insights.portfolio_health_score)}`}>
                 {insights.portfolio_health_score}/100
               </span>
             </CardTitle>
-            <CardDescription>{insights.health_justification}</CardDescription>
+            <CardDescription className="text-xs">{insights.health_justification}</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-0">
             <p className="text-sm">{insights.executive_summary}</p>
           </CardContent>
         </Card>
@@ -210,45 +211,45 @@ export const AIExecutiveDashboard = () => {
       {insights && (
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Critical Projects</CardTitle>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 p-4">
+              <CardTitle className="text-xs font-medium">Critical Projects</CardTitle>
               <AlertTriangle className="h-4 w-4 text-destructive" />
             </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{insights.critical_attention_count}</div>
+            <CardContent className="p-4 pt-0">
+              <div className="text-xl font-bold">{insights.critical_attention_count}</div>
               <p className="text-xs text-muted-foreground">Require immediate attention</p>
             </CardContent>
           </Card>
 
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Improving</CardTitle>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 p-4">
+              <CardTitle className="text-xs font-medium">Improving</CardTitle>
               <TrendingUp className="h-4 w-4 text-success" />
             </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{insights.trend_analysis?.improving?.length || 0}</div>
+            <CardContent className="p-4 pt-0">
+              <div className="text-xl font-bold">{insights.trend_analysis?.improving?.length || 0}</div>
               <p className="text-xs text-muted-foreground">Projects on upward trend</p>
             </CardContent>
           </Card>
 
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">At Risk</CardTitle>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 p-4">
+              <CardTitle className="text-xs font-medium">At Risk</CardTitle>
               <TrendingDown className="h-4 w-4 text-warning" />
             </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{insights.trend_analysis?.declining?.length || 0}</div>
+            <CardContent className="p-4 pt-0">
+              <div className="text-xl font-bold">{insights.trend_analysis?.declining?.length || 0}</div>
               <p className="text-xs text-muted-foreground">Declining performance</p>
             </CardContent>
           </Card>
 
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Opportunities</CardTitle>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 p-4">
+              <CardTitle className="text-xs font-medium">Opportunities</CardTitle>
               <Sparkles className="h-4 w-4 text-primary" />
             </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{insights.opportunities?.length || 0}</div>
+            <CardContent className="p-4 pt-0">
+              <div className="text-xl font-bold">{insights.opportunities?.length || 0}</div>
               <p className="text-xs text-muted-foreground">Growth opportunities identified</p>
             </CardContent>
           </Card>
@@ -258,12 +259,12 @@ export const AIExecutiveDashboard = () => {
       {/* Critical Attention Required */}
       {insights && insights.critical_projects && insights.critical_projects.length > 0 && (
         <Card className="border-destructive">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-destructive">
-              <AlertTriangle className="h-5 w-5" />
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center gap-2 text-destructive text-base">
+              <AlertTriangle className="h-4 w-4" />
               Critical Attention Required
             </CardTitle>
-            <CardDescription>Projects that need immediate executive intervention</CardDescription>
+            <CardDescription className="text-xs">Projects that need immediate executive intervention</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
@@ -286,12 +287,12 @@ export const AIExecutiveDashboard = () => {
       {/* AI Recommendations */}
       {insights && insights.recommended_interventions && insights.recommended_interventions.length > 0 && (
         <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Sparkles className="h-5 w-5 text-primary" />
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Sparkles className="h-4 w-4 text-primary" />
               AI Recommendations
             </CardTitle>
-            <CardDescription>Actionable insights to improve portfolio performance</CardDescription>
+            <CardDescription className="text-xs">Actionable insights to improve portfolio performance</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
@@ -322,12 +323,12 @@ export const AIExecutiveDashboard = () => {
       {/* Opportunities */}
       {insights && insights.opportunities && insights.opportunities.length > 0 && (
         <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Target className="h-5 w-5 text-success" />
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Target className="h-4 w-4 text-success" />
               Growth Opportunities
             </CardTitle>
-            <CardDescription>Areas for potential optimization and improvement</CardDescription>
+            <CardDescription className="text-xs">Areas for potential optimization and improvement</CardDescription>
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">
@@ -345,9 +346,9 @@ export const AIExecutiveDashboard = () => {
       {/* Recent AI Insights */}
       {aiInsights.length > 0 && (
         <Card>
-          <CardHeader>
-            <CardTitle>Recent AI Insights</CardTitle>
-            <CardDescription>Latest automated insights from portfolio analysis</CardDescription>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base">Recent AI Insights</CardTitle>
+            <CardDescription className="text-xs">Latest automated insights from portfolio analysis</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">

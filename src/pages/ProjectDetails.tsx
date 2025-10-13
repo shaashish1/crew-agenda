@@ -85,14 +85,14 @@ const ProjectDetails = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-3">
           <Button variant="ghost" size="icon" onClick={() => navigate("/projects")}>
             <ArrowLeft className="w-5 h-5" />
           </Button>
           <div>
-            <h1 className="text-3xl font-bold text-foreground">{project.name}</h1>
-            <p className="text-muted-foreground mt-1">Project Details & Status</p>
+            <h1 className="text-2xl font-bold text-foreground">{project.name}</h1>
+            <p className="text-sm text-muted-foreground mt-1">Project Details & Status</p>
           </div>
         </div>
         <div className="flex gap-2">
@@ -116,7 +116,7 @@ const ProjectDetails = () => {
         <div className="lg:col-span-1 space-y-4">
           {/* Project Manager & Team */}
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-3">
               <CardTitle className="text-sm">Project Manager</CardTitle>
             </CardHeader>
             <CardContent>
@@ -125,7 +125,7 @@ const ProjectDetails = () => {
           </Card>
 
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-3">
               <CardTitle className="text-sm">Business Owner</CardTitle>
             </CardHeader>
             <CardContent>
@@ -134,7 +134,7 @@ const ProjectDetails = () => {
           </Card>
 
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-3">
               <CardTitle className="text-sm">Project Team</CardTitle>
             </CardHeader>
             <CardContent>
@@ -148,7 +148,7 @@ const ProjectDetails = () => {
 
           {/* Project Cost */}
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-3">
               <CardTitle className="text-sm">Project Cost</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 text-sm">
@@ -173,7 +173,7 @@ const ProjectDetails = () => {
 
           {/* Project Timeline */}
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-3">
               <CardTitle className="text-sm">Project Timeline</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 text-sm">
@@ -194,7 +194,7 @@ const ProjectDetails = () => {
 
           {/* Project Value Delivery */}
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-3">
               <CardTitle className="text-sm">Project Value Delivery</CardTitle>
             </CardHeader>
             <CardContent>
@@ -223,8 +223,8 @@ const ProjectDetails = () => {
             {/* Overview Tab */}
             <TabsContent value="overview" className="space-y-4">
               <Card>
-                <CardHeader className="bg-[hsl(180,50%,40%)] text-white">
-                  <CardTitle>Project Overview</CardTitle>
+                <CardHeader className="bg-[hsl(180,50%,40%)] text-white py-3">
+                  <CardTitle className="text-base">Project Overview</CardTitle>
                 </CardHeader>
                 <CardContent className="pt-6">
                   <p className="text-muted-foreground whitespace-pre-wrap">
@@ -234,8 +234,8 @@ const ProjectDetails = () => {
               </Card>
 
               <Card>
-                <CardHeader className="bg-[hsl(180,50%,40%)] text-white">
-                  <CardTitle>Current Status</CardTitle>
+                <CardHeader className="bg-[hsl(180,50%,40%)] text-white py-3">
+                  <CardTitle className="text-base">Current Status</CardTitle>
                 </CardHeader>
                 <CardContent className="pt-6">
                   <div className="space-y-4">
@@ -278,9 +278,9 @@ const ProjectDetails = () => {
                     project.performanceMetrics.performanceRating === 'medium' ? 'border-[hsl(38,92%,60%)]/50 bg-[hsl(38,92%,60%)]/5' :
                     'border-success/50 bg-success/5'
                   }`}>
-                    <CardHeader>
+                    <CardHeader className="pb-3">
                       <div className="flex justify-between items-center">
-                        <CardTitle>Current Performance Rating</CardTitle>
+                        <CardTitle className="text-base">Current Performance Rating</CardTitle>
                         <Button onClick={handleRecalculate} variant="outline" size="sm" className="gap-2">
                           <RefreshCw className="w-4 h-4" />
                           Recalculate
@@ -304,9 +304,9 @@ const ProjectDetails = () => {
 
                   {/* Project Delay Tracking */}
                   <Card>
-                    <CardHeader className="bg-gradient-to-r from-primary/10 to-accent/10">
-                      <CardTitle className="flex items-center gap-2">
-                        <TrendingDown className="w-5 h-5 text-primary" />
+                    <CardHeader className="bg-gradient-to-r from-primary/10 to-accent/10 pb-3">
+                      <CardTitle className="flex items-center gap-2 text-base">
+                        <TrendingDown className="w-4 w-4 text-primary" />
                         Project Delay Tracking
                       </CardTitle>
                     </CardHeader>
@@ -356,9 +356,9 @@ const ProjectDetails = () => {
 
                   {/* User Adoption Tracking */}
                   <Card>
-                    <CardHeader className="bg-gradient-to-r from-accent/10 to-primary/10">
-                      <CardTitle className="flex items-center gap-2">
-                        <Users className="w-5 h-5 text-accent" />
+                    <CardHeader className="bg-gradient-to-r from-accent/10 to-primary/10 pb-3">
+                      <CardTitle className="flex items-center gap-2 text-base">
+                        <Users className="w-4 w-4 text-accent" />
                         User Adoption Rate
                       </CardTitle>
                     </CardHeader>
