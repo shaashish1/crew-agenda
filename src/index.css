@@ -8,31 +8,31 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Light Mode - Corporate Professional Blue */
-    --background: 210 20% 98%;
-    --foreground: 215 25% 15%;
+    /* Light Mode - Premium Digital IT Portfolio (Deep Reds & Warm Tones) */
+    --background: 30 15% 98%;
+    --foreground: 0 5% 10%;
 
     --card: 0 0% 100%;
-    --card-foreground: 215 25% 15%;
+    --card-foreground: 0 5% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 15%;
+    --popover-foreground: 0 5% 10%;
 
-    /* Primary - Trust Blue (Corporate) #005baa */
-    --primary: 208 100% 33%;
+    /* Primary - Deep Professional Red */
+    --primary: 355 70% 42%;
     --primary-foreground: 0 0% 100%;
     
     /* Primary variants for gradients */
-    --primary-light: 208 100% 43%;
-    --primary-dark: 208 100% 28%;
-    --primary-glow: 208 85% 55%;
+    --primary-light: 355 65% 52%;
+    --primary-dark: 355 75% 35%;
+    --primary-glow: 355 60% 60%;
 
-    /* Secondary - Professional Gray Blue */
-    --secondary: 210 25% 94%;
-    --secondary-foreground: 215 25% 20%;
+    /* Secondary - Warm Neutral */
+    --secondary: 30 12% 92%;
+    --secondary-foreground: 0 5% 15%;
 
-    /* Accent - Corporate Teal */
-    --accent: 195 75% 45%;
+    /* Accent - Elegant Burgundy */
+    --accent: 345 50% 38%;
     --accent-foreground: 0 0% 100%;
 
     --muted: 210 20% 95%;
@@ -50,30 +50,30 @@ All colors MUST be HSL.
     --info: 213 94% 45%;
     --info-foreground: 0 0% 100%;
 
-    --border: 215 20% 88%;
-    --input: 215 20% 88%;
-    --ring: 208 100% 33%;
+    --border: 30 10% 88%;
+    --input: 30 10% 88%;
+    --ring: 355 70% 42%;
 
     --radius: 0.75rem;
 
-    /* Premium Shadow System */
-    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.08);
-    --shadow-md: 0 4px 8px -2px rgb(0 0 0 / 0.12);
-    --shadow-lg: 0 12px 24px -4px rgb(0 0 0 / 0.15);
-    --shadow-xl: 0 24px 48px -8px rgb(0 0 0 / 0.18);
-    --shadow-card: 0 2px 12px 0 rgb(0 0 0 / 0.06);
-    --shadow-card-hover: 0 8px 24px 0 rgb(0 0 0 / 0.12);
-    --shadow-glow: 0 0 32px hsl(208 100% 33% / 0.15);
-    --shadow-premium-sm: 0 2px 8px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.08);
-    --shadow-premium-md: 0 4px 16px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.12);
-    --shadow-premium-lg: 0 12px 32px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.16);
-    --shadow-premium-xl: 0 24px 64px rgba(0,0,0,0.16), 0 8px 32px rgba(0,0,0,0.20);
+    /* Premium Shadow System - Warm & Elegant */
+    --shadow-sm: 0 2px 4px 0 rgb(139 0 0 / 0.08);
+    --shadow-md: 0 4px 12px -2px rgb(139 0 0 / 0.12);
+    --shadow-lg: 0 12px 28px -4px rgb(139 0 0 / 0.16);
+    --shadow-xl: 0 24px 56px -8px rgb(139 0 0 / 0.20);
+    --shadow-card: 0 3px 16px 0 rgb(139 0 0 / 0.08);
+    --shadow-card-hover: 0 10px 32px 0 rgb(139 0 0 / 0.16);
+    --shadow-glow: 0 0 48px hsl(355 70% 42% / 0.25);
+    --shadow-premium-sm: 0 2px 8px rgba(139,0,0,0.06), 0 1px 4px rgba(139,0,0,0.10);
+    --shadow-premium-md: 0 4px 20px rgba(139,0,0,0.10), 0 2px 10px rgba(139,0,0,0.15);
+    --shadow-premium-lg: 0 12px 40px rgba(139,0,0,0.14), 0 4px 20px rgba(139,0,0,0.18);
+    --shadow-premium-xl: 0 28px 72px rgba(139,0,0,0.18), 0 10px 36px rgba(139,0,0,0.24);
     
-    /* Corporate Gradient backgrounds */
-    --gradient-primary: linear-gradient(135deg, hsl(208 100% 33%) 0%, hsl(195 75% 45%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(210 25% 98%) 100%);
-    --gradient-button: linear-gradient(135deg, hsl(208 100% 33%) 0%, hsl(208 100% 28%) 100%);
-    --gradient-glow: radial-gradient(circle at top left, hsl(208 100% 33% / 0.08), transparent 50%);
+    /* Warm Premium Gradient backgrounds */
+    --gradient-primary: linear-gradient(135deg, hsl(355 70% 42%) 0%, hsl(345 50% 38%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(30 15% 98%) 100%);
+    --gradient-button: linear-gradient(135deg, hsl(355 70% 42%) 0%, hsl(355 75% 35%) 100%);
+    --gradient-glow: radial-gradient(circle at top left, hsl(355 70% 42% / 0.10), transparent 60%);
     
     /* Neon Gradient Styles */
     --neon-blue: 210 100% 60%;
@@ -87,13 +87,13 @@ All colors MUST be HSL.
     --shadow-neon-purple: 0 0 20px hsl(270 100% 65% / 0.5), 0 0 40px hsl(270 100% 65% / 0.3);
     --shadow-neon-pink: 0 0 20px hsl(330 100% 65% / 0.5), 0 0 40px hsl(330 100% 65% / 0.3);
 
-    --sidebar-background: 208 100% 33%;
+    --sidebar-background: 355 70% 42%;
     --sidebar-foreground: 0 0% 100%;
     --sidebar-primary: 0 0% 100%;
-    --sidebar-primary-foreground: 208 100% 33%;
-    --sidebar-accent: 208 95% 40%;
+    --sidebar-primary-foreground: 355 70% 42%;
+    --sidebar-accent: 355 65% 48%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 208 90% 40%;
+    --sidebar-border: 355 60% 48%;
     --sidebar-ring: 0 0% 100%;
   }
 
@@ -164,27 +164,27 @@ All colors MUST be HSL.
   }
 
   .dark {
-    /* Dark Mode - Corporate Professional Blue */
-    --background: 215 30% 10%;
-    --foreground: 210 15% 95%;
+    /* Dark Mode - Premium Digital IT (Elegant Black with Deep Red Accents) */
+    --background: 0 5% 8%;
+    --foreground: 30 10% 95%;
 
-    --card: 215 28% 14%;
-    --card-foreground: 210 15% 95%;
+    --card: 0 5% 12%;
+    --card-foreground: 30 10% 95%;
 
-    --popover: 215 30% 12%;
-    --popover-foreground: 210 15% 95%;
+    --popover: 0 5% 10%;
+    --popover-foreground: 30 10% 95%;
 
-    --primary: 213 85% 55%;
+    --primary: 355 65% 55%;
     --primary-foreground: 0 0% 100%;
     
-    --primary-light: 213 85% 65%;
-    --primary-dark: 213 85% 45%;
-    --primary-glow: 213 70% 70%;
+    --primary-light: 355 65% 65%;
+    --primary-dark: 355 70% 45%;
+    --primary-glow: 355 60% 70%;
 
-    --secondary: 215 25% 20%;
-    --secondary-foreground: 210 15% 95%;
+    --secondary: 0 5% 18%;
+    --secondary-foreground: 30 10% 95%;
 
-    --accent: 195 70% 50%;
+    --accent: 345 55% 48%;
     --accent-foreground: 0 0% 100%;
 
     --muted: 215 20% 25%;
@@ -206,27 +206,27 @@ All colors MUST be HSL.
     --input: 215 25% 22%;
     --ring: 213 85% 55%;
 
-    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.6);
-    --shadow-md: 0 4px 8px -2px rgb(0 0 0 / 0.7);
-    --shadow-lg: 0 12px 24px -4px rgb(0 0 0 / 0.75);
-    --shadow-xl: 0 24px 48px -8px rgb(0 0 0 / 0.8);
-    --shadow-card: 0 4px 16px 0 hsl(213 85% 55% / 0.15);
-    --shadow-card-hover: 0 8px 32px 0 hsl(213 85% 55% / 0.25);
-    --shadow-glow: 0 0 48px hsl(213 85% 55% / 0.3);
+    --shadow-sm: 0 2px 6px 0 rgb(0 0 0 / 0.7);
+    --shadow-md: 0 6px 16px -2px rgb(0 0 0 / 0.8);
+    --shadow-lg: 0 16px 36px -4px rgb(0 0 0 / 0.85);
+    --shadow-xl: 0 28px 64px -8px rgb(0 0 0 / 0.9);
+    --shadow-card: 0 6px 24px 0 hsl(355 65% 55% / 0.20);
+    --shadow-card-hover: 0 12px 48px 0 hsl(355 65% 55% / 0.35);
+    --shadow-glow: 0 0 64px hsl(355 65% 55% / 0.40);
     
-    --gradient-primary: linear-gradient(135deg, hsl(213 85% 55%) 0%, hsl(195 70% 50%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(215 28% 14%) 0%, hsl(215 30% 18%) 100%);
-    --gradient-button: linear-gradient(135deg, hsl(213 85% 55%) 0%, hsl(213 85% 45%) 100%);
-    --gradient-glow: radial-gradient(circle at top left, hsl(213 85% 55% / 0.15), transparent 50%);
+    --gradient-primary: linear-gradient(135deg, hsl(355 65% 55%) 0%, hsl(345 55% 48%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 5% 12%) 0%, hsl(0 5% 16%) 100%);
+    --gradient-button: linear-gradient(135deg, hsl(355 65% 55%) 0%, hsl(355 70% 45%) 100%);
+    --gradient-glow: radial-gradient(circle at top left, hsl(355 65% 55% / 0.20), transparent 60%);
 
-    --sidebar-background: 215 30% 12%;
-    --sidebar-foreground: 210 15% 95%;
-    --sidebar-primary: 213 85% 55%;
+    --sidebar-background: 0 5% 10%;
+    --sidebar-foreground: 30 10% 95%;
+    --sidebar-primary: 355 65% 55%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 215 28% 18%;
-    --sidebar-accent-foreground: 210 15% 95%;
-    --sidebar-border: 215 25% 20%;
-    --sidebar-ring: 213 85% 55%;
+    --sidebar-accent: 0 5% 16%;
+    --sidebar-accent-foreground: 30 10% 95%;
+    --sidebar-border: 0 5% 18%;
+    --sidebar-ring: 355 65% 55%;
   }
 
   .ocean {

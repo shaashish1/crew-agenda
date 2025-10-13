@@ -1,25 +1,30 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
   ArrowRight, 
-  CheckCircle2, 
-  Calendar, 
-  Users, 
   Target, 
-  BarChart3, 
-  FileText, 
-  Lightbulb,
-  Shield,
-  Zap,
   TrendingUp,
-  Clock,
   DollarSign,
-  AlertTriangle,
-  XCircle,
   Activity,
   Award,
-  Rocket
+  Rocket,
+  Users,
+  Shield,
+  Zap,
+  Clock,
+  CheckCircle2,
+  Heart,
+  Star,
+  Sparkles,
+  TrendingDown,
+  Filter,
+  ChevronRight,
+  XCircle,
+  AlertTriangle,
+  FileText,
+  BarChart3
 } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useProjectContext } from "@/contexts/ProjectContext";
@@ -46,6 +51,7 @@ const Landing = () => {
   const navigate = useNavigate();
   const { projects } = useProjectContext();
   const { tasks } = useTaskContext();
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
   // Calculate metrics
   const totalProjects = projects.length;
@@ -238,25 +244,75 @@ const Landing = () => {
     }
   ];
 
+  const testimonials = [
+    {
+      name: "Sarah Chen",
+      role: "VP of Digital Transformation",
+      content: "The project tracking system has transformed how we manage our IT portfolio. Real-time visibility into every initiative gives us confidence in our delivery.",
+      rating: 5,
+      avatar: "SC"
+    },
+    {
+      name: "Michael Torres",
+      role: "CTO",
+      content: "Outstanding performance metrics and accountability. Our team's efficiency has increased by 40% since implementing this comprehensive approach.",
+      rating: 5,
+      avatar: "MT"
+    },
+    {
+      name: "Emily Parker",
+      role: "Project Director",
+      content: "The data-driven insights help us make better decisions faster. Budget adherence and on-time delivery have never been better.",
+      rating: 5,
+      avatar: "EP"
+    }
+  ];
+
+  const categories = [
+    { id: "all", label: "All Metrics" },
+    { id: "delivery", label: "Delivery" },
+    { id: "financial", label: "Financial" },
+    { id: "quality", label: "Quality" }
+  ];
+
+  const filteredKRAs = selectedCategory === "all" 
+    ? kras 
+    : kras.filter(kra => {
+        if (selectedCategory === "delivery") return kra.title.includes("On-Time") || kra.title.includes("Change Request");
+        if (selectedCategory === "financial") return kra.title.includes("Budget");
+        if (selectedCategory === "quality") return kra.title.includes("Quality") || kra.title.includes("Knowledge");
+        return true;
+      });
+
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <nav className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+      <nav className="border-b border-border/50 bg-card/80 backdrop-blur-md sticky top-0 z-50 shadow-premium-sm">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-8">
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-primary via-primary-light to-accent bg-clip-text text-transparent hover:scale-105 transition-transform cursor-pointer">
                 ProjectHub
               </h1>
-              <div className="hidden md:flex gap-4">
-                <Button variant="ghost" onClick={() => navigate("/projects")}>Projects</Button>
-                <Button variant="ghost" onClick={() => navigate("/dashboard")}>Tasks</Button>
-                <Button variant="ghost" onClick={() => navigate("/features")}>Features</Button>
+              <div className="hidden md:flex gap-2">
+                <Button variant="ghost" className="hover:bg-primary/10 hover:text-primary transition-all" onClick={() => navigate("/projects")}>
+                  Projects
+                </Button>
+                <Button variant="ghost" className="hover:bg-primary/10 hover:text-primary transition-all" onClick={() => navigate("/dashboard")}>
+                  Tasks
+                </Button>
+                <Button variant="ghost" className="hover:bg-primary/10 hover:text-primary transition-all" onClick={() => navigate("/features")}>
+                  Features
+                </Button>
               </div>
             </div>
             <div className="flex items-center gap-4">
               <ThemeToggle />
-              <Button onClick={() => navigate("/projects")} size="lg" className="btn-neon shadow-md text-white">
+              <Button 
+                onClick={() => navigate("/projects")} 
+                size="lg" 
+                className="bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary shadow-premium-md hover:shadow-premium-lg transition-all hover:scale-105 text-white"
+              >
                 Get Started
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
@@ -265,128 +321,111 @@ const Landing = () => {
         </div>
       </nav>
 
-      {/* Hero Section with Carousel */}
-      <section className="py-32 px-4 bg-gradient-to-br from-primary/10 via-accent/5 to-background overflow-hidden">
-        <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-20 animate-fade-in space-y-8">
-            <h1 className="text-display bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-              Our Digital IT Team Hub
+      {/* Hero Section - Premium & Warm */}
+      <section className="relative py-24 md:py-32 px-4 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/3 to-background" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(var(--primary)/0.08),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,hsl(var(--accent)/0.06),transparent_50%)]" />
+        
+        <div className="container mx-auto max-w-7xl relative">
+          <div className="text-center mb-16 animate-fade-in-up space-y-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-semibold mb-4 hover:bg-primary/15 transition-all">
+              <Sparkles className="w-4 h-4" />
+              <span>Excellence in Digital Delivery</span>
+            </div>
+            <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-primary via-primary-light to-accent bg-clip-text text-transparent leading-tight">
+              Transforming Digital<br />IT Excellence
             </h1>
-            <p className="text-body-large text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              Together, we drive digital transformation through disciplined project management and data-driven decisions
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-light">
+              We're a passionate team driving innovation through disciplined project management, delivering measurable business value with every initiative
             </p>
-          </div>
-
-          {/* Hero Carousel */}
-          <div className="mb-16 animate-scale-in">
-            <Carousel className="w-full max-w-5xl mx-auto" opts={{ loop: true }}>
-              <CarouselContent>
-                <CarouselItem>
-                  <div className="relative rounded-2xl overflow-hidden shadow-2xl group">
-                    <img 
-                      src={heroProjects} 
-                      alt="Project Management Dashboard" 
-                      className="w-full h-[400px] object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/50 to-transparent flex items-end p-8">
-                      <div className="text-left">
-                        <h3 className="text-3xl font-bold text-foreground mb-2">Our Unified Portfolio</h3>
-                        <p className="text-lg text-muted-foreground">We track all our IT initiatives in one place with real-time insights</p>
-                      </div>
-                    </div>
-                  </div>
-                </CarouselItem>
-                <CarouselItem>
-                  <div className="relative rounded-2xl overflow-hidden shadow-2xl group">
-                    <img 
-                      src={heroPerformance} 
-                      alt="Team Performance Analytics" 
-                      className="w-full h-[400px] object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/50 to-transparent flex items-end p-8">
-                      <div className="text-left">
-                        <h3 className="text-3xl font-bold text-foreground mb-2">How We Perform</h3>
-                        <p className="text-lg text-muted-foreground">We measure our success with comprehensive KPIs and track our team performance</p>
-                      </div>
-                    </div>
-                  </div>
-                </CarouselItem>
-                <CarouselItem>
-                  <div className="relative rounded-2xl overflow-hidden shadow-2xl group">
-                    <img 
-                      src={heroDelivery} 
-                      alt="Value Delivery" 
-                      className="w-full h-[400px] object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/50 to-transparent flex items-end p-8">
-                      <div className="text-left">
-                        <h3 className="text-3xl font-bold text-foreground mb-2">The Value We Deliver</h3>
-                        <p className="text-lg text-muted-foreground">We transform IT operations into strategic business enablers with measurable outcomes</p>
-                      </div>
-                    </div>
-                  </div>
-                </CarouselItem>
-              </CarouselContent>
-              <CarouselPrevious className="left-4" />
-              <CarouselNext className="right-4" />
-            </Carousel>
-          </div>
-
-          {/* Performance Highlights */}
-          <div className="mb-12 text-center animate-fade-in space-y-4">
-            <Badge className="mb-3 text-base py-2 px-6" variant="outline">
-              <TrendingUp className="w-4 h-4 mr-2" />
-              How We Measure Our Performance
-            </Badge>
-            <h2 className="text-heading mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Our Current Performance
-            </h2>
-            <p className="text-body-large text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              These metrics are calculated in real-time from the data we enter into the system. Our accuracy depends on our timely updates.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16 animate-fade-in">
-            {performanceMetrics.map((metric, index) => (
-              <Card 
-                key={index}
-                className={`glass-card-premium transition-all duration-300 ${
-                  metric.trend === 'positive' 
-                    ? 'border-success/40' 
-                    : 'border-warning/40'
-                }`}
+            <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
+              <Button 
+                size="lg" 
+                onClick={() => navigate("/projects")}
+                className="bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary shadow-premium-lg hover:shadow-premium-xl transition-all hover:scale-105 text-lg px-8 py-6 text-white group"
               >
-                <CardHeader className="pb-4 space-y-4">
-                  <div className="flex items-center gap-3">
-                    {metric.trend === 'positive' ? (
-                      <div className="w-12 h-12 rounded-2xl bg-success/20 flex items-center justify-center">
-                        <Award className="w-6 h-6 text-success" />
-                      </div>
-                    ) : (
-                      <div className="w-12 h-12 rounded-2xl bg-warning/20 flex items-center justify-center">
-                        <TrendingUp className="w-6 h-6 text-warning" />
-                      </div>
-                    )}
-                    <CardTitle className="text-sm font-semibold text-muted-foreground tracking-wide">
-                      {metric.title}
-                    </CardTitle>
+                Explore Our Portfolio
+                <ChevronRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline"
+                onClick={() => navigate("/dashboard")}
+                className="border-2 border-primary/30 hover:bg-primary/10 hover:border-primary transition-all text-lg px-8 py-6 group"
+              >
+                View Dashboard
+                <Activity className="ml-2 w-5 h-5 group-hover:scale-110 transition-transform" />
+              </Button>
+            </div>
+          </div>
+
+          {/* Stats Grid - Live Metrics */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-20 animate-fade-in">
+            {[
+              { label: "Active Projects", value: activeProjects, icon: Rocket, color: "primary" },
+              { label: "On-Time Delivery", value: `${onTimeDeliveryRate}%`, icon: Target, color: "success" },
+              { label: "Budget Health", value: `${budgetAdherenceRate}%`, icon: DollarSign, color: "info" },
+              { label: "Team Excellence", value: `${taskCompletionRate}%`, icon: Users, color: "accent" }
+            ].map((stat, idx) => (
+              <Card 
+                key={idx} 
+                className="relative overflow-hidden border-2 hover:border-primary/40 transition-all duration-300 hover:shadow-premium-lg group cursor-pointer"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <CardContent className="p-6 relative">
+                  <stat.icon className={`w-8 h-8 mb-3 text-${stat.color} group-hover:scale-110 transition-transform`} />
+                  <div className="text-3xl md:text-4xl font-bold mb-1 bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+                    {stat.value}
                   </div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className={`text-5xl font-bold tracking-tight ${
-                    metric.trend === 'positive' ? 'text-success' : 'text-warning'
-                  }`}>
-                    {metric.value}
-                  </div>
-                  <div className="progress-neon h-3 bg-secondary/30 rounded-full overflow-hidden backdrop-blur-sm shadow-inner">
-                    <div 
-                      className="progress-neon-bar h-full rounded-full transition-all duration-1000" 
-                      style={{ width: metric.value }}
-                    />
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{metric.description}</p>
+                  <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
                 </CardContent>
               </Card>
             ))}
+          </div>
+
+          {/* Our Philosophy - Behind the Scenes */}
+          <div className="mb-20 animate-fade-in">
+            <div className="text-center mb-12 space-y-4">
+              <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                Our Digital Excellence Philosophy
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                We believe in transparency, accountability, and continuous improvement—driving every decision with data and delivering every project with heart.
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-8">
+              {[
+                {
+                  icon: Heart,
+                  title: "Passion for Excellence",
+                  description: "We don't just manage projects—we craft experiences. Every metric, every milestone represents our commitment to delivering exceptional value to our stakeholders."
+                },
+                {
+                  icon: Shield,
+                  title: "Trust Through Transparency",
+                  description: "Real-time visibility into project health, budgets, and risks. No surprises, no hidden issues—just honest, open communication that builds lasting partnerships."
+                },
+                {
+                  icon: Zap,
+                  title: "Innovation at Speed",
+                  description: "Combining agile methodologies with robust governance, we deliver transformative solutions faster without compromising quality or security."
+                }
+              ].map((item, idx) => (
+                <Card key={idx} className="border-2 hover:border-primary/40 transition-all hover:shadow-premium-lg group cursor-pointer">
+                  <CardHeader>
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <item.icon className="w-7 h-7 text-primary" />
+                    </div>
+                    <CardTitle className="text-2xl mb-3">{item.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground leading-relaxed">{item.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
 
           {/* Year-End Performance Evaluation Criteria */}
@@ -635,39 +674,126 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* KRA Section */}
-      <section className="py-32 px-4 bg-gradient-to-br from-muted/50 to-muted/30">
-        <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-20 animate-fade-in space-y-6">
-            <Badge className="mb-4 text-base py-3 px-6">Our Performance Framework</Badge>
-            <h2 className="text-heading mb-8 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              How We Measure Our Success
+      {/* Interactive KPI Showcase with Filters */}
+      <section className="py-24 md:py-32 px-4 bg-gradient-to-br from-muted/30 to-background relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,hsl(var(--primary)/0.05),transparent_60%)]" />
+        
+        <div className="container mx-auto max-w-7xl relative">
+          <div className="text-center mb-12 animate-fade-in-up space-y-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-semibold mb-4">
+              <Filter className="w-4 h-4" />
+              <span>Interactive KPI Explorer</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              Key Performance Indicators
             </h2>
-            <p className="text-body-large text-muted-foreground max-w-4xl mx-auto mb-6 leading-relaxed">
-              These are the Key Result Areas (KRAs) that we use to measure our team performance and drive organizational value
-            </p>
-            <p className="text-base text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Each KRA is measured using specific data points we maintain in our project management system. Our consistent data entry directly impacts these measurements.
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Filter by category to explore the metrics that matter most to your team
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {kras.map((kra, index) => (
-              <Card key={index} className="glass-card-premium border-primary/30 animate-fade-in group">
-                <CardHeader className="space-y-6">
+          {/* Category Filters */}
+          <div className="flex flex-wrap justify-center gap-3 mb-16 animate-fade-in">
+            {categories.map((cat) => (
+              <Button
+                key={cat.id}
+                onClick={() => setSelectedCategory(cat.id)}
+                variant={selectedCategory === cat.id ? "default" : "outline"}
+                className={`
+                  px-6 py-3 rounded-full transition-all duration-300
+                  ${selectedCategory === cat.id 
+                    ? 'bg-gradient-to-r from-primary to-primary-dark shadow-premium-md hover:shadow-premium-lg scale-105 text-white' 
+                    : 'hover:bg-primary/10 hover:border-primary/50 hover:scale-105'
+                  }
+                `}
+              >
+                {cat.label}
+              </Button>
+            ))}
+          </div>
+
+          {/* Filtered KRA Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {filteredKRAs.map((kra, index) => (
+              <Card 
+                key={index} 
+                className="group border-2 border-border hover:border-primary/40 transition-all duration-300 hover:shadow-premium-lg hover:scale-105 cursor-pointer overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <CardHeader className="space-y-4 relative">
                   <div className="flex items-start justify-between">
-                    <div className="flex-1 space-y-4">
-                      <CardTitle className="text-subheading group-hover:text-primary transition-colors">{kra.title}</CardTitle>
-                      <Badge variant="outline" className="text-sm py-1.5 px-4 font-semibold">Target: {kra.target}</Badge>
+                    <div className="flex-1 space-y-3">
+                      <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors">{kra.title}</CardTitle>
+                      <Badge variant="outline" className="text-xs py-1.5 px-3 font-semibold border-primary/30 text-primary">
+                        Target: {kra.target}
+                      </Badge>
                     </div>
-                    <img src={kra.icon} alt={kra.title} className="w-16 h-16 opacity-80 group-hover:opacity-100 transition-opacity animate-float" />
+                    <img 
+                      src={kra.icon} 
+                      alt={kra.title} 
+                      className="w-14 h-14 opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all" 
+                    />
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-base font-medium text-muted-foreground">
+                <CardContent className="space-y-3 relative">
+                  <p className="text-sm font-medium text-muted-foreground">
                     <strong className="text-foreground">Measure:</strong> {kra.measure}
                   </p>
                   <p className="text-sm text-muted-foreground leading-relaxed">{kra.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-24 md:py-32 px-4 bg-gradient-to-br from-background via-primary/5 to-background relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,hsl(var(--accent)/0.08),transparent_60%)]" />
+        
+        <div className="container mx-auto max-w-7xl relative">
+          <div className="text-center mb-16 animate-fade-in-up space-y-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-semibold mb-4">
+              <Heart className="w-4 h-4" />
+              <span>What Our Leaders Say</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              Trusted by Digital Leaders
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Hear from the executives who rely on our data-driven approach every day
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 animate-fade-in">
+            {testimonials.map((testimonial, idx) => (
+              <Card 
+                key={idx} 
+                className="group border-2 border-border hover:border-primary/40 transition-all duration-300 hover:shadow-premium-xl hover:-translate-y-2 cursor-pointer relative overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <CardHeader className="space-y-4 relative">
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold text-lg shadow-premium-md">
+                        {testimonial.avatar}
+                      </div>
+                      <div>
+                        <CardTitle className="text-lg">{testimonial.name}</CardTitle>
+                        <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex gap-1">
+                    {Array.from({ length: testimonial.rating }).map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-primary text-primary" />
+                    ))}
+                  </div>
+                </CardHeader>
+                <CardContent className="relative">
+                  <p className="text-muted-foreground leading-relaxed italic">
+                    "{testimonial.content}"
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -759,55 +885,73 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Quick Actions */}
-      <section className="py-20 px-4 bg-gradient-to-r from-primary/15 via-accent/10 to-primary/15">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-12 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Our Quick Actions
+      {/* Call to Action - Premium Footer */}
+      <section className="relative py-32 px-4 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-accent/5 to-background" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary)/0.12),transparent_70%)]" />
+        
+        <div className="container mx-auto max-w-5xl relative">
+          <div className="text-center space-y-8 animate-fade-in-up">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-semibold mb-4">
+              <Rocket className="w-4 h-4" />
+              <span>Join Our Journey</span>
+            </div>
+            <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary via-primary-light to-accent bg-clip-text text-transparent leading-tight">
+              Ready to Transform<br />Digital Excellence?
             </h2>
-            <p className="text-xl text-muted-foreground">Jump straight to what we need to work on</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-2 border-primary/30 hover:border-primary/50 hover:shadow-2xl transition-all duration-300 cursor-pointer hover:scale-105 animate-fade-in group" onClick={() => navigate("/projects")}>
-              <CardHeader>
-                <Target className="w-14 h-14 text-primary mb-4 group-hover:scale-110 transition-transform" />
-                <CardTitle className="text-2xl group-hover:text-primary transition-colors">Our Projects</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-base text-muted-foreground">View our portfolio, update RAG status, track our budgets and milestones</p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 border-primary/30 hover:border-primary/50 hover:shadow-2xl transition-all duration-300 cursor-pointer hover:scale-105 animate-fade-in group" onClick={() => navigate("/dashboard")}>
-              <CardHeader>
-                <CheckCircle2 className="w-14 h-14 text-primary mb-4 group-hover:scale-110 transition-transform" />
-                <CardTitle className="text-2xl group-hover:text-primary transition-colors">Our Tasks</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-base text-muted-foreground">Manage our assignments, update our progress, and close completed items</p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 border-primary/30 hover:border-primary/50 hover:shadow-2xl transition-all duration-300 cursor-pointer hover:scale-105 animate-fade-in group" onClick={() => navigate("/features")}>
-              <CardHeader>
-                <BarChart3 className="w-14 h-14 text-primary mb-4 group-hover:scale-110 transition-transform" />
-                <CardTitle className="text-2xl group-hover:text-primary transition-colors">Our Reports</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-base text-muted-foreground">Access our dashboards, generate status reports, and analyze our performance</p>
-              </CardContent>
-            </Card>
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Experience the power of data-driven project management. Start tracking your portfolio today.
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-4 pt-8">
+              <Button 
+                size="lg" 
+                onClick={() => navigate("/projects")}
+                className="bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary shadow-premium-xl hover:shadow-premium-xl transition-all hover:scale-110 text-xl px-12 py-7 text-white group"
+              >
+                Explore Projects
+                <ChevronRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline"
+                onClick={() => navigate("/dashboard")}
+                className="border-2 border-primary/30 hover:bg-primary/10 hover:border-primary transition-all text-xl px-12 py-7 group"
+              >
+                View Dashboard
+                <Activity className="ml-2 w-6 h-6 group-hover:scale-110 transition-transform" />
+              </Button>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border bg-card/50 py-8">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-muted-foreground">
-            © 2025 ProjectHub. Built for IT Project Managers and PMO Offices.
-          </p>
+      <footer className="border-t border-border/50 bg-gradient-to-b from-card/80 to-card py-12">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-3">
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                ProjectHub
+              </h3>
+              <Badge variant="outline" className="text-xs">by DIT CTO Portfolio</Badge>
+            </div>
+            <div className="flex gap-6 text-sm text-muted-foreground">
+              <button onClick={() => navigate("/projects")} className="hover:text-primary transition-colors">
+                Projects
+              </button>
+              <button onClick={() => navigate("/dashboard")} className="hover:text-primary transition-colors">
+                Dashboard
+              </button>
+              <button onClick={() => navigate("/features")} className="hover:text-primary transition-colors">
+                Features
+              </button>
+            </div>
+          </div>
+          <div className="mt-8 pt-8 border-t border-border/30 text-center">
+            <p className="text-sm text-muted-foreground">
+              © 2025 ProjectHub. Empowering IT Teams with Data-Driven Project Excellence.
+            </p>
+          </div>
         </div>
       </footer>
     </div>
