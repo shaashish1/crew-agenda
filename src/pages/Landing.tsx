@@ -26,6 +26,7 @@ import { useProjectContext } from "@/contexts/ProjectContext";
 import { useTaskContext } from "@/contexts/TaskContext";
 import { RAGStatusBadge } from "@/components/RAGStatusBadge";
 import { Badge } from "@/components/ui/badge";
+import { PerformanceCriteriaTable } from "@/components/PerformanceCriteriaTable";
 import {
   Carousel,
   CarouselContent,
@@ -388,166 +389,22 @@ const Landing = () => {
             ))}
           </div>
 
-          {/* Measurement Methodology */}
-          <Card className="mb-16 glass-card-premium border-primary/30 animate-fade-in">
-            <CardHeader className="space-y-4 pb-8">
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-primary/20 flex items-center justify-center">
-                  <BarChart3 className="w-7 h-7 text-primary" />
-                </div>
-                <CardTitle className="text-heading">How We Calculate These Numbers</CardTitle>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                {/* Delivery Excellence Box */}
-                <div className="stat-card-neon border-2 border-primary/30 bg-gradient-to-br from-primary/5 to-transparent rounded-xl p-6 hover:border-primary/50 transition-all duration-300 hover:shadow-xl">
-                  <div className="flex items-center gap-3 mb-4 pb-4 border-b border-primary/20">
-                    <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center">
-                      <Target className="w-6 h-6 text-primary icon-neon" />
-                    </div>
-                    <h4 className="font-bold text-xl text-foreground">Delivery Excellence</h4>
-                  </div>
-                  
-                  <div className="space-y-4">
-                    <div className="bg-background/50 rounded-lg p-4 border border-primary/10">
-                      <div className="text-xs font-semibold text-primary uppercase tracking-wide mb-2">Formula</div>
-                      <div className="text-sm text-foreground font-mono bg-primary/5 p-2 rounded">
-                        (Completed ÷ Total Projects) × 100
-                      </div>
-                    </div>
-                    
-                    <div className="bg-background/50 rounded-lg p-4 border border-primary/10">
-                      <div className="text-xs font-semibold text-primary uppercase tracking-wide mb-2">Data Source</div>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        Go-Live Date vs Hypercare End Date comparison. Projects past hypercare = complete.
-                      </p>
-                    </div>
-                    
-                    <div className="bg-background/50 rounded-lg p-4 border border-primary/10">
-                      <div className="text-xs font-semibold text-primary uppercase tracking-wide mb-2">What We Track</div>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        Project status, Go-Live dates, Hypercare End dates
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Budget Performance Box */}
-                <div className="stat-card-neon border-2 border-accent/30 bg-gradient-to-br from-accent/5 to-transparent rounded-xl p-6 hover:border-accent/50 transition-all duration-300 hover:shadow-xl">
-                  <div className="flex items-center gap-3 mb-4 pb-4 border-b border-accent/20">
-                    <div className="w-12 h-12 rounded-lg bg-accent/20 flex items-center justify-center">
-                      <DollarSign className="w-6 h-6 text-accent icon-neon" />
-                    </div>
-                    <h4 className="font-bold text-xl text-foreground">Budget Performance</h4>
-                  </div>
-                  
-                  <div className="space-y-4">
-                    <div className="bg-background/50 rounded-lg p-4 border border-accent/10">
-                      <div className="text-xs font-semibold text-accent uppercase tracking-wide mb-2">Formula</div>
-                      <div className="text-sm text-foreground font-mono bg-accent/5 p-2 rounded">
-                        ((Total - Over Budget) ÷ Total) × 100
-                      </div>
-                    </div>
-                    
-                    <div className="bg-background/50 rounded-lg p-4 border border-accent/10">
-                      <div className="text-xs font-semibold text-accent uppercase tracking-wide mb-2">Data Source</div>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        Actual Spent vs TCO comparison. When actual exceeds TCO, it's flagged.
-                      </p>
-                    </div>
-                    
-                    <div className="bg-background/50 rounded-lg p-4 border border-accent/10">
-                      <div className="text-xs font-semibold text-accent uppercase tracking-wide mb-2">What We Track</div>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        TCO, Actual Spent, Budget variance data
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Task Completion Box */}
-                <div className="stat-card-neon border-2 border-success/30 bg-gradient-to-br from-success/5 to-transparent rounded-xl p-6 hover:border-success/50 transition-all duration-300 hover:shadow-xl">
-                  <div className="flex items-center gap-3 mb-4 pb-4 border-b border-success/20">
-                    <div className="w-12 h-12 rounded-lg bg-success/20 flex items-center justify-center">
-                      <CheckCircle2 className="w-6 h-6 text-success icon-neon" />
-                    </div>
-                    <h4 className="font-bold text-xl text-foreground">Task Completion</h4>
-                  </div>
-                  
-                  <div className="space-y-4">
-                    <div className="bg-background/50 rounded-lg p-4 border border-success/10">
-                      <div className="text-xs font-semibold text-success uppercase tracking-wide mb-2">Formula</div>
-                      <div className="text-sm text-foreground font-mono bg-success/5 p-2 rounded">
-                        (Status = Done ÷ Total Tasks) × 100
-                      </div>
-                    </div>
-                    
-                    <div className="bg-background/50 rounded-lg p-4 border border-success/10">
-                      <div className="text-xs font-semibold text-success uppercase tracking-wide mb-2">Data Source</div>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        Every task created and marked as done in our task management system.
-                      </p>
-                    </div>
-                    
-                    <div className="bg-background/50 rounded-lg p-4 border border-success/10">
-                      <div className="text-xs font-semibold text-success uppercase tracking-wide mb-2">What We Track</div>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        Task status changes, completion dates, assignments
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Data Quality Box */}
-                <div className="stat-card-neon border-2 border-warning/30 bg-gradient-to-br from-warning/5 to-transparent rounded-xl p-6 hover:border-warning/50 transition-all duration-300 hover:shadow-xl">
-                  <div className="flex items-center gap-3 mb-4 pb-4 border-b border-warning/20">
-                    <div className="w-12 h-12 rounded-lg bg-warning/20 flex items-center justify-center">
-                      <Activity className="w-6 h-6 text-warning icon-neon" />
-                    </div>
-                    <h4 className="font-bold text-xl text-foreground">Data Quality Score</h4>
-                  </div>
-                  
-                  <div className="space-y-4">
-                    <div className="bg-background/50 rounded-lg p-4 border border-warning/10">
-                      <div className="text-xs font-semibold text-warning uppercase tracking-wide mb-2">Formula</div>
-                      <div className="text-sm text-foreground font-mono bg-warning/5 p-2 rounded">
-                        ((Total - Not Updated 7d) ÷ Total) × 100
-                      </div>
-                    </div>
-                    
-                    <div className="bg-background/50 rounded-lg p-4 border border-warning/10">
-                      <div className="text-xs font-semibold text-warning uppercase tracking-wide mb-2">Data Source</div>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        Last updated timestamp on each project record vs current date.
-                      </p>
-                    </div>
-                    
-                    <div className="bg-background/50 rounded-lg p-4 border border-warning/10">
-                      <div className="text-xs font-semibold text-warning uppercase tracking-wide mb-2">What We Track</div>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        Project update timestamps for weekly discipline
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-4 border-t border-border">
-                <div className="flex items-start gap-3">
-                  <Shield className="w-6 h-6 text-primary shrink-0 mt-1" />
-                  <div>
-                    <p className="text-sm font-semibold text-foreground mb-1">Why Transparency Matters</p>
-                    <p className="text-sm text-muted-foreground">
-                      By clearly showing how we calculate our metrics, everyone on our team understands what data we need to maintain and why. 
-                      Each metric directly reflects our collective discipline in updating project information, tracking tasks, and managing budgets. 
-                      When we see a metric drop, we know exactly which data quality issue to address.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          {/* Year-End Performance Evaluation Criteria */}
+          <div className="mb-16 animate-fade-in">
+            <div className="text-center mb-8 space-y-4">
+              <Badge className="mb-3 text-base py-2 px-6" variant="outline">
+                <Target className="w-4 h-4 mr-2" />
+                Year-End Performance Evaluation
+              </Badge>
+              <h2 className="text-heading mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                How We Evaluate Project Success
+              </h2>
+              <p className="text-body-large text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                Our projects are evaluated against two key drivers: delivery timeliness and user adoption. These criteria help us measure our impact and identify areas for improvement.
+              </p>
+            </div>
+            <PerformanceCriteriaTable />
+          </div>
 
           {/* Portfolio Summary Cards */}
           <div className="mb-12 text-center space-y-4">
