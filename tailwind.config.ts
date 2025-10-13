@@ -16,7 +16,6 @@ export default {
       fontFamily: {
         sans: ['Inter', 'Arial', 'sans-serif'],
         inter: ['Inter', 'Arial', 'sans-serif'],
-        playfair: ['Playfair Display', 'serif'],
         roboto: ['Roboto', 'Arial', 'sans-serif'],
         opensans: ['Open Sans', 'Arial', 'sans-serif'],
         poppins: ['Poppins', 'Arial', 'sans-serif'],
