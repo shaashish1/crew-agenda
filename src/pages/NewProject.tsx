@@ -104,14 +104,21 @@ const NewProject = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 animate-fade-in">
       <div className="flex items-center gap-4">
-        <Button variant="ghost" size="icon" onClick={() => navigate("/projects")}>
+        <Button 
+          variant="ghost" 
+          size="icon" 
+          onClick={() => navigate("/projects")}
+          className="hover:scale-110 hover:-translate-x-1 transition-all duration-300"
+        >
           <ArrowLeft className="w-5 h-5" />
         </Button>
         <div>
-          <h1 className="text-3xl font-bold text-foreground">New Project</h1>
-          <p className="text-muted-foreground mt-1">Create a new IT project</p>
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
+            New Project
+          </h1>
+          <p className="text-muted-foreground mt-2">Create a new IT project with comprehensive details</p>
         </div>
       </div>
 
@@ -119,9 +126,11 @@ const NewProject = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Column - Basic Info */}
           <div className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Basic Information</CardTitle>
+            <Card className="group border-2 hover:border-primary/40 transition-all duration-500 hover:shadow-premium-lg hover:scale-[1.02] animate-fade-in"
+              style={{ animationDelay: '0ms', animationFillMode: 'both' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-lg pointer-events-none" />
+              <CardHeader className="relative">
+                <CardTitle className="text-xl">Basic Information</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
@@ -161,9 +170,11 @@ const NewProject = () => {
               </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Project Cost</CardTitle>
+            <Card className="group border-2 hover:border-primary/40 transition-all duration-500 hover:shadow-premium-lg hover:scale-[1.02] animate-fade-in"
+              style={{ animationDelay: '80ms', animationFillMode: 'both' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-lg pointer-events-none" />
+              <CardHeader className="relative">
+                <CardTitle className="text-xl">Project Cost</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
@@ -209,9 +220,11 @@ const NewProject = () => {
               </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Project Timeline</CardTitle>
+            <Card className="group border-2 hover:border-primary/40 transition-all duration-500 hover:shadow-premium-lg hover:scale-[1.02] animate-fade-in"
+              style={{ animationDelay: '160ms', animationFillMode: 'both' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-lg pointer-events-none" />
+              <CardHeader className="relative">
+                <CardTitle className="text-xl">Project Timeline</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
@@ -247,9 +260,11 @@ const NewProject = () => {
 
           {/* Middle Column - Content */}
           <div className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Project Overview</CardTitle>
+            <Card className="group border-2 hover:border-primary/40 transition-all duration-500 hover:shadow-premium-lg hover:scale-[1.02] animate-fade-in"
+              style={{ animationDelay: '240ms', animationFillMode: 'both' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-lg pointer-events-none" />
+              <CardHeader className="relative">
+                <CardTitle className="text-xl">Project Overview</CardTitle>
               </CardHeader>
               <CardContent>
                 <Textarea
@@ -261,9 +276,11 @@ const NewProject = () => {
               </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Business Benefits</CardTitle>
+            <Card className="group border-2 hover:border-primary/40 transition-all duration-500 hover:shadow-premium-lg hover:scale-[1.02] animate-fade-in"
+              style={{ animationDelay: '320ms', animationFillMode: 'both' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-lg pointer-events-none" />
+              <CardHeader className="relative">
+                <CardTitle className="text-xl">Business Benefits</CardTitle>
               </CardHeader>
               <CardContent>
                 <Textarea
@@ -275,9 +292,11 @@ const NewProject = () => {
               </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Project Value Delivery</CardTitle>
+            <Card className="group border-2 hover:border-primary/40 transition-all duration-500 hover:shadow-premium-lg hover:scale-[1.02] animate-fade-in"
+              style={{ animationDelay: '400ms', animationFillMode: 'both' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-lg pointer-events-none" />
+              <CardHeader className="relative">
+                <CardTitle className="text-xl">Project Value Delivery</CardTitle>
               </CardHeader>
               <CardContent>
                 <Textarea
@@ -292,9 +311,11 @@ const NewProject = () => {
 
           {/* Right Column - Status */}
           <div className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>RAG Status</CardTitle>
+            <Card className="group border-2 hover:border-primary/40 transition-all duration-500 hover:shadow-premium-lg hover:scale-[1.02] animate-fade-in"
+              style={{ animationDelay: '480ms', animationFillMode: 'both' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-lg pointer-events-none" />
+              <CardHeader className="relative">
+                <CardTitle className="text-xl">RAG Status</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
@@ -492,9 +513,11 @@ const NewProject = () => {
               </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Current Status & Comments</CardTitle>
+            <Card className="group border-2 hover:border-primary/40 transition-all duration-500 hover:shadow-premium-lg hover:scale-[1.02] animate-fade-in"
+              style={{ animationDelay: '560ms', animationFillMode: 'both' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-lg pointer-events-none" />
+              <CardHeader className="relative">
+                <CardTitle className="text-xl">Current Status & Comments</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
@@ -563,9 +586,11 @@ const NewProject = () => {
               </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Resource Utilization by Department</CardTitle>
+            <Card className="group border-2 hover:border-primary/40 transition-all duration-500 hover:shadow-premium-lg hover:scale-[1.02] animate-fade-in"
+              style={{ animationDelay: '640ms', animationFillMode: 'both' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-lg pointer-events-none" />
+              <CardHeader className="relative">
+                <CardTitle className="text-xl">Resource Utilization by Department</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 {formData.resourceUtilization.map((resource, index) => (
@@ -646,9 +671,11 @@ const NewProject = () => {
               </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Key Activities Planned</CardTitle>
+            <Card className="group border-2 hover:border-primary/40 transition-all duration-500 hover:shadow-premium-lg hover:scale-[1.02] animate-fade-in"
+              style={{ animationDelay: '720ms', animationFillMode: 'both' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-lg pointer-events-none" />
+              <CardHeader className="relative">
+                <CardTitle className="text-xl">Key Activities Planned</CardTitle>
               </CardHeader>
               <CardContent>
                 <Textarea
@@ -662,11 +689,21 @@ const NewProject = () => {
           </div>
         </div>
 
-        <div className="flex justify-end gap-4 mt-6">
-          <Button type="button" variant="outline" onClick={() => navigate("/projects")}>
+        <div className="flex justify-end gap-4 mt-8 animate-fade-in" style={{ animationDelay: '800ms', animationFillMode: 'both' }}>
+          <Button 
+            type="button" 
+            variant="outline" 
+            onClick={() => navigate("/projects")}
+            className="hover:scale-105 hover:-translate-x-1 transition-all duration-300"
+          >
             Cancel
           </Button>
-          <Button type="submit">Create Project</Button>
+          <Button 
+            type="submit"
+            className="hover:scale-105 hover:shadow-premium transition-all duration-300 bg-gradient-to-r from-primary to-primary/80"
+          >
+            Create Project
+          </Button>
         </div>
       </form>
     </div>
