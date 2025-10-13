@@ -202,6 +202,20 @@ const Landing = () => {
       target: "≥ 40 hrs/year",
       description: "We invest in our team capabilities to stay current with technology trends",
       icon: iconGrowth
+    },
+    {
+      title: "Defect Management",
+      measure: "Average time to resolve critical defects",
+      target: "≤ 24 hours",
+      description: "We respond rapidly to production issues and maintain system stability",
+      icon: iconQuality
+    },
+    {
+      title: "Innovation Index",
+      measure: "Number of new technologies/methodologies adopted",
+      target: "≥ 3 per year",
+      description: "We continuously explore and implement innovative solutions to improve our delivery",
+      icon: iconSatisfaction
     }
   ];
 
@@ -712,13 +726,16 @@ const Landing = () => {
             ))}
           </div>
 
-          {/* Filtered KRA Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {filteredKRAs.map((kra, index) => (
+          {/* Filtered KRA Grid - 3x4 Layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {filteredKRAs.slice(0, 12).map((kra, index) => (
               <Card 
                 key={index} 
-                className="group border-2 border-border hover:border-primary/40 transition-all duration-500 hover:shadow-premium-lg hover:scale-105 cursor-pointer overflow-hidden h-full flex flex-col animate-fade-in"
-                style={{ animationDelay: `${index * 100}ms` }}
+                className="group border-2 border-border hover:border-primary/40 transition-all duration-500 hover:shadow-premium-lg hover:scale-[1.02] cursor-pointer overflow-hidden h-full flex flex-col animate-fade-in hover:-translate-y-1"
+                style={{ 
+                  animationDelay: `${index * 80}ms`,
+                  animationFillMode: 'both'
+                }}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500" />
                 <CardHeader className="space-y-4 relative flex-none">
