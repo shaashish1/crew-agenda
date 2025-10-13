@@ -81,8 +81,9 @@ const NewProject = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.name || formData.projectManager.length === 0 || formData.businessOwner.length === 0) {
-      toast.error("Please fill in all required fields");
+    if (!formData.name || formData.projectManager.length === 0 || formData.businessOwner.length === 0 ||
+        !formData.startDate || !formData.goLiveDate || !formData.hypercareEndDate) {
+      toast.error("Please fill in all required fields (marked with *)");
       return;
     }
 
@@ -228,30 +229,33 @@ const NewProject = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label htmlFor="startDate">Start Date</Label>
+                  <Label htmlFor="startDate">Start Date *</Label>
                   <Input
                     id="startDate"
                     type="date"
                     value={formData.startDate}
                     onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
+                    required
                   />
                 </div>
                 <div>
-                  <Label htmlFor="goLiveDate">Go Live Date</Label>
+                  <Label htmlFor="goLiveDate">Go Live Date *</Label>
                   <Input
                     id="goLiveDate"
                     type="date"
                     value={formData.goLiveDate}
                     onChange={(e) => setFormData({ ...formData, goLiveDate: e.target.value })}
+                    required
                   />
                 </div>
                 <div>
-                  <Label htmlFor="hypercareEndDate">Hypercare End Date</Label>
+                  <Label htmlFor="hypercareEndDate">Hypercare End Date *</Label>
                   <Input
                     id="hypercareEndDate"
                     type="date"
                     value={formData.hypercareEndDate}
                     onChange={(e) => setFormData({ ...formData, hypercareEndDate: e.target.value })}
+                    required
                   />
                 </div>
               </CardContent>
@@ -315,12 +319,13 @@ const NewProject = () => {
               style={{ animationDelay: '480ms', animationFillMode: 'both' }}>
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-lg pointer-events-none" />
               <CardHeader className="relative">
-                <CardTitle className="text-xl">RAG Status</CardTitle>
+                <CardTitle className="text-xl">RAG Status *</CardTitle>
+                <p className="text-sm text-muted-foreground mt-1">Critical fields for performance tracking</p>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <Label htmlFor="overallRAG">Overall Status</Label>
+                    <Label htmlFor="overallRAG">Overall Status *</Label>
                     {formData.overallRAG !== "green" && (
                       <Popover>
                         <PopoverTrigger asChild>
@@ -368,7 +373,7 @@ const NewProject = () => {
                 </div>
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <Label htmlFor="timelineRAG">Timeline Status</Label>
+                    <Label htmlFor="timelineRAG">Timeline Status *</Label>
                     {formData.timelineRAG !== "green" && (
                       <Popover>
                         <PopoverTrigger asChild>
@@ -416,7 +421,7 @@ const NewProject = () => {
                 </div>
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <Label htmlFor="budgetRAG">Budget Status</Label>
+                    <Label htmlFor="budgetRAG">Budget Status *</Label>
                     {formData.budgetRAG !== "green" && (
                       <Popover>
                         <PopoverTrigger asChild>
@@ -464,7 +469,7 @@ const NewProject = () => {
                 </div>
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <Label htmlFor="scopeRAG">Scope Status</Label>
+                    <Label htmlFor="scopeRAG">Scope Status *</Label>
                     {formData.scopeRAG !== "green" && (
                       <Popover>
                         <PopoverTrigger asChild>

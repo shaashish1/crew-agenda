@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useNavigate } from "react-router-dom";
+import { useProjectContext } from "@/contexts/ProjectContext";
 import { 
   FolderKanban, 
   ListChecks, 
@@ -54,14 +55,42 @@ import {
 const Features = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("overview");
+  const { projects, milestones } = useProjectContext();
 
-  // Mock data for charts - inspired by reference design
+  // Calculate real stats from actual project data
+  const stats = useMemo(() => {
+    const totalProjects = projects.length;
+    const onTimeProjects = projects.filter(p => p.timelineRAG === 'green').length;
+    const onBudgetProjects = projects.filter(p => p.budgetRAG === 'green').length;
+    
+    // Calculate average resource utilization across all projects
+    const allResourceData = projects.flatMap(p => p.resourceUtilization || []);
+    const avgUtilization = allResourceData.length > 0
+      ? Math.round(allResourceData.reduce((sum, r) => sum + r.allocatedPercentage, 0) / allResourceData.length)
+      : 0;
+
+    // RAG status distribution
+    const greenCount = projects.filter(p => p.overallRAG === 'green').length;
+    const amberCount = projects.filter(p => p.overallRAG === 'amber').length;
+    const redCount = projects.filter(p => p.overallRAG === 'red').length;
+
+    return {
+      totalProjects,
+      onTimeDeliveryPercent: totalProjects > 0 ? Math.round((onTimeProjects / totalProjects) * 100) : 0,
+      budgetHealthPercent: totalProjects > 0 ? Math.round((onBudgetProjects / totalProjects) * 100) : 0,
+      teamUtilizationPercent: avgUtilization,
+      greenCount,
+      amberCount,
+      redCount,
+    };
+  }, [projects]);
+
+  // Real data for charts based on actual project data
   const projectStatusData = [
-    { name: 'On Track', value: 45, color: 'hsl(var(--success))' },
-    { name: 'At Risk', value: 30, color: 'hsl(var(--warning))' },
-    { name: 'Critical', value: 15, color: 'hsl(var(--destructive))' },
-    { name: 'Completed', value: 10, color: 'hsl(var(--primary))' }
-  ];
+    { name: 'On Track', value: stats.greenCount, color: 'hsl(var(--success))' },
+    { name: 'At Risk', value: stats.amberCount, color: 'hsl(var(--warning))' },
+    { name: 'Critical', value: stats.redCount, color: 'hsl(var(--destructive))' },
+  ].filter(item => item.value > 0);
 
   const monthlyProgressData = [
     { month: 'Jan', completed: 12, onTrack: 18, atRisk: 8, critical: 3 },
@@ -101,35 +130,31 @@ const Features = () => {
   const statsCards = [
     {
       title: "Active Projects",
-      value: "42",
-      change: "+12%",
-      trend: "up",
+      value: stats.totalProjects.toString(),
+      subtitle: projects.length === 0 ? "No projects yet" : undefined,
       icon: FolderKanban,
       color: "text-primary"
     },
     {
       title: "On-Time Delivery",
-      value: "87%",
-      change: "+5%",
-      trend: "up",
+      value: `${stats.onTimeDeliveryPercent}%`,
+      subtitle: projects.length === 0 ? "Add projects to track" : undefined,
       icon: Clock,
-      color: "text-success"
+      color: stats.onTimeDeliveryPercent >= 80 ? "text-success" : stats.onTimeDeliveryPercent >= 60 ? "text-warning" : "text-destructive"
     },
     {
       title: "Budget Health",
-      value: "92%",
-      change: "+3%",
-      trend: "up",
+      value: `${stats.budgetHealthPercent}%`,
+      subtitle: projects.length === 0 ? "Add projects to track" : undefined,
       icon: DollarSign,
-      color: "text-accent"
+      color: stats.budgetHealthPercent >= 80 ? "text-success" : stats.budgetHealthPercent >= 60 ? "text-warning" : "text-destructive"
     },
     {
       title: "Team Utilization",
-      value: "76%",
-      change: "-2%",
-      trend: "down",
+      value: `${stats.teamUtilizationPercent}%`,
+      subtitle: projects.length === 0 ? "Add projects to track" : undefined,
       icon: Users,
-      color: "text-warning"
+      color: stats.teamUtilizationPercent >= 70 ? "text-success" : stats.teamUtilizationPercent >= 50 ? "text-warning" : "text-destructive"
     }
   ];
 
@@ -302,16 +327,9 @@ const Features = () => {
                   <div className="space-y-2 flex-1">
                     <p className="text-sm font-medium text-muted-foreground">{stat.title}</p>
                     <h3 className="text-3xl font-bold">{stat.value}</h3>
-                    <div className="flex items-center gap-2">
-                      {stat.trend === "up" ? (
-                        <TrendingUp className="w-4 h-4 text-success" />
-                      ) : (
-                        <TrendingDown className="w-4 h-4 text-destructive" />
-                      )}
-                      <span className={`text-sm font-medium ${stat.trend === "up" ? "text-success" : "text-destructive"}`}>
-                        {stat.change}
-                      </span>
-                    </div>
+                    {stat.subtitle && (
+                      <p className="text-xs text-muted-foreground">{stat.subtitle}</p>
+                    )}
                   </div>
                   <div className={`p-3 rounded-xl bg-gradient-to-br from-primary/10 to-accent/10 ${stat.color} group-hover:scale-110 transition-transform`}>
                     <stat.icon className="w-6 h-6" />
