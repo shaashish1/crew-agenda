@@ -311,10 +311,10 @@ const Landing = () => {
               <Button 
                 onClick={() => navigate("/projects")} 
                 size="lg" 
-                className="bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary shadow-premium-md hover:shadow-premium-lg transition-all hover:scale-105 text-white"
+                className="bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary shadow-premium-md hover:shadow-premium-lg transition-all duration-300 hover:scale-105 hover:-translate-y-1 text-white px-16 py-4 animate-fade-in"
               >
                 Get Started
-                <ArrowRight className="ml-2 w-4 h-4" />
+                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </div>
           </div>
@@ -343,7 +343,7 @@ const Landing = () => {
               <Button 
                 size="lg" 
                 onClick={() => navigate("/projects")}
-                className="bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary shadow-premium-lg hover:shadow-premium-xl transition-all hover:scale-105 text-lg px-8 py-6 text-white group"
+                className="bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary shadow-premium-lg hover:shadow-premium-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 px-14 py-4 text-white group animate-fade-in"
               >
                 Explore Our Portfolio
                 <ChevronRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -352,7 +352,7 @@ const Landing = () => {
                 size="lg" 
                 variant="outline"
                 onClick={() => navigate("/dashboard")}
-                className="border-2 border-primary/30 hover:bg-primary/10 hover:border-primary transition-all text-lg px-8 py-6 group"
+                className="border-2 border-primary/30 hover:bg-primary/10 hover:border-primary transition-all duration-300 hover:scale-105 hover:-translate-y-1 px-14 py-4 group animate-fade-in"
               >
                 View Dashboard
                 <Activity className="ml-2 w-5 h-5 group-hover:scale-110 transition-transform" />
@@ -597,11 +597,11 @@ const Landing = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center mt-12">
-            <Button onClick={() => navigate("/projects")} size="lg" className="btn-neon shadow-premium-lg text-lg py-7 px-10 hover:scale-105 transition-all text-white font-semibold">
+            <Button onClick={() => navigate("/projects")} size="lg" className="btn-neon shadow-premium-lg py-4 px-16 hover:scale-105 hover:-translate-y-1 transition-all duration-300 text-white font-semibold group">
               Update Our Projects
-              <ArrowRight className="ml-2 w-5 h-5" />
+              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button onClick={() => navigate("/dashboard")} size="lg" className="btn-neon-purple shadow-premium-lg text-lg py-7 px-10 hover:scale-105 transition-all text-white font-semibold">
+            <Button onClick={() => navigate("/dashboard")} size="lg" className="btn-neon-purple shadow-premium-lg py-4 px-16 hover:scale-105 hover:-translate-y-1 transition-all duration-300 text-white font-semibold group">
               Update Our Tasks
             </Button>
           </div>
@@ -700,10 +700,10 @@ const Landing = () => {
                 onClick={() => setSelectedCategory(cat.id)}
                 variant={selectedCategory === cat.id ? "default" : "outline"}
                 className={`
-                  px-6 py-3 rounded-full transition-all duration-300
+                  px-10 py-3 rounded-full transition-all duration-300
                   ${selectedCategory === cat.id 
-                    ? 'bg-gradient-to-r from-primary to-primary-dark shadow-premium-md hover:shadow-premium-lg scale-105 text-white' 
-                    : 'hover:bg-primary/10 hover:border-primary/50 hover:scale-105'
+                    ? 'bg-gradient-to-r from-primary to-primary-dark shadow-premium-md hover:shadow-premium-lg scale-105 text-white hover:-translate-y-0.5' 
+                    : 'hover:bg-primary/10 hover:border-primary/50 hover:scale-105 hover:-translate-y-0.5'
                   }
                 `}
               >
@@ -906,7 +906,7 @@ const Landing = () => {
               <Button 
                 size="lg" 
                 onClick={() => navigate("/projects")}
-                className="bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary shadow-premium-xl hover:shadow-premium-xl transition-all hover:scale-110 text-xl px-12 py-7 text-white group"
+                className="bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary shadow-premium-xl hover:shadow-premium-xl transition-all duration-300 hover:scale-110 hover:-translate-y-1 px-16 py-4 text-white group animate-fade-in"
               >
                 Explore Projects
                 <ChevronRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />
@@ -915,7 +915,7 @@ const Landing = () => {
                 size="lg" 
                 variant="outline"
                 onClick={() => navigate("/dashboard")}
-                className="border-2 border-primary/30 hover:bg-primary/10 hover:border-primary transition-all text-xl px-12 py-7 group"
+                className="border-2 border-primary/30 hover:bg-primary/10 hover:border-primary transition-all duration-300 hover:scale-110 hover:-translate-y-1 px-16 py-4 group animate-fade-in"
               >
                 View Dashboard
                 <Activity className="ml-2 w-6 h-6 group-hover:scale-110 transition-transform" />
