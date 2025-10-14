@@ -559,6 +559,164 @@ All colors MUST be HSL.
     --sidebar-border: 215 20% 20%;
     --sidebar-ring: 210 100% 50%;
   }
+
+  .material3 {
+    /* Material Design 3 Theme - Dynamic Color System */
+    --background: 220 16% 96%;
+    --foreground: 220 9% 15%;
+
+    /* Surface Colors - Material 3 uses surface containers */
+    --card: 220 20% 99%;
+    --card-foreground: 220 9% 15%;
+
+    --popover: 220 20% 99%;
+    --popover-foreground: 220 9% 15%;
+
+    /* Primary - Material Blue (M3 primary color) */
+    --primary: 214 100% 42%;
+    --primary-foreground: 0 0% 100%;
+    
+    --primary-light: 214 95% 52%;
+    --primary-dark: 214 100% 35%;
+    --primary-glow: 214 90% 58%;
+
+    /* Secondary - Material Teal */
+    --secondary: 186 52% 88%;
+    --secondary-foreground: 186 60% 20%;
+
+    /* Accent - Material Tertiary (Purple) */
+    --accent: 265 60% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Surface Variants */
+    --muted: 220 20% 92%;
+    --muted-foreground: 220 10% 45%;
+
+    --destructive: 5 80% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 145 60% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 95% 52%;
+    --warning-foreground: 0 0% 100%;
+
+    --info: 214 100% 42%;
+    --info-foreground: 0 0% 100%;
+
+    --border: 220 15% 88%;
+    --input: 220 15% 88%;
+    --ring: 214 100% 42%;
+
+    /* Material 3 Shape - Rounded corners */
+    --radius: 1rem;
+
+    /* Material 3 Elevation - Shadow + Surface Tint */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 2px 8px 0 rgb(0 0 0 / 0.10), 0 1px 2px 0 rgb(0 0 0 / 0.06);
+    --shadow-lg: 0 4px 16px 0 rgb(0 0 0 / 0.12), 0 2px 4px 0 rgb(0 0 0 / 0.08);
+    --shadow-xl: 0 8px 32px 0 rgb(0 0 0 / 0.14), 0 4px 8px 0 rgb(0 0 0 / 0.10);
+    --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px 0 rgb(0 0 0 / 0.06);
+    --shadow-card-hover: 0 4px 12px 0 rgb(0 0 0 / 0.12), 0 2px 4px 0 rgb(0 0 0 / 0.08);
+    --shadow-glow: 0 0 24px hsl(214 100% 42% / 0.20);
+    --shadow-premium-sm: 0 1px 2px rgba(0,0,0,0.05);
+    --shadow-premium-md: 0 2px 8px rgba(0,0,0,0.10);
+    --shadow-premium-lg: 0 4px 16px rgba(0,0,0,0.12);
+    --shadow-premium-xl: 0 8px 32px rgba(0,0,0,0.14);
+    
+    /* Material 3 Gradients - Subtle surface tints */
+    --gradient-primary: linear-gradient(135deg, hsl(214 100% 42%) 0%, hsl(186 52% 48%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(220 20% 99%) 0%, hsl(220 18% 96%) 100%);
+    --gradient-button: linear-gradient(180deg, hsl(214 100% 44%) 0%, hsl(214 100% 38%) 100%);
+    --gradient-glow: radial-gradient(circle at top left, hsl(214 100% 42% / 0.08), transparent 60%);
+    --gradient-glassmorphism: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
+
+    --sidebar-background: 214 100% 42%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 0 0% 100%;
+    --sidebar-primary-foreground: 214 100% 42%;
+    --sidebar-accent: 214 95% 50%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 214 90% 50%;
+    --sidebar-ring: 0 0% 100%;
+  }
+
+  .material3.dark {
+    /* Material Design 3 Dark Theme */
+    --background: 220 15% 12%;
+    --foreground: 220 10% 95%;
+
+    --card: 220 18% 16%;
+    --card-foreground: 220 10% 95%;
+
+    --popover: 220 18% 16%;
+    --popover-foreground: 220 10% 95%;
+
+    /* Primary - Material Blue in dark */
+    --primary: 214 90% 65%;
+    --primary-foreground: 220 15% 12%;
+    
+    --primary-light: 214 85% 72%;
+    --primary-dark: 214 95% 58%;
+    --primary-glow: 214 80% 75%;
+
+    /* Secondary - Material Teal in dark */
+    --secondary: 186 40% 25%;
+    --secondary-foreground: 186 50% 90%;
+
+    /* Accent - Material Tertiary Purple in dark */
+    --accent: 265 55% 65%;
+    --accent-foreground: 220 15% 12%;
+
+    --muted: 220 18% 22%;
+    --muted-foreground: 220 8% 65%;
+
+    --destructive: 5 75% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 145 55% 50%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 90% 58%;
+    --warning-foreground: 220 15% 12%;
+
+    --info: 214 90% 65%;
+    --info-foreground: 220 15% 12%;
+
+    --border: 220 15% 25%;
+    --input: 220 15% 25%;
+    --ring: 214 90% 65%;
+
+    --radius: 1rem;
+
+    /* Material 3 Dark Elevation */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.30);
+    --shadow-md: 0 2px 8px 0 rgb(0 0 0 / 0.40), 0 1px 2px 0 rgb(0 0 0 / 0.30);
+    --shadow-lg: 0 4px 16px 0 rgb(0 0 0 / 0.50), 0 2px 4px 0 rgb(0 0 0 / 0.40);
+    --shadow-xl: 0 8px 32px 0 rgb(0 0 0 / 0.60), 0 4px 8px 0 rgb(0 0 0 / 0.50);
+    --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.35), 0 1px 2px 0 rgb(0 0 0 / 0.25);
+    --shadow-card-hover: 0 4px 12px 0 rgb(0 0 0 / 0.45), 0 2px 4px 0 rgb(0 0 0 / 0.35);
+    --shadow-glow: 0 0 24px hsl(214 90% 65% / 0.30);
+    --shadow-premium-sm: 0 1px 2px rgba(0,0,0,0.30);
+    --shadow-premium-md: 0 2px 8px rgba(0,0,0,0.40);
+    --shadow-premium-lg: 0 4px 16px rgba(0,0,0,0.50);
+    --shadow-premium-xl: 0 8px 32px rgba(0,0,0,0.60);
+    
+    --gradient-primary: linear-gradient(135deg, hsl(214 90% 65%) 0%, hsl(186 50% 55%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(220 18% 18%) 0%, hsl(220 15% 14%) 100%);
+    --gradient-button: linear-gradient(180deg, hsl(214 90% 68%) 0%, hsl(214 90% 60%) 100%);
+    --gradient-glow: radial-gradient(circle at top left, hsl(214 90% 65% / 0.12), transparent 60%);
+    --gradient-glassmorphism: linear-gradient(135deg, rgba(40, 40, 48, 0.9) 0%, rgba(30, 30, 38, 0.8) 100%);
+
+    --sidebar-background: 220 18% 16%;
+    --sidebar-foreground: 220 10% 95%;
+    --sidebar-primary: 214 90% 65%;
+    --sidebar-primary-foreground: 220 15% 12%;
+    --sidebar-accent: 220 18% 22%;
+    --sidebar-accent-foreground: 220 10% 95%;
+    --sidebar-border: 220 15% 25%;
+    --sidebar-ring: 214 90% 65%;
+  }
 }
 
 @layer base {

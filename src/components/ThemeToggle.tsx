@@ -1,4 +1,4 @@
-import { Moon, Sun, Palette, Waves, Sunset, Trees, Sparkles, Briefcase } from "lucide-react";
+import { Moon, Sun, Palette, Waves, Sunset, Trees, Sparkles, Briefcase, Layers } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -8,13 +8,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useEffect, useState } from "react";
 
-type Theme = "light" | "light-grey" | "dark" | "ocean" | "sunset" | "forest" | "purple" | "corporate";
+type Theme = "light" | "light-grey" | "dark" | "ocean" | "sunset" | "forest" | "purple" | "corporate" | "material3";
 
 export const ThemeToggle = () => {
   const [theme, setTheme] = useState<Theme>("dark");
 
   useEffect(() => {
-    const savedTheme = (localStorage.getItem("theme") as Theme) || "dark";
+    const savedTheme = (localStorage.getItem("theme") as Theme) || "corporate";
     applyTheme(savedTheme);
   }, []);
 
@@ -23,7 +23,7 @@ export const ThemeToggle = () => {
     localStorage.setItem("theme", newTheme);
     
     // Remove all theme classes
-    document.documentElement.classList.remove("dark", "light-grey", "ocean", "sunset", "forest", "purple", "corporate");
+    document.documentElement.classList.remove("dark", "light-grey", "ocean", "sunset", "forest", "purple", "corporate", "material3");
     
     // Apply new theme class (light is default, no class needed)
     if (newTheme !== "light") {
@@ -54,6 +54,8 @@ export const ThemeToggle = () => {
             <Sparkles className="h-5 w-5" />
           ) : theme === "corporate" ? (
             <Briefcase className="h-5 w-5" />
+          ) : theme === "material3" ? (
+            <Layers className="h-5 w-5" />
           ) : (
             <Sun className="h-5 w-5" />
           )}
@@ -87,6 +89,10 @@ export const ThemeToggle = () => {
         <DropdownMenuItem onClick={() => applyTheme("corporate")}>
           <Briefcase className="mr-2 h-4 w-4" />
           Corporate
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => applyTheme("material3")}>
+          <Layers className="mr-2 h-4 w-4" />
+          Material 3
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => applyTheme("dark")}>
           <Moon className="mr-2 h-4 w-4" />
