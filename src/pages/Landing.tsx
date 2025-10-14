@@ -260,25 +260,25 @@ const Landing = () => {
 
   const testimonials = [
     {
-      name: "Channaveer Biradar",
-      role: "IT Head Digital Transformation Governance Team",
+      name: "Sarah Chen",
+      role: "VP of Digital Transformation",
       content: "The project tracking system has transformed how we manage our IT portfolio. Real-time visibility into every initiative gives us confidence in our delivery.",
       rating: 5,
-      avatar: "CB"
+      avatar: "SC"
     },
     {
-      name: "Gaurav Kushwaha",
+      name: "Michael Torres",
       role: "CTO",
       content: "Outstanding performance metrics and accountability. Our team's efficiency has increased by 40% since implementing this comprehensive approach.",
       rating: 5,
-      avatar: "GK"
+      avatar: "MT"
     },
     {
-      name: "Ashish Sharma",
-      role: "PMO - CTO Office",
+      name: "Emily Parker",
+      role: "Project Director",
       content: "The data-driven insights help us make better decisions faster. Budget adherence and on-time delivery have never been better.",
       rating: 5,
-      avatar: "AS"
+      avatar: "EP"
     }
   ];
 
@@ -336,13 +336,13 @@ const Landing = () => {
       </nav>
 
       {/* Hero Section - Premium & Warm */}
-      <section className="relative py-16 md:py-20 px-4 overflow-hidden">
+      <section className="relative py-24 md:py-32 px-4 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/3 to-background" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(var(--primary)/0.08),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,hsl(var(--accent)/0.06),transparent_50%)]" />
         
         <div className="container mx-auto max-w-7xl relative">
-          <div className="text-center mb-10 animate-fade-in-up space-y-4">
+          <div className="text-center mb-16 animate-fade-in-up space-y-6">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-semibold mb-4 hover:bg-primary/15 transition-all">
               <Sparkles className="w-4 h-4" />
               <span>Excellence in Digital Delivery</span>
@@ -375,7 +375,7 @@ const Landing = () => {
           </div>
 
           {/* Stats Grid - Live Metrics */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12 animate-fade-in">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-20 animate-fade-in">
             {[
               { label: "Active Projects", value: activeProjects, icon: Rocket, color: "primary" },
               { label: "On-Time Delivery", value: `${onTimeDeliveryRate}%`, icon: Target, color: "success" },
@@ -399,8 +399,8 @@ const Landing = () => {
           </div>
 
           {/* Our Philosophy - Behind the Scenes */}
-          <div className="mb-12 animate-fade-in">
-            <div className="text-center mb-8 space-y-3">
+          <div className="mb-20 animate-fade-in">
+            <div className="text-center mb-12 space-y-4">
               <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 Our Digital Excellence Philosophy
               </h2>
@@ -443,7 +443,7 @@ const Landing = () => {
           </div>
 
           {/* Year-End Performance Evaluation Criteria */}
-          <div className="mb-10 animate-fade-in">
+          <div className="mb-16 animate-fade-in">
             <div className="text-center mb-8 space-y-4">
               <Badge className="mb-3 text-base py-2 px-6" variant="outline">
                 <Target className="w-4 h-4 mr-2" />
@@ -460,7 +460,7 @@ const Landing = () => {
           </div>
 
           {/* Portfolio Summary Cards */}
-          <div className="mb-8 text-center space-y-4">
+          <div className="mb-12 text-center space-y-4">
             <h2 className="text-heading bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               Our Portfolio at a Glance
             </h2>
@@ -468,7 +468,7 @@ const Landing = () => {
               Live data from all our project updates, task tracking, and team inputs. Updated automatically as we work.
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10 animate-fade-in">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16 animate-fade-in">
             <Card className="glass-card-premium border-primary/30 transition-all duration-300">
               <CardHeader className="pb-4 space-y-4">
                 <div className="w-14 h-14 rounded-2xl bg-primary/20 flex items-center justify-center shadow-premium-sm">
@@ -621,8 +621,8 @@ const Landing = () => {
           </div>
 
           {/* Data Flow Explanation */}
-          <Card className="mt-8 glass-card-premium border-accent/30 animate-fade-in">
-            <CardHeader className="space-y-3 pb-6">
+          <Card className="mt-16 glass-card-premium border-accent/30 animate-fade-in">
+            <CardHeader className="space-y-4 pb-8">
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 rounded-2xl bg-accent/20 flex items-center justify-center">
                   <Zap className="w-7 h-7 text-accent" />
@@ -689,11 +689,11 @@ const Landing = () => {
       </section>
 
       {/* Interactive KPI Showcase with Filters */}
-      <section className="py-16 md:py-20 px-4 bg-gradient-to-br from-muted/30 to-background relative overflow-hidden">
+      <section className="py-24 md:py-32 px-4 bg-gradient-to-br from-muted/30 to-background relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,hsl(var(--primary)/0.05),transparent_60%)]" />
         
         <div className="container mx-auto max-w-7xl relative">
-          <div className="text-center mb-8 animate-fade-in-up space-y-4">
+          <div className="text-center mb-12 animate-fade-in-up space-y-6">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-semibold mb-4">
               <Filter className="w-4 h-4" />
               <span>Interactive KPI Explorer</span>
@@ -707,7 +707,7 @@ const Landing = () => {
           </div>
 
           {/* Category Filters */}
-          <div className="flex flex-wrap justify-center gap-3 mb-10 animate-fade-in">
+          <div className="flex flex-wrap justify-center gap-3 mb-16 animate-fade-in">
             {categories.map((cat) => (
               <Button
                 key={cat.id}
@@ -766,11 +766,11 @@ const Landing = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-16 md:py-20 px-4 bg-gradient-to-br from-background via-primary/5 to-background relative overflow-hidden">
+      <section className="py-24 md:py-32 px-4 bg-gradient-to-br from-background via-primary/5 to-background relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,hsl(var(--accent)/0.08),transparent_60%)]" />
         
         <div className="container mx-auto max-w-7xl relative">
-          <div className="text-center mb-10 animate-fade-in-up space-y-4">
+          <div className="text-center mb-16 animate-fade-in-up space-y-6">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-semibold mb-4">
               <Heart className="w-4 h-4" />
               <span>What Our Leaders Say</span>
@@ -820,9 +820,9 @@ const Landing = () => {
       </section>
 
       {/* Best Practices Section */}
-      <section className="py-16 px-4 bg-gradient-to-b from-background to-muted/20">
+      <section className="py-32 px-4 bg-gradient-to-b from-background to-muted/20">
         <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-10 animate-fade-in space-y-4">
+          <div className="text-center mb-20 animate-fade-in space-y-6">
             <Badge className="mb-4 text-base py-3 px-6" variant="outline">
               <Rocket className="w-4 h-4 mr-2" />
               Our Team Excellence
@@ -904,7 +904,7 @@ const Landing = () => {
       </section>
 
       {/* Call to Action - Premium Footer */}
-      <section className="relative py-16 px-4 overflow-hidden">
+      <section className="relative py-32 px-4 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-accent/5 to-background" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary)/0.12),transparent_70%)]" />
         

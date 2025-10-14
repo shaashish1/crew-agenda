@@ -62,7 +62,7 @@ export const PerformanceCriteriaTable = ({ compact = false }: PerformanceCriteri
                     <th className="text-left p-4 font-bold text-foreground bg-muted/50">Driver</th>
                     <th className="text-left p-4 font-bold text-foreground bg-muted/50">Criteria</th>
                     <th className="text-center p-4 font-bold text-destructive-foreground bg-destructive/90">Critical</th>
-                    <th className="text-center p-4 font-bold text-destructive-foreground bg-destructive/90">High</th>
+                    <th className="text-center p-4 font-bold text-warning-foreground bg-warning/90">High</th>
                     <th className="text-center p-4 font-bold bg-[hsl(38,92%,60%)] text-[hsl(260,35%,12%)]">Medium</th>
                     <th className="text-center p-4 font-bold text-success-foreground bg-success/90">Low (Target)</th>
                   </tr>
@@ -87,7 +87,7 @@ export const PerformanceCriteriaTable = ({ compact = false }: PerformanceCriteri
                         </div>
                       </td>
                       <td className="p-4 text-center">
-                        <div className="bg-destructive/20 text-destructive px-3 py-2 rounded-lg font-medium text-sm border border-destructive/30">
+                        <div className="bg-warning/20 text-warning-foreground px-3 py-2 rounded-lg font-medium text-sm border border-warning/30">
                           {criterion.high}
                         </div>
                       </td>
@@ -126,7 +126,7 @@ export const PerformanceCriteriaTable = ({ compact = false }: PerformanceCriteri
                     <div className="bg-destructive text-destructive-foreground px-3 py-2 rounded text-sm font-medium">
                       Critical: {criterion.critical}
                     </div>
-                    <div className="bg-destructive text-destructive-foreground px-3 py-2 rounded text-sm font-medium">
+                    <div className="bg-warning text-warning-foreground px-3 py-2 rounded text-sm font-medium">
                       High: {criterion.high}
                     </div>
                     <div className="bg-[hsl(38,92%,60%)] text-[hsl(260,35%,12%)] px-3 py-2 rounded text-sm font-medium">
