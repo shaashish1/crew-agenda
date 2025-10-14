@@ -15,34 +15,43 @@ const mockData = [
 
 export const PortfolioHealthChart = () => {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <TrendingUp className="h-5 w-5" />
-          Portfolio Health Trends
-        </CardTitle>
-        <CardDescription>
-          Historical performance metrics across the portfolio
-        </CardDescription>
+    <Card className="border-l-4 border-l-primary">
+      <CardHeader className="pb-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <CardTitle className="flex items-center gap-2">
+              <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                <TrendingUp className="h-5 w-5 text-primary" />
+              </div>
+              Portfolio Health Trends
+            </CardTitle>
+            <CardDescription className="mt-2">
+              Historical performance metrics across the portfolio
+            </CardDescription>
+          </div>
+        </div>
       </CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={mockData}>
-            <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+            <CartesianGrid strokeDasharray="3 3" className="stroke-muted" opacity={0.3} />
             <XAxis 
               dataKey="date" 
               className="text-xs"
               tick={{ fill: 'hsl(var(--muted-foreground))' }}
+              axisLine={{ stroke: 'hsl(var(--border))' }}
             />
             <YAxis 
               className="text-xs"
               tick={{ fill: 'hsl(var(--muted-foreground))' }}
+              axisLine={{ stroke: 'hsl(var(--border))' }}
             />
             <Tooltip 
               contentStyle={{
                 backgroundColor: 'hsl(var(--card))',
                 border: '1px solid hsl(var(--border))',
-                borderRadius: '6px',
+                borderRadius: '8px',
+                boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
               }}
             />
             <Legend />
@@ -51,21 +60,27 @@ export const PortfolioHealthChart = () => {
               dataKey="health_score" 
               stroke="hsl(var(--primary))" 
               name="Health Score"
-              strokeWidth={2}
+              strokeWidth={3}
+              dot={{ fill: 'hsl(var(--primary))', r: 4 }}
+              activeDot={{ r: 6 }}
             />
             <Line 
               type="monotone" 
               dataKey="on_time" 
               stroke="hsl(var(--success))" 
               name="On-Time %"
-              strokeWidth={2}
+              strokeWidth={3}
+              dot={{ fill: 'hsl(var(--success))', r: 4 }}
+              activeDot={{ r: 6 }}
             />
             <Line 
               type="monotone" 
               dataKey="budget" 
               stroke="hsl(var(--warning))" 
               name="Budget %"
-              strokeWidth={2}
+              strokeWidth={3}
+              dot={{ fill: 'hsl(var(--warning))', r: 4 }}
+              activeDot={{ r: 6 }}
             />
           </LineChart>
         </ResponsiveContainer>

@@ -484,6 +484,81 @@ All colors MUST be HSL.
     --sidebar-border: 265 65% 58%;
     --sidebar-ring: 0 0% 100%;
   }
+
+  .corporate {
+    /* Corporate Theme - Professional Blue/Teal */
+    --background: 210 20% 98%;
+    --foreground: 215 25% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 10%;
+
+    --primary: 210 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    
+    --primary-light: 210 100% 60%;
+    --primary-dark: 210 100% 40%;
+    --primary-glow: 210 80% 70%;
+
+    --secondary: 210 17% 95%;
+    --secondary-foreground: 215 25% 15%;
+
+    --accent: 180 60% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --muted: 210 15% 92%;
+    --muted-foreground: 215 12% 45%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 145 60% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --info: 210 100% 50%;
+    --info-foreground: 0 0% 100%;
+
+    --border: 215 15% 88%;
+    --input: 215 15% 92%;
+    --ring: 210 100% 50%;
+
+    --radius: 0.5rem;
+
+    /* Corporate Shadow System - Clean & Subtle */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.10);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.12);
+    --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.05), 0 1px 2px 0 rgb(0 0 0 / 0.03);
+    --shadow-card-hover: 0 10px 15px -3px rgb(0 0 0 / 0.12), 0 4px 6px -2px rgb(0 0 0 / 0.05);
+    --shadow-glow: 0 0 20px hsl(210 100% 50% / 0.15);
+    --shadow-premium-sm: 0 2px 8px rgba(33,150,243,0.08), 0 1px 4px rgba(0,0,0,0.04);
+    --shadow-premium-md: 0 4px 16px rgba(33,150,243,0.12), 0 2px 8px rgba(0,0,0,0.06);
+    --shadow-premium-lg: 0 8px 24px rgba(33,150,243,0.15), 0 4px 12px rgba(0,0,0,0.08);
+    --shadow-premium-xl: 0 16px 48px rgba(33,150,243,0.18), 0 8px 24px rgba(0,0,0,0.10);
+    
+    /* Corporate Gradients - Subtle & Professional */
+    --gradient-primary: linear-gradient(135deg, hsl(210 100% 50%) 0%, hsl(180 60% 45%) 100%);
+    --gradient-card: linear-gradient(to bottom, hsl(0 0% 100%) 0%, hsl(210 20% 99%) 100%);
+    --gradient-button: linear-gradient(135deg, hsl(210 100% 50%) 0%, hsl(210 100% 40%) 100%);
+    --gradient-glow: radial-gradient(circle at top left, hsl(210 100% 50% / 0.08), transparent 50%);
+    --gradient-glassmorphism: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+
+    --sidebar-background: 215 25% 12%;
+    --sidebar-foreground: 210 20% 98%;
+    --sidebar-primary: 210 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 215 25% 18%;
+    --sidebar-accent-foreground: 210 20% 98%;
+    --sidebar-border: 215 20% 20%;
+    --sidebar-ring: 210 100% 50%;
+  }
 }
 
 @layer base {
