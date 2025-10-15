@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Plus, Pencil, Trash2, ArrowUpDown, ArrowUp, ArrowDown, ChevronDown } from "lucide-react";
+import { Plus, Pencil, Trash2, ArrowUpDown, ArrowUp, ArrowDown, ChevronDown, Network } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,6 +13,8 @@ import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
+import { TaskDependencyGraph } from "@/components/TaskDependencyGraph";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 type SortField = "serialNo" | "owner" | "actionItem" | "category" | "reportedDate" | "targetDate" | "status";
 type SortDirection = "asc" | "desc" | null;
@@ -21,6 +23,7 @@ const Dashboard = () => {
   const { tasks, deleteTask } = useTaskContext();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task | undefined>();
+  const [viewMode, setViewMode] = useState<"table" | "graph">("table");
   
   // Sorting state
   const [sortField, setSortField] = useState<SortField | null>(null);
@@ -314,24 +317,39 @@ const Dashboard = () => {
         </CardContent>
       </Card>
 
-      <Card>
-        {filteredAndSortedTasks.length === 0 ? (
-          <CardContent className="py-16 text-center">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-muted flex items-center justify-center">
-              <Plus className="w-8 h-8 text-muted-foreground" />
-            </div>
-            <h3 className="text-lg font-semibold text-foreground mb-2">
-              {tasks.length === 0 ? "No tasks yet" : "No tasks match your filters"}
-            </h3>
-            <p className="text-sm text-muted-foreground mb-6">
-              {tasks.length === 0 ? "Get started by creating your first task" : "Try adjusting your filters"}
-            </p>
-            <Button onClick={handleAddNew} size="lg">
-              <Plus className="w-4 h-4 mr-2" />
-              Add Your First Task
-            </Button>
-          </CardContent>
-        ) : (
+      <Tabs value={viewMode} onValueChange={(v) => setViewMode(v as "table" | "graph")} className="w-full">
+        <div className="flex items-center justify-between mb-4">
+          <TabsList>
+            <TabsTrigger value="table">Table View</TabsTrigger>
+            <TabsTrigger value="graph">
+              <Network className="h-4 w-4 mr-2" />
+              Dependency Graph
+            </TabsTrigger>
+          </TabsList>
+          <div className="text-sm text-muted-foreground">
+            {filteredAndSortedTasks.length} task{filteredAndSortedTasks.length !== 1 ? "s" : ""}
+          </div>
+        </div>
+
+        <TabsContent value="table" className="mt-0">
+          <Card>
+            {filteredAndSortedTasks.length === 0 ? (
+              <CardContent className="py-16 text-center">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-muted flex items-center justify-center">
+                  <Plus className="w-8 h-8 text-muted-foreground" />
+                </div>
+                <h3 className="text-lg font-semibold text-foreground mb-2">
+                  {tasks.length === 0 ? "No tasks yet" : "No tasks match your filters"}
+                </h3>
+                <p className="text-sm text-muted-foreground mb-6">
+                  {tasks.length === 0 ? "Get started by creating your first task" : "Try adjusting your filters"}
+                </p>
+                <Button onClick={handleAddNew} size="lg">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add Your First Task
+                </Button>
+              </CardContent>
+            ) : (
           <div className="overflow-x-auto">
             <Table className="table-auto">
               <TableHeader>
@@ -453,6 +471,12 @@ const Dashboard = () => {
           </div>
         )}
       </Card>
+    </TabsContent>
+
+    <TabsContent value="graph" className="mt-0">
+      <TaskDependencyGraph tasks={filteredAndSortedTasks} selectedTaskId={selectedTask?.id} />
+    </TabsContent>
+  </Tabs>
 
       <TaskDialog
         open={dialogOpen}

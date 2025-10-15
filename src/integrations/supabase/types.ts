@@ -456,6 +456,102 @@ export type Database = {
         }
         Relationships: []
       }
+      subtasks: {
+        Row: {
+          completion_date: string | null
+          created_at: string
+          id: string
+          order_index: number
+          owner: string[] | null
+          parent_task_id: string
+          progress_comments: string | null
+          status: string
+          target_date: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          completion_date?: string | null
+          created_at?: string
+          id?: string
+          order_index?: number
+          owner?: string[] | null
+          parent_task_id: string
+          progress_comments?: string | null
+          status?: string
+          target_date?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          completion_date?: string | null
+          created_at?: string
+          id?: string
+          order_index?: number
+          owner?: string[] | null
+          parent_task_id?: string
+          progress_comments?: string | null
+          status?: string
+          target_date?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      tasks: {
+        Row: {
+          action_item: string
+          category: string | null
+          created_at: string
+          dependencies: string[] | null
+          id: string
+          owner: string[]
+          priority_score: number | null
+          progress_comments: string | null
+          project_id: string | null
+          reported_date: string
+          sentiment: string | null
+          serial_no: number
+          status: string
+          target_date: string
+          updated_at: string
+        }
+        Insert: {
+          action_item: string
+          category?: string | null
+          created_at?: string
+          dependencies?: string[] | null
+          id: string
+          owner?: string[]
+          priority_score?: number | null
+          progress_comments?: string | null
+          project_id?: string | null
+          reported_date: string
+          sentiment?: string | null
+          serial_no: number
+          status: string
+          target_date: string
+          updated_at?: string
+        }
+        Update: {
+          action_item?: string
+          category?: string | null
+          created_at?: string
+          dependencies?: string[] | null
+          id?: string
+          owner?: string[]
+          priority_score?: number | null
+          progress_comments?: string | null
+          project_id?: string | null
+          reported_date?: string
+          sentiment?: string | null
+          serial_no?: number
+          status?: string
+          target_date?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       vendor_contracts: {
         Row: {
           approval_date: string | null
