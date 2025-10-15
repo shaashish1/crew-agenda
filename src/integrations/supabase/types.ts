@@ -257,6 +257,63 @@ export type Database = {
         }
         Relationships: []
       }
+      milestones: {
+        Row: {
+          approval_required: boolean | null
+          approved_by: string | null
+          approved_date: string | null
+          baseline_target_date: string | null
+          completed_date: string | null
+          created_at: string
+          dependencies: string[] | null
+          description: string | null
+          id: string
+          is_critical_path: boolean | null
+          name: string
+          order_index: number
+          project_id: string
+          status: string
+          target_date: string
+          updated_at: string
+        }
+        Insert: {
+          approval_required?: boolean | null
+          approved_by?: string | null
+          approved_date?: string | null
+          baseline_target_date?: string | null
+          completed_date?: string | null
+          created_at?: string
+          dependencies?: string[] | null
+          description?: string | null
+          id?: string
+          is_critical_path?: boolean | null
+          name: string
+          order_index?: number
+          project_id: string
+          status?: string
+          target_date: string
+          updated_at?: string
+        }
+        Update: {
+          approval_required?: boolean | null
+          approved_by?: string | null
+          approved_date?: string | null
+          baseline_target_date?: string | null
+          completed_date?: string | null
+          created_at?: string
+          dependencies?: string[] | null
+          description?: string | null
+          id?: string
+          is_critical_path?: boolean | null
+          name?: string
+          order_index?: number
+          project_id?: string
+          status?: string
+          target_date?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       project_blueprints: {
         Row: {
           assumptions: string[]

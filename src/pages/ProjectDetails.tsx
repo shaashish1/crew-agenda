@@ -475,7 +475,7 @@ const ProjectDetails = () => {
 
             {/* Milestones Tab */}
             <TabsContent value="milestones">
-              <MilestoneTimeline projectId={project.id} milestones={milestones} />
+              <MilestoneTimeline projectId={project.id} />
             </TabsContent>
 
             {/* Phases Tab */}

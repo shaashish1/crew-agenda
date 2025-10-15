@@ -64,10 +64,16 @@ export interface Milestone {
   projectId: string;
   name: string;
   targetDate: string;
+  baselineTargetDate?: string; // For baseline comparison
   completedDate?: string;
-  status: 'planned' | 'in-progress' | 'completed' | 'delayed';
+  status: 'planned' | 'in-progress' | 'completed' | 'delayed' | 'at-risk';
   description?: string;
   order: number;
+  dependencies?: string[]; // Array of milestone IDs
+  isCriticalPath?: boolean;
+  approvalRequired?: boolean;
+  approvedBy?: string;
+  approvedDate?: string;
 }
 
 export interface Risk {
