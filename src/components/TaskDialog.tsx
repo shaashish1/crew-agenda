@@ -7,14 +7,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Task, TaskStatus } from "@/types/task";
 import { useTaskContext } from "@/contexts/TaskContext";
-import { Plus, X } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Checkbox } from "@/components/ui/checkbox";
 import { SubtaskList } from "./SubtaskList";
 import { TaskDependencySelector } from "./TaskDependencySelector";
 import { Separator } from "./ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import { MultiSelectWithAdd } from "./ui/multi-select-with-add";
+import { SelectWithAdd } from "./ui/select-with-add";
 
 interface TaskDialogProps {
   open: boolean;
@@ -31,6 +29,7 @@ export const TaskDialog = ({ open, onOpenChange, task }: TaskDialogProps) => {
     owners,
     categories,
     addCategory,
+    addOwner,
     tasks,
     getSubtasksByTaskId,
     addSubtask,
@@ -47,8 +46,6 @@ export const TaskDialog = ({ open, onOpenChange, task }: TaskDialogProps) => {
     category: "",
     dependencies: [] as string[],
   });
-  const [isCreatingNewCategory, setIsCreatingNewCategory] = useState(false);
-  const [newCategoryName, setNewCategoryName] = useState("");
   const taskSubtasks = task ? getSubtasksByTaskId(task.id) : [];
 
   useEffect(() => {
@@ -63,8 +60,6 @@ export const TaskDialog = ({ open, onOpenChange, task }: TaskDialogProps) => {
         category: task.category || "",
         dependencies: task.dependencies || [],
       });
-      setIsCreatingNewCategory(false);
-      setNewCategoryName("");
     } else {
       setFormData({
         owner: [],
@@ -76,27 +71,16 @@ export const TaskDialog = ({ open, onOpenChange, task }: TaskDialogProps) => {
         category: "",
         dependencies: [],
       });
-      setIsCreatingNewCategory(false);
-      setNewCategoryName("");
     }
   }, [task, open]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // If creating a new category, add it first
-    let finalCategory = formData.category;
-    if (isCreatingNewCategory && newCategoryName.trim()) {
-      addCategory(newCategoryName.trim());
-      finalCategory = newCategoryName.trim();
-    }
-    
-    const finalFormData = { ...formData, category: finalCategory };
-    
     if (task) {
-      updateTask(task.id, finalFormData);
+      updateTask(task.id, formData);
     } else {
-      addTask(finalFormData);
+      addTask(formData);
     }
     onOpenChange(false);
   };
@@ -119,126 +103,25 @@ export const TaskDialog = ({ open, onOpenChange, task }: TaskDialogProps) => {
 
             <TabsContent value="details" className="space-y-4 mt-4">
           <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="owner">Owners *</Label>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button variant="outline" className="w-full justify-between">
-                    {formData.owner.length > 0 ? (
-                      <span className="flex gap-1 flex-wrap">
-                        {formData.owner.slice(0, 2).map(owner => (
-                          <Badge key={owner} variant="secondary" className="text-xs">
-                            {owner}
-                            <X 
-                              className="ml-1 h-3 w-3 cursor-pointer" 
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setFormData({ 
-                                  ...formData, 
-                                  owner: formData.owner.filter(o => o !== owner) 
-                                });
-                              }}
-                            />
-                          </Badge>
-                        ))}
-                        {formData.owner.length > 2 && (
-                          <Badge variant="secondary" className="text-xs">
-                            +{formData.owner.length - 2}
-                          </Badge>
-                        )}
-                      </span>
-                    ) : (
-                      "Select owners"
-                    )}
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-56 p-3" align="start">
-                  <div className="space-y-2 max-h-64 overflow-y-auto">
-                    {owners.map(owner => (
-                      <div key={owner.id} className="flex items-center space-x-2">
-                        <Checkbox
-                          id={`owner-${owner.id}`}
-                          checked={formData.owner.includes(owner.name)}
-                          onCheckedChange={(checked) => {
-                            if (checked) {
-                              setFormData({ 
-                                ...formData, 
-                                owner: [...formData.owner, owner.name] 
-                              });
-                            } else {
-                              setFormData({ 
-                                ...formData, 
-                                owner: formData.owner.filter(o => o !== owner.name) 
-                              });
-                            }
-                          }}
-                        />
-                        <label
-                          htmlFor={`owner-${owner.id}`}
-                          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
-                        >
-                          {owner.name}
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                </PopoverContent>
-              </Popover>
-            </div>
+            <MultiSelectWithAdd
+              label="Owners *"
+              options={owners}
+              selectedValues={formData.owner}
+              onValuesChange={(values) => setFormData({ ...formData, owner: values })}
+              onAddNew={(name) => addOwner({ name })}
+              placeholder="Select owners"
+              emptyMessage="No owners yet. Add one to get started!"
+            />
 
-            <div className="space-y-2">
-              <Label htmlFor="category">Category</Label>
-              {isCreatingNewCategory ? (
-                <div className="space-y-2">
-                  <Input
-                    placeholder="Enter new category name"
-                    value={newCategoryName}
-                    onChange={(e) => setNewCategoryName(e.target.value)}
-                    autoFocus
-                  />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => {
-                      setIsCreatingNewCategory(false);
-                      setNewCategoryName("");
-                    }}
-                  >
-                    Cancel
-                  </Button>
-                </div>
-              ) : (
-                <Select 
-                  value={formData.category} 
-                  onValueChange={(value) => {
-                    if (value === "__create_new__") {
-                      setIsCreatingNewCategory(true);
-                      setFormData({ ...formData, category: "" });
-                    } else {
-                      setFormData({ ...formData, category: value });
-                    }
-                  }}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select category" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="__create_new__">
-                      <div className="flex items-center gap-2">
-                        <Plus className="h-4 w-4" />
-                        <span>Create New Category</span>
-                      </div>
-                    </SelectItem>
-                    {categories.map((category) => (
-                      <SelectItem key={category.id} value={category.name}>
-                        {category.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              )}
-            </div>
+            <SelectWithAdd
+              label="Category"
+              options={categories}
+              value={formData.category}
+              onValueChange={(value) => setFormData({ ...formData, category: value })}
+              onAddNew={addCategory}
+              placeholder="Select category"
+              emptyMessage="No categories yet. Add one to get started!"
+            />
           </div>
 
           <div className="space-y-2">

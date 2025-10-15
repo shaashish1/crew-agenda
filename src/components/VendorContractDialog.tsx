@@ -104,14 +104,20 @@ export const VendorContractDialog = ({ open, onOpenChange, onSuccess, projectId,
               <Label htmlFor="vendor_id">Vendor *</Label>
               <Select value={formData.vendor_id} onValueChange={(value) => setFormData({ ...formData, vendor_id: value })}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select vendor" />
+                  <SelectValue placeholder={vendors.length === 0 ? "No vendors available - Add one from the Vendors tab first" : "Select vendor"} />
                 </SelectTrigger>
                 <SelectContent>
-                  {vendors.map((vendor) => (
-                    <SelectItem key={vendor.id} value={vendor.id}>
-                      {vendor.name}
-                    </SelectItem>
-                  ))}
+                  {vendors.length === 0 ? (
+                    <div className="px-2 py-3 text-sm text-muted-foreground text-center">
+                      No vendors available. Please add a vendor from the Vendors tab first.
+                    </div>
+                  ) : (
+                    vendors.map((vendor) => (
+                      <SelectItem key={vendor.id} value={vendor.id}>
+                        {vendor.name}
+                      </SelectItem>
+                    ))
+                  )}
                 </SelectContent>
               </Select>
             </div>

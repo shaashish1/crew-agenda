@@ -89,14 +89,20 @@ export const VendorDeliverableDialog = ({ open, onOpenChange, onSuccess, project
               <Label htmlFor="vendor_id">Vendor *</Label>
               <Select value={formData.vendor_id} onValueChange={(value) => setFormData({ ...formData, vendor_id: value })}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select vendor" />
+                  <SelectValue placeholder={vendors.length === 0 ? "No vendors available - Add one from the Vendors tab first" : "Select vendor"} />
                 </SelectTrigger>
                 <SelectContent>
-                  {vendors.map((vendor) => (
-                    <SelectItem key={vendor.id} value={vendor.id}>
-                      {vendor.name}
-                    </SelectItem>
-                  ))}
+                  {vendors.length === 0 ? (
+                    <div className="px-2 py-3 text-sm text-muted-foreground text-center">
+                      No vendors available. Please add a vendor from the Vendors tab first.
+                    </div>
+                  ) : (
+                    vendors.map((vendor) => (
+                      <SelectItem key={vendor.id} value={vendor.id}>
+                        {vendor.name}
+                      </SelectItem>
+                    ))
+                  )}
                 </SelectContent>
               </Select>
             </div>
@@ -105,15 +111,21 @@ export const VendorDeliverableDialog = ({ open, onOpenChange, onSuccess, project
               <Label htmlFor="contract_id">Associated Contract (Optional)</Label>
               <Select value={formData.contract_id} onValueChange={(value) => setFormData({ ...formData, contract_id: value })}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select contract" />
+                  <SelectValue placeholder="Select contract (optional)" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="">None</SelectItem>
-                  {contracts.filter(c => c.vendor_id === formData.vendor_id).map((contract) => (
-                    <SelectItem key={contract.id} value={contract.id}>
-                      {contract.title}
-                    </SelectItem>
-                  ))}
+                  {contracts.filter(c => c.vendor_id === formData.vendor_id).length === 0 ? (
+                    <div className="px-2 py-3 text-sm text-muted-foreground text-center">
+                      No contracts available for this vendor.
+                    </div>
+                  ) : (
+                    contracts.filter(c => c.vendor_id === formData.vendor_id).map((contract) => (
+                      <SelectItem key={contract.id} value={contract.id}>
+                        {contract.title}
+                      </SelectItem>
+                    ))
+                  )}
                 </SelectContent>
               </Select>
             </div>
