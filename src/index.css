@@ -50,6 +50,9 @@ All colors MUST be HSL.
     --info: 213 94% 45%;
     --info-foreground: 0 0% 100%;
 
+    --rating-medium: 38 92% 60%;
+    --rating-medium-foreground: 260 35% 12%;
+
     --border: 30 10% 88%;
     --input: 30 10% 88%;
     --ring: 355 70% 42%;
@@ -136,6 +139,9 @@ All colors MUST be HSL.
     --info: 213 94% 45%;
     --info-foreground: 0 0% 100%;
 
+    --rating-medium: 38 92% 60%;
+    --rating-medium-foreground: 260 35% 12%;
+
     --border: 0 0% 85%;
     --input: 0 0% 85%;
     --ring: 213 94% 45%;
@@ -201,6 +207,9 @@ All colors MUST be HSL.
 
     --info: 213 85% 55%;
     --info-foreground: 0 0% 100%;
+
+    --rating-medium: 38 92% 60%;
+    --rating-medium-foreground: 0 0% 100%;
 
     --border: 215 25% 22%;
     --input: 215 25% 22%;
@@ -268,6 +277,9 @@ All colors MUST be HSL.
     --info: 195 85% 42%;
     --info-foreground: 0 0% 100%;
 
+    --rating-medium: 38 92% 60%;
+    --rating-medium-foreground: 260 35% 12%;
+
     --border: 200 18% 86%;
     --input: 200 18% 86%;
     --ring: 195 85% 42%;
@@ -331,6 +343,9 @@ All colors MUST be HSL.
 
     --info: 15 85% 55%;
     --info-foreground: 0 0% 100%;
+
+    --rating-medium: 38 92% 60%;
+    --rating-medium-foreground: 260 35% 12%;
 
     --border: 25 18% 86%;
     --input: 25 18% 86%;
@@ -396,6 +411,9 @@ All colors MUST be HSL.
     --info: 155 70% 38%;
     --info-foreground: 0 0% 100%;
 
+    --rating-medium: 38 92% 60%;
+    --rating-medium-foreground: 260 35% 12%;
+
     --border: 150 16% 86%;
     --input: 150 16% 86%;
     --ring: 155 70% 38%;
@@ -460,6 +478,9 @@ All colors MUST be HSL.
     --info: 265 75% 52%;
     --info-foreground: 0 0% 100%;
 
+    --rating-medium: 38 92% 60%;
+    --rating-medium-foreground: 260 35% 12%;
+
     --border: 270 18% 86%;
     --input: 270 18% 86%;
     --ring: 265 75% 52%;
@@ -523,6 +544,9 @@ All colors MUST be HSL.
 
     --info: 210 100% 50%;
     --info-foreground: 0 0% 100%;
+
+    --rating-medium: 38 92% 60%;
+    --rating-medium-foreground: 260 35% 12%;
 
     --border: 215 15% 88%;
     --input: 215 15% 92%;

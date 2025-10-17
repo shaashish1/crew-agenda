@@ -223,7 +223,7 @@ const ProjectDetails = () => {
             {/* Overview Tab */}
             <TabsContent value="overview" className="space-y-4">
               <Card>
-                <CardHeader className="bg-[hsl(180,50%,40%)] text-white py-3">
+                <CardHeader className="bg-primary text-primary-foreground py-3">
                   <CardTitle className="text-base">Project Overview</CardTitle>
                 </CardHeader>
                 <CardContent className="pt-6">
@@ -234,7 +234,7 @@ const ProjectDetails = () => {
               </Card>
 
               <Card>
-                <CardHeader className="bg-[hsl(180,50%,40%)] text-white py-3">
+                <CardHeader className="bg-primary text-primary-foreground py-3">
                   <CardTitle className="text-base">Current Status</CardTitle>
                 </CardHeader>
                 <CardContent className="pt-6">
@@ -275,7 +275,7 @@ const ProjectDetails = () => {
                   <Card className={`border-2 ${
                     project.performanceMetrics.performanceRating === 'critical' ? 'border-destructive/50 bg-destructive/5' :
                     project.performanceMetrics.performanceRating === 'high' ? 'border-warning/50 bg-warning/5' :
-                    project.performanceMetrics.performanceRating === 'medium' ? 'border-[hsl(38,92%,60%)]/50 bg-[hsl(38,92%,60%)]/5' :
+                    project.performanceMetrics.performanceRating === 'medium' ? 'border-ratingMedium/50 bg-ratingMedium/5' :
                     'border-success/50 bg-success/5'
                   }`}>
                     <CardHeader className="pb-3">

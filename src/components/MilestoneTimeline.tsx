@@ -107,6 +107,21 @@ export const MilestoneTimeline = ({ projectId }: MilestoneTimelineProps) => {
     }
   };
 
+  const getStatusForeground = (status: Milestone['status']) => {
+    switch (status) {
+      case 'completed':
+        return 'text-success-foreground';
+      case 'in-progress':
+        return 'text-info-foreground';
+      case 'delayed':
+        return 'text-destructive-foreground';
+      case 'at-risk':
+        return 'text-warning-foreground';
+      default:
+        return 'text-muted-foreground';
+    }
+  };
+
   const hasBaselineVariance = (milestone: Milestone) => {
     return milestone.baselineTargetDate && 
            milestone.targetDate !== milestone.baselineTargetDate;
@@ -163,7 +178,7 @@ export const MilestoneTimeline = ({ projectId }: MilestoneTimelineProps) => {
                     
                     {/* Milestone marker */}
                     <div className={`w-12 h-12 rounded-full ${getStatusColor(milestone.status)} flex items-center justify-center mb-2 relative z-10`}>
-                      <div className="w-6 h-6 bg-white rounded-full"></div>
+                      <div className="w-6 h-6 bg-background rounded-full"></div>
                     </div>
                     
                     {/* Milestone info */}
@@ -214,7 +229,7 @@ export const MilestoneTimeline = ({ projectId }: MilestoneTimelineProps) => {
                         </div>
                       </td>
                       <td className="p-3">
-                        <span className={`px-2 py-1 rounded text-xs font-medium text-white ${getStatusColor(milestone.status)}`}>
+                        <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(milestone.status)} ${getStatusForeground(milestone.status)}`}>
                           {milestone.status}
                         </span>
                       </td>

@@ -181,7 +181,7 @@ export const getPerformanceColor = (rating: PerformanceRating): string => {
   const colors = {
     critical: 'hsl(var(--destructive))',
     high: 'hsl(var(--warning))',
-    medium: 'hsl(38 92% 60%)', // lighter yellow
+    medium: 'hsl(var(--rating-medium))',
     low: 'hsl(var(--success))',
   };
   return colors[rating];
@@ -194,7 +194,7 @@ export const getPerformanceBgClass = (rating: PerformanceRating): string => {
   const classes = {
     critical: 'bg-destructive text-destructive-foreground',
     high: 'bg-warning text-warning-foreground',
-    medium: 'bg-[hsl(38,92%,60%)] text-[hsl(260,35%,12%)]',
+    medium: 'bg-ratingMedium text-ratingMedium-foreground',
     low: 'bg-success text-success-foreground',
   };
   return classes[rating];

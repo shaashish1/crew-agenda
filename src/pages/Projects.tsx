@@ -128,11 +128,11 @@ const Projects = () => {
               <p className="text-xs text-muted-foreground mt-1">&lt;5% delay, &gt;90% adoption</p>
             </CardContent>
           </Card>
-          <Card className="border-t-4 border-t-[hsl(38,92%,50%)]">
+          <Card className="border-t-4 border-t-ratingMedium">
             <CardContent className="pt-6 pb-6">
               <div className="flex items-center justify-between mb-3">
-                <div className="text-2xl font-bold text-[hsl(38,92%,50%)]">{performanceStats.medium}</div>
-                <Badge variant="outline" className="bg-[hsl(38,92%,50%)]/10 text-[hsl(38,92%,50%)] border-[hsl(38,92%,50%)]/20">Good</Badge>
+                <div className="text-2xl font-bold text-ratingMedium">{performanceStats.medium}</div>
+                <Badge variant="outline" className="bg-ratingMedium/10 text-ratingMedium border-ratingMedium/20">Good</Badge>
               </div>
               <p className="text-sm font-medium text-foreground">Medium Performance</p>
               <p className="text-xs text-muted-foreground mt-1">5-10% delay, 80-90% adoption</p>

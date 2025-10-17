@@ -42,7 +42,7 @@ export const PerformanceRatingBadge = ({
         return {
           label: 'Medium',
           icon: TrendingUp,
-          className: 'bg-[hsl(38,92%,60%)] text-[hsl(260,35%,12%)] border-[hsl(38,92%,60%)]',
+          className: 'bg-ratingMedium text-ratingMedium-foreground border-ratingMedium',
         };
       case 'low':
         return {

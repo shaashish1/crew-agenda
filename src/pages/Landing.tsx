@@ -325,7 +325,7 @@ const Landing = () => {
               <Button 
                 onClick={() => navigate("/projects")} 
                 size="lg" 
-                className="bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary shadow-premium-md hover:shadow-premium-lg transition-all duration-300 hover:scale-105 hover:-translate-y-1 text-white px-16 py-4 animate-fade-in"
+                className="bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary text-primary-foreground shadow-premium-md hover:shadow-premium-lg transition-all duration-300 hover:scale-105 hover:-translate-y-1 px-16 py-4 animate-fade-in"
               >
                 Get Started
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -357,7 +357,7 @@ const Landing = () => {
               <Button 
                 size="lg" 
                 onClick={() => navigate("/projects")}
-                className="bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary shadow-premium-lg hover:shadow-premium-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 px-14 py-4 text-white group animate-fade-in"
+                className="bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary text-primary-foreground shadow-premium-lg hover:shadow-premium-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 px-14 py-4 group animate-fade-in"
               >
                 Explore Our Portfolio
                 <ChevronRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -793,7 +793,7 @@ const Landing = () => {
                 <CardHeader className="space-y-4 relative">
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-4">
-                      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold text-lg shadow-premium-md">
+                      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-primary-foreground font-bold text-lg shadow-premium-md">
                         {testimonial.avatar}
                       </div>
                       <div>
@@ -924,7 +924,7 @@ const Landing = () => {
               <Button 
                 size="lg" 
                 onClick={() => navigate("/projects")}
-                className="bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary shadow-premium-xl hover:shadow-premium-xl transition-all duration-300 hover:scale-110 hover:-translate-y-1 px-16 py-4 text-white group animate-fade-in"
+                className="bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary text-primary-foreground shadow-premium-xl hover:shadow-premium-xl transition-all duration-300 hover:scale-110 hover:-translate-y-1 px-16 py-4 group animate-fade-in"
               >
                 Explore Projects
                 <ChevronRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />

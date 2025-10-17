@@ -69,6 +69,10 @@ export default {
           DEFAULT: 'hsl(var(--info))',
           foreground: 'hsl(var(--info-foreground))',
         },
+        ratingMedium: {
+          DEFAULT: 'hsl(var(--rating-medium))',
+          foreground: 'hsl(var(--rating-medium-foreground))',
+        },
         muted: {
           DEFAULT: 'hsl(var(--muted))',
           foreground: 'hsl(var(--muted-foreground))',
