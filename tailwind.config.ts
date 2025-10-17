@@ -14,7 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'Arial', 'sans-serif'],
+        sans: ['Arial', 'sans-serif'],
+        arial: ['Arial', 'sans-serif'],
         inter: ['Inter', 'Arial', 'sans-serif'],
         roboto: ['Roboto', 'Arial', 'sans-serif'],
         opensans: ['Open Sans', 'Arial', 'sans-serif'],

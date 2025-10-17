@@ -23,13 +23,13 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
       {/* Sidebar */}
       <div className="w-64 bg-card border-r border-border flex flex-col">
         <div className="p-6 border-b border-border">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-primary rounded-md flex items-center justify-center shadow-sm">
               <CheckSquare className="w-6 h-6 text-primary-foreground" />
             </div>
             <div>
-              <h1 className="text-lg font-bold text-foreground">ProjectHub</h1>
-              <p className="text-xs text-muted-foreground">IT Project Management</p>
+              <h1 className="text-lg font-semibold text-foreground">Syngene ProjectHub</h1>
+              <p className="text-xs text-muted-foreground">IT Portfolio Management</p>
             </div>
           </div>
         </div>
@@ -42,14 +42,14 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                 key={item.name}
                 to={item.href}
                 className={cn(
-                  "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200",
+                  "flex items-center gap-3 px-4 py-3 rounded-md transition-all duration-200 font-medium",
                   isActive
-                    ? "bg-primary text-primary-foreground shadow-md"
-                    : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                    ? "bg-primary text-primary-foreground shadow-sm"
+                    : "text-foreground hover:bg-accent hover:text-accent-foreground"
                 )}
               >
                 <item.icon className="w-5 h-5" />
-                <span className="font-medium">{item.name}</span>
+                <span className="text-sm">{item.name}</span>
               </Link>
             );
           })}
@@ -61,7 +61,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
             <FontSelector />
           </div>
           <p className="text-xs text-muted-foreground text-center">
-            © 2025 ProjectHub
+            © 2025 Syngene International
           </p>
         </div>
       </div>

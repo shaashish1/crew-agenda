@@ -717,6 +717,104 @@ All colors MUST be HSL.
     --sidebar-border: 220 15% 25%;
     --sidebar-ring: 214 90% 65%;
   }
+
+  .syngene {
+    /* Syngene International Brand Colors */
+    --background: 0 0% 100%;
+    --foreground: 210 38% 13%;
+    
+    --card: 0 0% 98%;
+    --card-foreground: 210 38% 13%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 38% 13%;
+    
+    /* Primary - Syngene Gold */
+    --primary: 42 54% 39%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 42 54% 50%;
+    --primary-dark: 42 54% 30%;
+    
+    /* Secondary - Amber */
+    --secondary: 42 68% 53%;
+    --secondary-foreground: 0 0% 100%;
+    
+    /* Accent - Blue Grey */
+    --accent: 200 13% 39%;
+    --accent-foreground: 0 0% 100%;
+    
+    /* Muted - Neutral Grey */
+    --muted: 200 11% 73%;
+    --muted-foreground: 20 2% 49%;
+    
+    /* Destructive/Error - Red */
+    --destructive: 357 90% 44%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Success - Green */
+    --success: 125 35% 46%;
+    --success-foreground: 0 0% 100%;
+    
+    /* Info/Primary Blue */
+    --info: 212 100% 25%;
+    --info-foreground: 0 0% 100%;
+    
+    /* Warning - Amber (secondary) */
+    --warning: 42 68% 53%;
+    --warning-foreground: 0 0% 100%;
+    
+    /* Border & Input */
+    --border: 200 11% 73%;
+    --input: 0 0% 88%;
+    --ring: 42 54% 39%;
+    
+    /* Chart colors using Syngene palette */
+    --chart-1: 42 54% 39%;
+    --chart-2: 212 100% 25%;
+    --chart-3: 200 13% 39%;
+    --chart-4: 125 35% 46%;
+    --chart-5: 42 68% 53%;
+    
+    --radius: 0.5rem;
+    
+    /* Typography colors */
+    --text-primary: 210 38% 13%;
+    --text-secondary: 20 2% 49%;
+    
+    /* Dark Navy accent */
+    --navy: 211 30% 13%;
+    --navy-foreground: 0 0% 100%;
+    
+    /* Syngene Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 4px 8px 0 rgba(0, 0, 0, 0.12);
+    --shadow-xl: 0 8px 16px 0 rgba(0, 0, 0, 0.16);
+    --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+    --shadow-card-hover: 0 4px 12px 0 rgba(0, 0, 0, 0.12);
+    --shadow-glow: 0 0 24px hsla(42, 54%, 39%, 0.25);
+    --shadow-premium-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-premium-md: 0 2px 4px rgba(0, 0, 0, 0.08);
+    --shadow-premium-lg: 0 4px 8px rgba(0, 0, 0, 0.12);
+    --shadow-premium-xl: 0 8px 16px rgba(0, 0, 0, 0.16);
+    
+    /* Syngene Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(42 54% 39%) 0%, hsl(42 68% 53%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(0 0% 98%) 100%);
+    --gradient-button: linear-gradient(180deg, hsl(42 54% 42%) 0%, hsl(42 54% 36%) 100%);
+    --gradient-glow: radial-gradient(circle at top left, hsl(42 54% 39% / 0.08), transparent 60%);
+    --gradient-glassmorphism: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
+    
+    /* Sidebar styling */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 210 38% 13%;
+    --sidebar-primary: 42 54% 39%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 95%;
+    --sidebar-accent-foreground: 210 38% 13%;
+    --sidebar-border: 200 11% 73%;
+    --sidebar-ring: 42 54% 39%;
+  }
 }
 
 @layer base {
@@ -725,8 +823,12 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
     min-height: 100vh;
+  }
+  
+  .syngene body {
+    font-family: Arial, sans-serif;
   }
 }
 

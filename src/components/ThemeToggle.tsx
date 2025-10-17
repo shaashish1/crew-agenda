@@ -8,13 +8,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useEffect, useState } from "react";
 
-type Theme = "light" | "light-grey" | "dark" | "ocean" | "sunset" | "forest" | "purple" | "corporate" | "material3";
+type Theme = "light" | "light-grey" | "dark" | "ocean" | "sunset" | "forest" | "purple" | "corporate" | "material3" | "syngene";
 
 export const ThemeToggle = () => {
   const [theme, setTheme] = useState<Theme>("dark");
 
   useEffect(() => {
-    const savedTheme = (localStorage.getItem("theme") as Theme) || "corporate";
+    const savedTheme = (localStorage.getItem("theme") as Theme) || "syngene";
     applyTheme(savedTheme);
   }, []);
 
@@ -23,7 +23,7 @@ export const ThemeToggle = () => {
     localStorage.setItem("theme", newTheme);
     
     // Remove all theme classes
-    document.documentElement.classList.remove("dark", "light-grey", "ocean", "sunset", "forest", "purple", "corporate", "material3");
+    document.documentElement.classList.remove("dark", "light-grey", "ocean", "sunset", "forest", "purple", "corporate", "material3", "syngene");
     
     // Apply new theme class (light is default, no class needed)
     if (newTheme !== "light") {
@@ -40,7 +40,9 @@ export const ThemeToggle = () => {
           className="rounded-full"
           aria-label="Toggle theme"
         >
-          {theme === "dark" ? (
+          {theme === "syngene" ? (
+            <Briefcase className="h-5 w-5" />
+          ) : theme === "dark" ? (
             <Moon className="h-5 w-5" />
           ) : theme === "light-grey" ? (
             <Palette className="h-5 w-5" />
@@ -62,6 +64,10 @@ export const ThemeToggle = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="z-50">
+        <DropdownMenuItem onClick={() => applyTheme("syngene")}>
+          <Briefcase className="mr-2 h-4 w-4" />
+          Syngene
+        </DropdownMenuItem>
         <DropdownMenuItem onClick={() => applyTheme("light")}>
           <Sun className="mr-2 h-4 w-4" />
           Light
