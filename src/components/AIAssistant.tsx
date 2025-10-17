@@ -16,7 +16,7 @@ export const AIAssistant = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      content: "Hi! I'm your AI assistant. I can help you analyze your projects, tasks, milestones, risks, and provide insights. What would you like to know?"
+      content: "Hi! I'm your AI project management assistant with access to all your project data. I can:\n\n• Analyze project health and performance\n• Identify risks and bottlenecks\n• Track milestones and deadlines\n• Review task progress and ownership\n• Evaluate vendor performance\n• Provide actionable recommendations\n\nWhat would you like to know?"
     }
   ]);
   const [input, setInput] = useState("");
@@ -140,26 +140,50 @@ export const AIAssistant = () => {
           <Button
             variant="outline"
             size="sm"
-            onClick={() => setInput("What projects are at risk?")}
+            onClick={() => setInput("Give me a comprehensive portfolio health analysis")}
             disabled={isLoading}
           >
-            Show at-risk projects
+            Portfolio Health
           </Button>
           <Button
             variant="outline"
             size="sm"
-            onClick={() => setInput("Summary of all tasks")}
+            onClick={() => setInput("What are the top 3 risks I should address?")}
             disabled={isLoading}
           >
-            Task summary
+            Top Risks
           </Button>
           <Button
             variant="outline"
             size="sm"
-            onClick={() => setInput("Which milestones are delayed?")}
+            onClick={() => setInput("Show me delayed milestones and suggest recovery actions")}
             disabled={isLoading}
           >
-            Delayed milestones
+            Delayed Milestones
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setInput("Analyze task completion rates and identify bottlenecks")}
+            disabled={isLoading}
+          >
+            Task Analysis
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setInput("Which documents are pending approval?")}
+            disabled={isLoading}
+          >
+            Pending Docs
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setInput("Give me actionable recommendations for this week")}
+            disabled={isLoading}
+          >
+            Weekly Actions
           </Button>
         </div>
       </SheetContent>
