@@ -611,11 +611,11 @@ const Landing = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center mt-12">
-            <Button onClick={() => navigate("/projects")} size="lg">
+            <Button onClick={() => navigate("/projects")} size="lg" className="text-primary-foreground">
               Update Our Projects
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
-            <Button onClick={() => navigate("/dashboard")} size="lg">
+            <Button onClick={() => navigate("/dashboard")} size="lg" className="text-primary-foreground">
               Update Our Tasks
             </Button>
           </div>
