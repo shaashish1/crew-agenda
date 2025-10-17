@@ -344,7 +344,7 @@ const Dashboard = () => {
                 <p className="text-sm text-muted-foreground mb-6">
                   {tasks.length === 0 ? "Get started by creating your first task" : "Try adjusting your filters"}
                 </p>
-                <Button onClick={handleAddNew} size="lg" className="text-white">
+                <Button onClick={handleAddNew} size="lg">
                   <Plus className="w-4 h-4 mr-2" />
                   Add Your First Task
                 </Button>

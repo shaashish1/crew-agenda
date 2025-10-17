@@ -68,7 +68,7 @@ const Settings = () => {
                       placeholder="e.g., Bug Fix, Feature, Documentation"
                     />
                   </div>
-                  <Button type="submit" className="w-full gap-2 text-white">
+                  <Button type="submit" className="w-full gap-2">
                     <Plus className="w-4 h-4" />
                     Add Category
                   </Button>
@@ -142,7 +142,7 @@ const Settings = () => {
                       placeholder="john@example.com"
                     />
                   </div>
-                  <Button type="submit" className="w-full gap-2 text-white">
+                  <Button type="submit" className="w-full gap-2">
                     <Plus className="w-4 h-4" />
                     Add Owner
                   </Button>
