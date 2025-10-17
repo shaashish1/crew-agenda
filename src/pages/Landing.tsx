@@ -306,7 +306,7 @@ const Landing = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-8">
               <h1 className="text-2xl font-bold bg-gradient-to-r from-primary via-primary-light to-accent bg-clip-text text-transparent hover:scale-105 transition-transform cursor-pointer">
-                ProjectHub
+                Syngene ProjectHub
               </h1>
               <div className="hidden md:flex gap-2">
                 <Button variant="ghost" className="hover:bg-primary/10 hover:text-primary transition-all" onClick={() => navigate("/projects")}>
