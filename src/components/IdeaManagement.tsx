@@ -91,7 +91,7 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
         </div>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-            <Button>
+            <Button className="text-white">
               <Plus className="h-4 w-4 mr-2" />
               Add Idea
             </Button>
@@ -153,7 +153,7 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
             </div>
             <DialogFooter>
               <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
-              <Button onClick={handleSubmit}>Add Idea</Button>
+              <Button onClick={handleSubmit} className="text-white">Add Idea</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
