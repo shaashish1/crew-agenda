@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { CheckSquare, Settings, LayoutDashboard, FolderKanban, BrainCircuit, Lightbulb } from "lucide-react";
+import { CheckSquare, Settings, LayoutDashboard, FolderKanban, BrainCircuit, Lightbulb, BarChart3 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { FontSelector } from "@/components/FontSelector";
@@ -10,6 +10,7 @@ const navigation = [
   { name: "AI Executive", href: "/dashboard/executive", icon: BrainCircuit },
   { name: "Projects", href: "/projects", icon: FolderKanban },
   { name: "Tasks", href: "/dashboard", icon: CheckSquare },
+  { name: "Analytics", href: "/analytics", icon: BarChart3 },
   { name: "Ideas", href: "/ideas", icon: Lightbulb },
   { name: "Settings", href: "/settings", icon: Settings },
 ];
