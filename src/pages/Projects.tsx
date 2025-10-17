@@ -32,7 +32,7 @@ const Projects = () => {
             Manage and track all IT projects
           </p>
         </div>
-        <Button onClick={() => navigate("/projects/new")} size="lg">
+        <Button onClick={() => navigate("/projects/new")} size="lg" className="text-primary-foreground">
           <Plus className="w-4 h-4" />
           New Project
         </Button>
@@ -178,7 +178,7 @@ const Projects = () => {
                   {searchQuery ? "Try adjusting your search criteria." : "Create your first project to get started."}
                 </p>
                 {!searchQuery && (
-                  <Button onClick={() => navigate("/projects/new")} size="lg">
+                  <Button onClick={() => navigate("/projects/new")} size="lg" className="text-primary-foreground">
                     <Plus className="w-4 h-4 mr-2" />
                     Create Project
                   </Button>
