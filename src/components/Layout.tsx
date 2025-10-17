@@ -1,15 +1,16 @@
 import { Link, useLocation } from "react-router-dom";
-import { CheckSquare, Settings, LayoutDashboard, FolderKanban, BookOpen, BrainCircuit } from "lucide-react";
+import { CheckSquare, Settings, LayoutDashboard, FolderKanban, BrainCircuit, Lightbulb } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { FontSelector } from "@/components/FontSelector";
+import { AIAssistant } from "@/components/AIAssistant";
 
 const navigation = [
   { name: "Home", href: "/", icon: LayoutDashboard },
   { name: "AI Executive", href: "/dashboard/executive", icon: BrainCircuit },
   { name: "Projects", href: "/projects", icon: FolderKanban },
   { name: "Tasks", href: "/dashboard", icon: CheckSquare },
-  { name: "Features", href: "/features", icon: BookOpen },
+  { name: "Ideas", href: "/ideas", icon: Lightbulb },
   { name: "Settings", href: "/settings", icon: Settings },
 ];
 
@@ -69,6 +70,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         <main className="flex-1 overflow-y-auto p-8">
           {children}
         </main>
+        <AIAssistant />
       </div>
     </div>
   );
