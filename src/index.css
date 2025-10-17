@@ -719,101 +719,98 @@ All colors MUST be HSL.
   }
 
   .syngene {
-    /* Syngene International Brand Colors */
+    /* Syngene International Theme - Official Brand Colors */
     --background: 0 0% 100%;
-    --foreground: 210 38% 13%;
+    --foreground: 207 100% 33%;
     
-    --card: 0 0% 98%;
-    --card-foreground: 210 38% 13%;
+    --card: 0 0% 100%;
+    --card-foreground: 207 100% 33%;
     
     --popover: 0 0% 100%;
-    --popover-foreground: 210 38% 13%;
+    --popover-foreground: 207 100% 33%;
     
-    /* Primary - Syngene Gold */
-    --primary: 42 54% 39%;
+    /* Primary - Endeavour Blue (Official Brand Color #005BAA) */
+    --primary: 207 100% 33%;
     --primary-foreground: 0 0% 100%;
-    --primary-light: 42 54% 50%;
-    --primary-dark: 42 54% 30%;
+    --primary-light: 207 100% 43%;
+    --primary-dark: 207 100% 25%;
     
-    /* Secondary - Amber */
-    --secondary: 42 68% 53%;
-    --secondary-foreground: 0 0% 100%;
+    /* Secondary - Pure White */
+    --secondary: 0 0% 100%;
+    --secondary-foreground: 207 100% 33%;
     
-    /* Accent - Blue Grey */
-    --accent: 200 13% 39%;
-    --accent-foreground: 0 0% 100%;
+    /* Accent - Black for high contrast */
+    --accent: 0 0% 96%;
+    --accent-foreground: 207 100% 33%;
     
-    /* Muted - Neutral Grey */
-    --muted: 200 11% 73%;
-    --muted-foreground: 20 2% 49%;
+    /* Muted - Light Gray (for dividers/backgrounds) */
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 40%;
     
     /* Destructive/Error - Red */
-    --destructive: 357 90% 44%;
+    --destructive: 0 75% 50%;
     --destructive-foreground: 0 0% 100%;
     
     /* Success - Green */
-    --success: 125 35% 46%;
+    --success: 145 60% 45%;
     --success-foreground: 0 0% 100%;
     
-    /* Info/Primary Blue */
-    --info: 212 100% 25%;
+    /* Info - Uses brand blue */
+    --info: 207 100% 33%;
     --info-foreground: 0 0% 100%;
     
-    /* Warning - Amber (secondary) */
-    --warning: 42 68% 53%;
-    --warning-foreground: 0 0% 100%;
+    /* Warning - Amber */
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 0%;
     
     /* Border & Input */
-    --border: 200 11% 73%;
-    --input: 0 0% 88%;
-    --ring: 42 54% 39%;
+    --border: 0 0% 88%;
+    --input: 0 0% 96%;
+    --ring: 207 100% 33%;
     
-    /* Chart colors using Syngene palette */
-    --chart-1: 42 54% 39%;
-    --chart-2: 212 100% 25%;
-    --chart-3: 200 13% 39%;
-    --chart-4: 125 35% 46%;
-    --chart-5: 42 68% 53%;
+    /* Chart colors - Blue dominant palette */
+    --chart-1: 207 100% 33%;
+    --chart-2: 207 100% 45%;
+    --chart-3: 0 0% 40%;
+    --chart-4: 207 100% 20%;
+    --chart-5: 145 60% 45%;
     
-    --radius: 0.5rem;
+    --radius: 0.375rem;
     
     /* Typography colors */
-    --text-primary: 210 38% 13%;
-    --text-secondary: 20 2% 49%;
+    --text-primary: 0 0% 0%;
+    --text-secondary: 0 0% 40%;
     
-    /* Dark Navy accent */
-    --navy: 211 30% 13%;
-    --navy-foreground: 0 0% 100%;
+    /* Clean, Subtle Shadows - Blue tints */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 91, 170, 0.05);
+    --shadow-md: 0 2px 4px -1px rgba(0, 91, 170, 0.08);
+    --shadow-lg: 0 4px 8px -2px rgba(0, 91, 170, 0.12);
+    --shadow-xl: 0 8px 16px -4px rgba(0, 91, 170, 0.16);
+    --shadow-card: 0 1px 3px 0 rgba(0, 91, 170, 0.08);
+    --shadow-card-hover: 0 4px 12px 0 rgba(0, 91, 170, 0.15);
+    --shadow-glow: 0 0 24px rgba(0, 91, 170, 0.25);
+    --shadow-premium-sm: 0 1px 2px rgba(0, 91, 170, 0.05);
+    --shadow-premium-md: 0 2px 4px rgba(0, 91, 170, 0.08);
+    --shadow-premium-lg: 0 4px 8px rgba(0, 91, 170, 0.12);
+    --shadow-premium-xl: 0 8px 16px rgba(0, 91, 170, 0.16);
     
-    /* Syngene Shadows */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
-    --shadow-lg: 0 4px 8px 0 rgba(0, 0, 0, 0.12);
-    --shadow-xl: 0 8px 16px 0 rgba(0, 0, 0, 0.16);
-    --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
-    --shadow-card-hover: 0 4px 12px 0 rgba(0, 0, 0, 0.12);
-    --shadow-glow: 0 0 24px hsla(42, 54%, 39%, 0.25);
-    --shadow-premium-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-    --shadow-premium-md: 0 2px 4px rgba(0, 0, 0, 0.08);
-    --shadow-premium-lg: 0 4px 8px rgba(0, 0, 0, 0.12);
-    --shadow-premium-xl: 0 8px 16px rgba(0, 0, 0, 0.16);
-    
-    /* Syngene Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(42 54% 39%) 0%, hsl(42 68% 53%) 100%);
+    /* Gradients - Blue based */
+    --gradient-primary: linear-gradient(135deg, hsl(207 100% 33%) 0%, hsl(207 100% 45%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(207 100% 25%) 0%, hsl(207 100% 35%) 100%);
     --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(0 0% 98%) 100%);
-    --gradient-button: linear-gradient(180deg, hsl(42 54% 42%) 0%, hsl(42 54% 36%) 100%);
-    --gradient-glow: radial-gradient(circle at top left, hsl(42 54% 39% / 0.08), transparent 60%);
+    --gradient-button: linear-gradient(180deg, hsl(207 100% 35%) 0%, hsl(207 100% 30%) 100%);
+    --gradient-glow: radial-gradient(circle at top left, hsl(207 100% 33% / 0.08), transparent 60%);
     --gradient-glassmorphism: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
     
-    /* Sidebar styling */
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 210 38% 13%;
-    --sidebar-primary: 42 54% 39%;
+    /* Sidebar - White with Blue accents */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 207 100% 33%;
+    --sidebar-primary: 207 100% 33%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 95%;
-    --sidebar-accent-foreground: 210 38% 13%;
-    --sidebar-border: 200 11% 73%;
-    --sidebar-ring: 42 54% 39%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 207 100% 33%;
+    --sidebar-border: 0 0% 88%;
+    --sidebar-ring: 207 100% 33%;
   }
 }
 

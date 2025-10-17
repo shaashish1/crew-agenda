@@ -21,20 +21,20 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="flex h-screen bg-background">
       {/* Sidebar */}
-      <div className="w-64 bg-card border-r border-border flex flex-col">
+      <div className="w-64 bg-white border-r border-border flex flex-col">
         <div className="p-6 border-b border-border">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-primary rounded-md flex items-center justify-center shadow-sm">
               <CheckSquare className="w-6 h-6 text-primary-foreground" />
             </div>
             <div>
-              <h1 className="text-lg font-semibold text-foreground">Syngene ProjectHub</h1>
+              <h1 className="text-lg font-semibold text-primary">Syngene ProjectHub</h1>
               <p className="text-xs text-muted-foreground">IT Portfolio Management</p>
             </div>
           </div>
         </div>
 
-        <nav className="flex-1 p-4 space-y-2">
+        <nav className="flex-1 p-4 space-y-1">
           {navigation.map((item) => {
             const isActive = location.pathname === item.href;
             return (
@@ -42,14 +42,14 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                 key={item.name}
                 to={item.href}
                 className={cn(
-                  "flex items-center gap-3 px-4 py-3 rounded-md transition-all duration-200 font-medium",
+                  "flex items-center gap-3 px-4 py-3 rounded-md transition-all duration-200 font-medium text-sm",
                   isActive
                     ? "bg-primary text-primary-foreground shadow-sm"
-                    : "text-foreground hover:bg-accent hover:text-accent-foreground"
+                    : "text-foreground hover:bg-accent"
                 )}
               >
                 <item.icon className="w-5 h-5" />
-                <span className="text-sm">{item.name}</span>
+                <span>{item.name}</span>
               </Link>
             );
           })}
