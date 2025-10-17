@@ -611,11 +611,11 @@ const Landing = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center mt-12">
-            <Button onClick={() => navigate("/projects")} size="lg" className="btn-neon shadow-premium-lg py-4 px-16 hover:scale-105 hover:-translate-y-1 transition-all duration-300 text-white font-semibold group">
+            <Button onClick={() => navigate("/projects")} size="lg">
               Update Our Projects
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
-            <Button onClick={() => navigate("/dashboard")} size="lg" className="btn-neon-purple shadow-premium-lg py-4 px-16 hover:scale-105 hover:-translate-y-1 transition-all duration-300 text-white font-semibold group">
+            <Button onClick={() => navigate("/dashboard")} size="lg">
               Update Our Tasks
             </Button>
           </div>

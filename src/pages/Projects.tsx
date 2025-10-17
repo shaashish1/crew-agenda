@@ -32,7 +32,7 @@ const Projects = () => {
             Manage and track all IT projects
           </p>
         </div>
-        <Button onClick={() => navigate("/projects/new")} size="lg" className="gap-2 shadow-md">
+        <Button onClick={() => navigate("/projects/new")} size="lg">
           <Plus className="w-4 h-4" />
           New Project
         </Button>
