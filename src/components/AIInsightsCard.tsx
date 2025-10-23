@@ -169,7 +169,6 @@ export const AIInsightsCard = ({ insight, onStatusChange }: AIInsightsCardProps)
           <div className="flex gap-2 pt-2">
             <Button 
               size="sm" 
-              variant="outline" 
               onClick={handleAcknowledge}
             >
               Acknowledge
