@@ -9,12 +9,15 @@ import { toast } from "sonner";
 import { MilestoneDialog } from "./MilestoneDialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { MilestoneGitTimeline } from "./MilestoneGitTimeline";
 
 interface MilestoneTimelineProps {
   projectId: string;
+  projectStartDate?: string;
 }
 
-export const MilestoneTimeline = ({ projectId }: MilestoneTimelineProps) => {
+export const MilestoneTimeline = ({ projectId, projectStartDate }: MilestoneTimelineProps) => {
   const [milestones, setMilestones] = useState<Milestone[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedMilestone, setSelectedMilestone] = useState<Milestone | null>(null);
@@ -147,134 +150,229 @@ export const MilestoneTimeline = ({ projectId }: MilestoneTimelineProps) => {
             </Button>
           </div>
         </CardHeader>
-      <CardContent className="pt-6">
-        {milestones.length === 0 ? (
-          <p className="text-muted-foreground text-center py-8">
-            No milestones defined yet
-          </p>
-        ) : (
-          <div className="space-y-8">
-            {/* Timeline visualization */}
-            <div className="relative">
-              <div className="flex justify-between items-center overflow-x-auto pb-16">
-                {milestones.map((milestone, idx) => (
-                  <div key={milestone.id} className="flex flex-col items-center min-w-[120px]">
-                    {/* Arrow connector */}
-                    {idx < milestones.length - 1 && (
-                      <div className="absolute top-12 left-0 w-full h-8 flex items-center">
-                        <div 
-                          className="h-0 border-t-2 border-muted"
-                          style={{
-                            width: `calc(${100 / milestones.length}% - 40px)`,
-                            marginLeft: `calc(${(idx * 100) / milestones.length}% + 60px)`
-                          }}
-                        >
-                          <div className="float-right -mt-1.5">
-                            <div className="w-0 h-0 border-l-8 border-l-muted border-t-4 border-t-transparent border-b-4 border-b-transparent"></div>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                    
-                    {/* Milestone marker */}
-                    <div className={`w-12 h-12 rounded-full ${getStatusColor(milestone.status)} flex items-center justify-center mb-2 relative z-10`}>
-                      <div className="w-6 h-6 bg-background rounded-full"></div>
-                    </div>
-                    
-                    {/* Milestone info */}
-                    <p className="text-xs font-medium text-center mb-1 px-2">
-                      {milestone.name}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {format(new Date(milestone.targetDate), 'dd MMM yyyy')}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
+        <CardContent className="pt-6">
+          {milestones.length === 0 ? (
+            <p className="text-muted-foreground text-center py-8">
+              No milestones defined yet
+            </p>
+          ) : (
+            <Tabs defaultValue="timeline" className="w-full">
+              <TabsList className="mb-4">
+                <TabsTrigger value="timeline">Timeline View</TabsTrigger>
+                <TabsTrigger value="git">Git View</TabsTrigger>
+                <TabsTrigger value="list">List View</TabsTrigger>
+              </TabsList>
 
-            {/* Milestone details table */}
-            <div className="border rounded-lg overflow-hidden">
-              <table className="w-full">
-                <thead className="bg-muted">
-                  <tr>
-                    <th className="text-left p-3 text-sm font-medium">Milestone</th>
-                    <th className="text-left p-3 text-sm font-medium">Target Date</th>
-                    <th className="text-left p-3 text-sm font-medium">Status</th>
-                    <th className="text-left p-3 text-sm font-medium">Flags</th>
-                    <th className="text-left p-3 text-sm font-medium">Dependencies</th>
-                    <th className="text-left p-3 text-sm font-medium">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {milestones.map((milestone) => (
-                    <tr key={milestone.id} className="border-t hover:bg-muted/30">
-                      <td className="p-3">
-                        <div>
-                          <p className="font-medium">{milestone.name}</p>
-                          {milestone.description && (
-                            <p className="text-xs text-muted-foreground">{milestone.description}</p>
-                          )}
-                        </div>
-                      </td>
-                      <td className="p-3 text-sm">
-                        <div>
-                          <p>{format(new Date(milestone.targetDate), 'dd MMM yyyy')}</p>
-                          {hasBaselineVariance(milestone) && (
-                            <div className="flex items-center gap-1 text-xs text-warning mt-1">
-                              <AlertTriangle className="w-3 h-3" />
-                              <span>Baseline: {format(new Date(milestone.baselineTargetDate!), 'dd MMM')}</span>
+              <TabsContent value="timeline" className="space-y-8">
+                {/* Timeline visualization */}
+                <div className="relative">
+                  <div className="flex justify-between items-center overflow-x-auto pb-16">
+                    {milestones.map((milestone, idx) => (
+                      <div key={milestone.id} className="flex flex-col items-center min-w-[120px]">
+                        {/* Arrow connector */}
+                        {idx < milestones.length - 1 && (
+                          <div className="absolute top-12 left-0 w-full h-8 flex items-center">
+                            <div 
+                              className="h-0 border-t-2 border-muted"
+                              style={{
+                                width: `calc(${100 / milestones.length}% - 40px)`,
+                                marginLeft: `calc(${(idx * 100) / milestones.length}% + 60px)`
+                              }}
+                            >
+                              <div className="float-right -mt-1.5">
+                                <div className="w-0 h-0 border-l-8 border-l-muted border-t-4 border-t-transparent border-b-4 border-b-transparent"></div>
+                              </div>
                             </div>
-                          )}
+                          </div>
+                        )}
+                        
+                        {/* Milestone marker */}
+                        <div className={`w-12 h-12 rounded-full ${getStatusColor(milestone.status)} flex items-center justify-center mb-2 relative z-10`}>
+                          <div className="w-6 h-6 bg-background rounded-full"></div>
                         </div>
-                      </td>
-                      <td className="p-3">
-                        <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(milestone.status)} ${getStatusForeground(milestone.status)}`}>
-                          {milestone.status}
-                        </span>
-                      </td>
-                      <td className="p-3">
-                        <div className="flex flex-wrap gap-1">
-                          {milestone.isCriticalPath && (
-                            <Badge variant="destructive" className="text-xs">Critical Path</Badge>
-                          )}
-                          {milestone.approvalRequired && (
-                            <Badge variant="outline" className="text-xs">
-                              {milestone.approvedBy ? `✓ ${milestone.approvedBy}` : 'Approval Req.'}
-                            </Badge>
-                          )}
-                        </div>
-                      </td>
-                      <td className="p-3 text-xs text-muted-foreground">
-                        {getDependencyNames(milestone) || '-'}
-                      </td>
-                      <td className="p-3">
-                        <div className="flex gap-2">
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            onClick={() => handleEditMilestone(milestone)}
-                          >
-                            <Edit className="w-4 h-4" />
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            onClick={() => handleDeleteClick(milestone.id)}
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )}
-      </CardContent>
-    </Card>
+                        
+                        {/* Milestone info */}
+                        <p className="text-xs font-medium text-center mb-1 px-2">
+                          {milestone.name}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {format(new Date(milestone.targetDate), 'dd MMM yyyy')}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Milestone details table */}
+                <div className="border rounded-lg overflow-hidden">
+                  <table className="w-full">
+                    <thead className="bg-muted">
+                      <tr>
+                        <th className="text-left p-3 text-sm font-medium">Milestone</th>
+                        <th className="text-left p-3 text-sm font-medium">Target Date</th>
+                        <th className="text-left p-3 text-sm font-medium">Status</th>
+                        <th className="text-left p-3 text-sm font-medium">Flags</th>
+                        <th className="text-left p-3 text-sm font-medium">Dependencies</th>
+                        <th className="text-left p-3 text-sm font-medium">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {milestones.map((milestone) => (
+                        <tr key={milestone.id} className="border-t hover:bg-muted/30">
+                          <td className="p-3">
+                            <div>
+                              <p className="font-medium">{milestone.name}</p>
+                              {milestone.description && (
+                                <p className="text-xs text-muted-foreground">{milestone.description}</p>
+                              )}
+                            </div>
+                          </td>
+                          <td className="p-3 text-sm">
+                            <div>
+                              <p>{format(new Date(milestone.targetDate), 'dd MMM yyyy')}</p>
+                              {hasBaselineVariance(milestone) && (
+                                <div className="flex items-center gap-1 text-xs text-warning mt-1">
+                                  <AlertTriangle className="w-3 h-3" />
+                                  <span>Baseline: {format(new Date(milestone.baselineTargetDate!), 'dd MMM')}</span>
+                                </div>
+                              )}
+                            </div>
+                          </td>
+                          <td className="p-3">
+                            <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(milestone.status)} ${getStatusForeground(milestone.status)}`}>
+                              {milestone.status}
+                            </span>
+                          </td>
+                          <td className="p-3">
+                            <div className="flex flex-wrap gap-1">
+                              {milestone.isCriticalPath && (
+                                <Badge variant="destructive" className="text-xs">Critical Path</Badge>
+                              )}
+                              {milestone.approvalRequired && (
+                                <Badge variant="outline" className="text-xs">
+                                  {milestone.approvedBy ? `✓ ${milestone.approvedBy}` : 'Approval Req.'}
+                                </Badge>
+                              )}
+                            </div>
+                          </td>
+                          <td className="p-3 text-xs text-muted-foreground">
+                            {getDependencyNames(milestone) || '-'}
+                          </td>
+                          <td className="p-3">
+                            <div className="flex gap-2">
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => handleEditMilestone(milestone)}
+                              >
+                                <Edit className="w-4 h-4" />
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => handleDeleteClick(milestone.id)}
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="git">
+                <MilestoneGitTimeline 
+                  milestones={milestones} 
+                  projectStartDate={projectStartDate || milestones[0]?.targetDate || new Date().toISOString()} 
+                />
+              </TabsContent>
+
+              <TabsContent value="list">
+                <div className="border rounded-lg overflow-hidden">
+                  <table className="w-full">
+                    <thead className="bg-muted">
+                      <tr>
+                        <th className="text-left p-3 text-sm font-medium">Milestone</th>
+                        <th className="text-left p-3 text-sm font-medium">Target Date</th>
+                        <th className="text-left p-3 text-sm font-medium">Status</th>
+                        <th className="text-left p-3 text-sm font-medium">Flags</th>
+                        <th className="text-left p-3 text-sm font-medium">Dependencies</th>
+                        <th className="text-left p-3 text-sm font-medium">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {milestones.map((milestone) => (
+                        <tr key={milestone.id} className="border-t hover:bg-muted/30">
+                          <td className="p-3">
+                            <div>
+                              <p className="font-medium">{milestone.name}</p>
+                              {milestone.description && (
+                                <p className="text-xs text-muted-foreground">{milestone.description}</p>
+                              )}
+                            </div>
+                          </td>
+                          <td className="p-3 text-sm">
+                            <div>
+                              <p>{format(new Date(milestone.targetDate), 'dd MMM yyyy')}</p>
+                              {hasBaselineVariance(milestone) && (
+                                <div className="flex items-center gap-1 text-xs text-warning mt-1">
+                                  <AlertTriangle className="w-3 h-3" />
+                                  <span>Baseline: {format(new Date(milestone.baselineTargetDate!), 'dd MMM')}</span>
+                                </div>
+                              )}
+                            </div>
+                          </td>
+                          <td className="p-3">
+                            <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(milestone.status)} ${getStatusForeground(milestone.status)}`}>
+                              {milestone.status}
+                            </span>
+                          </td>
+                          <td className="p-3">
+                            <div className="flex flex-wrap gap-1">
+                              {milestone.isCriticalPath && (
+                                <Badge variant="destructive" className="text-xs">Critical Path</Badge>
+                              )}
+                              {milestone.approvalRequired && (
+                                <Badge variant="outline" className="text-xs">
+                                  {milestone.approvedBy ? `✓ ${milestone.approvedBy}` : 'Approval Req.'}
+                                </Badge>
+                              )}
+                            </div>
+                          </td>
+                          <td className="p-3 text-xs text-muted-foreground">
+                            {getDependencyNames(milestone) || '-'}
+                          </td>
+                          <td className="p-3">
+                            <div className="flex gap-2">
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => handleEditMilestone(milestone)}
+                              >
+                                <Edit className="w-4 h-4" />
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => handleDeleteClick(milestone.id)}
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </TabsContent>
+            </Tabs>
+          )}
+        </CardContent>
+      </Card>
 
     <MilestoneDialog
       open={dialogOpen}
