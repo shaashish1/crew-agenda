@@ -1057,4 +1057,46 @@ All colors MUST be HSL.
     filter: drop-shadow(0 0 20px currentColor);
     transform: scale(1.1);
   }
+
+  /* Button utility classes to ensure proper text colors */
+  .btn-primary-text {
+    color: hsl(var(--primary-foreground)) !important;
+  }
+
+  .btn-on-primary {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground)) !important;
+  }
+
+  .btn-on-primary:hover {
+    background: hsl(var(--primary) / 0.9);
+    color: hsl(var(--primary-foreground)) !important;
+  }
+
+  .btn-on-destructive {
+    background: hsl(var(--destructive));
+    color: hsl(var(--destructive-foreground)) !important;
+  }
+
+  .btn-on-info {
+    background: hsl(var(--info));
+    color: hsl(var(--info-foreground)) !important;
+  }
+
+  .btn-on-success {
+    background: hsl(var(--success));
+    color: hsl(var(--success-foreground)) !important;
+  }
+
+  /* Force white text on all colored backgrounds */
+  button[class*="bg-primary"],
+  button[class*="bg-destructive"],
+  button[class*="bg-info"],
+  button[class*="bg-success"],
+  .bg-primary,
+  .bg-destructive,
+  .bg-info,
+  .bg-success {
+    color: hsl(0 0% 100%) !important;
+  }
 }
