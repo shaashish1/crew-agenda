@@ -177,7 +177,10 @@ export const AIInsightsCard = ({ insight, onStatusChange }: AIInsightsCardProps)
         )}
 
         {insight.status !== 'new' && (
-          <Badge variant="outline" className="mt-2">
+          <Badge 
+            variant={insight.status === 'dismissed' ? 'destructive' : 'outline'} 
+            className="mt-2"
+          >
             Status: {insight.status}
           </Badge>
         )}
