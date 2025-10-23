@@ -178,7 +178,6 @@ export const AIExecutiveDashboard = () => {
         <Button 
           onClick={fetchPortfolioInsights} 
           disabled={refreshing}
-          variant="outline"
           size="sm"
         >
           <RefreshCw className={`mr-2 h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
