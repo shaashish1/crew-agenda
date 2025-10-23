@@ -1,19 +1,61 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { TrendingUp } from "lucide-react";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { format } from "date-fns";
 
-// Mock data - in a real app, this would come from project_metrics_history table
-const mockData = [
-  { date: '2024-01', health_score: 72, on_time: 68, budget: 85 },
-  { date: '2024-02', health_score: 75, on_time: 70, budget: 82 },
-  { date: '2024-03', health_score: 78, on_time: 75, budget: 88 },
-  { date: '2024-04', health_score: 82, on_time: 78, budget: 90 },
-  { date: '2024-05', health_score: 80, on_time: 76, budget: 87 },
-  { date: '2024-06', health_score: 85, on_time: 82, budget: 92 },
-  { date: '2024-07', health_score: 87, on_time: 85, budget: 94 },
-];
+interface ChartData {
+  date: string;
+  health_score: number;
+  on_time: number;
+  budget: number;
+}
 
 export const PortfolioHealthChart = () => {
+  const [chartData, setChartData] = useState<ChartData[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchMetricsHistory = async () => {
+      setIsLoading(true);
+      const { data, error } = await supabase
+        .from('project_metrics_history')
+        .select('*')
+        .order('snapshot_date', { ascending: true })
+        .limit(30);
+
+      if (error) {
+        console.error('Error fetching metrics history:', error);
+        setIsLoading(false);
+        return;
+      }
+
+      if (data && data.length > 0) {
+        // Transform data to chart format
+        const transformed = data.map(metric => ({
+          date: format(new Date(metric.snapshot_date), 'MMM dd'),
+          health_score: calculateHealthScore(metric),
+          on_time: metric.delay_percentage ? Math.max(0, 100 - metric.delay_percentage) : 100,
+          budget: metric.budget_variance ? Math.max(0, 100 + metric.budget_variance) : 100,
+        }));
+        setChartData(transformed);
+      }
+      setIsLoading(false);
+    };
+
+    fetchMetricsHistory();
+  }, []);
+
+  const calculateHealthScore = (metric: any) => {
+    // Calculate health score based on multiple factors
+    const ragScore = metric.rag_status === 'Green' ? 100 : metric.rag_status === 'Amber' ? 60 : 30;
+    const onTimeScore = metric.delay_percentage ? Math.max(0, 100 - metric.delay_percentage) : 100;
+    const budgetScore = metric.budget_variance ? Math.max(0, 100 + metric.budget_variance) : 100;
+    const riskScore = metric.critical_risks ? Math.max(0, 100 - (metric.critical_risks * 20)) : 100;
+    
+    return Math.round((ragScore + onTimeScore + budgetScore + riskScore) / 4);
+  };
   return (
     <Card className="border-l-4 border-l-primary">
       <CardHeader className="pb-4">
@@ -32,8 +74,17 @@ export const PortfolioHealthChart = () => {
         </div>
       </CardHeader>
       <CardContent>
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={mockData}>
+        {isLoading ? (
+          <div className="h-[300px] flex items-center justify-center text-muted-foreground">
+            Loading metrics...
+          </div>
+        ) : chartData.length === 0 ? (
+          <div className="h-[300px] flex items-center justify-center text-muted-foreground">
+            No historical data available yet
+          </div>
+        ) : (
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" className="stroke-muted" opacity={0.3} />
             <XAxis 
               dataKey="date" 
@@ -84,6 +135,7 @@ export const PortfolioHealthChart = () => {
             />
           </LineChart>
         </ResponsiveContainer>
+        )}
       </CardContent>
     </Card>
   );
