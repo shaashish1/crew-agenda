@@ -599,7 +599,7 @@ const NewProject = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 {formData.resourceUtilization.map((resource, index) => (
-                  <div key={index} className="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 border rounded-lg bg-muted/20">
+                  <div key={index} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4 border rounded-lg bg-muted/20">
                     <div>
                       <Label htmlFor={`dept-${index}`}>Department</Label>
                       <Input
@@ -660,7 +660,7 @@ const NewProject = () => {
                 ))}
                 <Button
                   type="button"
-                  variant="outline"
+                  variant="blue"
                   onClick={() => {
                     setFormData({
                       ...formData,
@@ -705,7 +705,8 @@ const NewProject = () => {
           </Button>
           <Button 
             type="submit"
-            className="hover:scale-105 hover:shadow-premium transition-all duration-300 bg-gradient-to-r from-primary to-primary/80"
+            variant="blue"
+            className="hover:scale-105 transition-all duration-300"
           >
             Create Project
           </Button>
