@@ -17,6 +17,7 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         info: "bg-info shadow hover:bg-info/90 hover:shadow-md btn-primary-text",
         success: "bg-success shadow hover:bg-success/90 hover:shadow-md btn-primary-text",
+        blue: "bg-[image:var(--gradient-blue)] text-white shadow-lg hover:shadow-xl hover:scale-[1.02]",
       },
       size: {
         default: "h-11 px-6 py-2 text-btn-md",
