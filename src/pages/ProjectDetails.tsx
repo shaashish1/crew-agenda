@@ -464,7 +464,7 @@ const ProjectDetails = () => {
                     <p className="text-muted-foreground mb-4">
                       Performance metrics will be calculated automatically based on project milestones.
                     </p>
-                    <Button onClick={handleRecalculate} className="gap-2">
+                    <Button onClick={handleRecalculate} variant="blue" className="gap-2">
                       <RefreshCw className="w-4 h-4" />
                       Calculate Performance Metrics
                     </Button>
@@ -500,7 +500,7 @@ const ProjectDetails = () => {
                 <CardHeader>
                   <div className="flex justify-between items-center">
                     <CardTitle>Status Updates</CardTitle>
-                    <Button size="sm" className="gap-2">
+                    <Button variant="blue" size="sm" className="gap-2">
                       <Plus className="w-4 h-4" />
                       Add Update
                     </Button>
@@ -520,7 +520,7 @@ const ProjectDetails = () => {
                 <CardHeader>
                   <div className="flex justify-between items-center">
                     <CardTitle>Document Repository</CardTitle>
-                    <Button size="sm" className="gap-2">
+                    <Button variant="blue" size="sm" className="gap-2">
                       <Plus className="w-4 h-4" />
                       Upload Document
                     </Button>
