@@ -309,13 +309,13 @@ const Landing = () => {
                 Syngene ProjectHub
               </h1>
               <div className="hidden md:flex gap-2">
-                <Button variant="ghost" className="hover:bg-primary/10 hover:text-primary transition-all" onClick={() => navigate("/projects")}>
+                <Button variant="ghost" onClick={() => navigate("/projects")}>
                   Projects
                 </Button>
-                <Button variant="ghost" className="hover:bg-primary/10 hover:text-primary transition-all" onClick={() => navigate("/dashboard")}>
+                <Button variant="ghost" onClick={() => navigate("/dashboard")}>
                   Tasks
                 </Button>
-                <Button variant="ghost" className="hover:bg-primary/10 hover:text-primary transition-all" onClick={() => navigate("/features")}>
+                <Button variant="ghost" onClick={() => navigate("/features")}>
                   Features
                 </Button>
               </div>

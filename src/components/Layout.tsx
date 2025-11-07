@@ -42,10 +42,10 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                 key={item.name}
                 to={item.href}
                 className={cn(
-                  "flex items-center gap-3 px-4 py-3 rounded-md transition-all duration-200 font-medium text-sm",
+                  "flex items-center gap-3 px-4 py-3 rounded-md transition-all duration-200 font-semibold text-sm hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
                   isActive
-                    ? "bg-primary text-primary-foreground shadow-sm"
-                    : "text-foreground hover:bg-accent"
+                    ? "bg-primary text-primary-foreground shadow-sm hover:bg-primary/90"
+                    : "text-foreground hover:bg-accent hover:text-accent-foreground"
                 )}
               >
                 <item.icon className="w-5 h-5" />
