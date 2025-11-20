@@ -224,9 +224,13 @@ export type Database = {
           created_at: string
           created_by: string | null
           description: string | null
+          expected_benefits: string | null
           id: string
           priority: string
+          problem_statement: string | null
           project_id: string | null
+          proposed_solution: string | null
+          remarks: string | null
           status: string
           title: string
           updated_at: string
@@ -236,9 +240,13 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           description?: string | null
+          expected_benefits?: string | null
           id?: string
           priority: string
+          problem_statement?: string | null
           project_id?: string | null
+          proposed_solution?: string | null
+          remarks?: string | null
           status?: string
           title: string
           updated_at?: string
@@ -248,9 +256,13 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           description?: string | null
+          expected_benefits?: string | null
           id?: string
           priority?: string
+          problem_statement?: string | null
           project_id?: string | null
+          proposed_solution?: string | null
+          remarks?: string | null
           status?: string
           title?: string
           updated_at?: string
