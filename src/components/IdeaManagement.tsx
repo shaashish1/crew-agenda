@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Plus, Pencil, Trash2 } from "lucide-react";
+import { Plus, Pencil, Trash2, Search, X } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -39,6 +39,10 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
   const [ideas, setIdeas] = useState<Idea[]>([]);
   const [open, setOpen] = useState(false);
   const [editingIdea, setEditingIdea] = useState<Idea | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterCategory, setFilterCategory] = useState<string>("all");
+  const [filterPriority, setFilterPriority] = useState<string>("all");
+  const [filterStatus, setFilterStatus] = useState<string>("all");
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -194,6 +198,29 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
       default:
         return "default";
     }
+  };
+
+  const filteredIdeas = useMemo(() => {
+    return ideas.filter((idea) => {
+      const matchesSearch = idea.title
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      const matchesCategory =
+        filterCategory === "all" || idea.category === filterCategory;
+      const matchesPriority =
+        filterPriority === "all" || idea.priority === filterPriority;
+      const matchesStatus =
+        filterStatus === "all" || idea.status === filterStatus;
+
+      return matchesSearch && matchesCategory && matchesPriority && matchesStatus;
+    });
+  }, [ideas, searchTerm, filterCategory, filterPriority, filterStatus]);
+
+  const clearFilters = () => {
+    setSearchTerm("");
+    setFilterCategory("all");
+    setFilterPriority("all");
+    setFilterStatus("all");
   };
 
   return (
@@ -393,10 +420,78 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
         </Dialog>
       </div>
 
-      {ideas.length === 0 ? (
+      <div className="flex flex-col sm:flex-row gap-4 p-4 bg-card rounded-lg border border-border">
+        <div className="flex-1">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Search by title..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-9"
+            />
+          </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-2">
+          <Select value={filterCategory} onValueChange={setFilterCategory}>
+            <SelectTrigger className="w-full sm:w-[180px]">
+              <SelectValue placeholder="Category" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Categories</SelectItem>
+              <SelectItem value="process-improvement">
+                Process Improvement
+              </SelectItem>
+              <SelectItem value="cost-reduction">Cost Reduction</SelectItem>
+              <SelectItem value="innovation">Innovation</SelectItem>
+              <SelectItem value="quality">Quality</SelectItem>
+            </SelectContent>
+          </Select>
+
+          <Select value={filterPriority} onValueChange={setFilterPriority}>
+            <SelectTrigger className="w-full sm:w-[140px]">
+              <SelectValue placeholder="Priority" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Priorities</SelectItem>
+              <SelectItem value="high">High</SelectItem>
+              <SelectItem value="medium">Medium</SelectItem>
+              <SelectItem value="low">Low</SelectItem>
+            </SelectContent>
+          </Select>
+
+          <Select value={filterStatus} onValueChange={setFilterStatus}>
+            <SelectTrigger className="w-full sm:w-[160px]">
+              <SelectValue placeholder="Status" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Statuses</SelectItem>
+              <SelectItem value="new">New</SelectItem>
+              <SelectItem value="under-review">Under Review</SelectItem>
+              <SelectItem value="approved">Approved</SelectItem>
+              <SelectItem value="rejected">Rejected</SelectItem>
+              <SelectItem value="implemented">Implemented</SelectItem>
+            </SelectContent>
+          </Select>
+
+          {(searchTerm ||
+            filterCategory !== "all" ||
+            filterPriority !== "all" ||
+            filterStatus !== "all") && (
+            <Button variant="outline" size="icon" onClick={clearFilters}>
+              <X className="h-4 w-4" />
+            </Button>
+          )}
+        </div>
+      </div>
+
+      {filteredIdeas.length === 0 ? (
         <div className="text-center py-12 bg-card rounded-lg border border-border">
           <p className="text-muted-foreground">
-            No ideas yet. Create your first idea to get started!
+            {ideas.length === 0
+              ? "No ideas yet. Create your first idea to get started!"
+              : "No ideas match your current filters."}
           </p>
         </div>
       ) : (
@@ -417,7 +512,7 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {ideas.map((idea, index) => (
+              {filteredIdeas.map((idea, index) => (
                 <TableRow key={idea.id}>
                   <TableCell className="font-medium text-foreground">
                     {index + 1}
