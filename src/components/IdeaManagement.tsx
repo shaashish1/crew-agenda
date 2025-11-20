@@ -413,7 +413,7 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
                 <TableHead className="w-[100px]">Priority</TableHead>
                 <TableHead className="w-[120px]">Status</TableHead>
                 <TableHead className="min-w-[200px]">Remarks</TableHead>
-                <TableHead className="w-[120px] text-right">Actions</TableHead>
+                <TableHead className="w-[180px] text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -455,18 +455,20 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
                       <Button
-                        variant="ghost"
-                        size="icon"
+                        variant="outline"
+                        size="sm"
                         onClick={() => handleEdit(idea)}
                       >
                         <Pencil className="h-4 w-4" />
+                        Edit
                       </Button>
                       <Button
-                        variant="ghost"
-                        size="icon"
+                        variant="destructive"
+                        size="sm"
                         onClick={() => handleDelete(idea.id)}
                       >
                         <Trash2 className="h-4 w-4" />
+                        Delete
                       </Button>
                     </div>
                   </TableCell>
