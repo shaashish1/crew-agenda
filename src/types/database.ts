@@ -12,6 +12,10 @@ export interface Idea {
   created_by: string | null;
   created_at: string;
   updated_at: string;
+  problem_statement: string | null;
+  proposed_solution: string | null;
+  expected_benefits: string | null;
+  remarks: string | null;
 }
 
 export interface ProjectBlueprint {
