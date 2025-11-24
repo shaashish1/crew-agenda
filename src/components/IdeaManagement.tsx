@@ -2,6 +2,8 @@ import { useState, useEffect, useMemo } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
 import { Plus, Pencil, Trash2, Search, X } from "lucide-react";
 import {
@@ -37,8 +39,10 @@ interface IdeaManagementProps {
 
 const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
   const [ideas, setIdeas] = useState<Idea[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [editingIdea, setEditingIdea] = useState<Idea | null>(null);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [searchTerm, setSearchTerm] = useState("");
   const [filterCategory, setFilterCategory] = useState<string>("all");
   const [filterPriority, setFilterPriority] = useState<string>("all");
@@ -60,6 +64,7 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
   }, [projectId]);
 
   const loadIdeas = async () => {
+    setIsLoading(true);
     const query = supabase.from("ideas").select("*");
     if (projectId) {
       query.eq("project_id", projectId);
@@ -72,6 +77,7 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
     } else {
       setIdeas(data || []);
     }
+    setIsLoading(false);
   };
 
   const resetForm = () => {
@@ -221,6 +227,98 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
     setFilterCategory("all");
     setFilterPriority("all");
     setFilterStatus("all");
+  };
+
+  // Selection handlers
+  const handleSelectOne = (id: string) => {
+    setSelectedIds((prev) => {
+      const newSet = new Set(prev);
+      newSet.has(id) ? newSet.delete(id) : newSet.add(id);
+      return newSet;
+    });
+  };
+
+  const handleSelectAll = () => {
+    if (selectedIds.size === filteredIdeas.length) {
+      setSelectedIds(new Set());
+    } else {
+      setSelectedIds(new Set(filteredIdeas.map((idea) => idea.id)));
+    }
+  };
+
+  // Bulk action handlers
+  const handleBulkDelete = async () => {
+    if (selectedIds.size === 0) return;
+    if (!confirm(`Are you sure you want to delete ${selectedIds.size} idea(s)?`))
+      return;
+
+    const { error } = await supabase
+      .from("ideas")
+      .delete()
+      .in("id", Array.from(selectedIds));
+
+    if (error) {
+      toast.error("Failed to delete ideas");
+      console.error("Error deleting ideas:", error);
+    } else {
+      toast.success(`Successfully deleted ${selectedIds.size} idea(s)!`);
+      setSelectedIds(new Set());
+      loadIdeas();
+    }
+  };
+
+  const handleBulkUpdateStatus = async (status: string) => {
+    if (selectedIds.size === 0) return;
+
+    const { error } = await supabase
+      .from("ideas")
+      .update({ status })
+      .in("id", Array.from(selectedIds));
+
+    if (error) {
+      toast.error("Failed to update status");
+      console.error("Error updating status:", error);
+    } else {
+      toast.success(`Successfully updated ${selectedIds.size} idea(s)!`);
+      setSelectedIds(new Set());
+      loadIdeas();
+    }
+  };
+
+  const handleBulkUpdatePriority = async (priority: string) => {
+    if (selectedIds.size === 0) return;
+
+    const { error } = await supabase
+      .from("ideas")
+      .update({ priority })
+      .in("id", Array.from(selectedIds));
+
+    if (error) {
+      toast.error("Failed to update priority");
+      console.error("Error updating priority:", error);
+    } else {
+      toast.success(`Successfully updated ${selectedIds.size} idea(s)!`);
+      setSelectedIds(new Set());
+      loadIdeas();
+    }
+  };
+
+  const handleBulkUpdateCategory = async (category: string) => {
+    if (selectedIds.size === 0) return;
+
+    const { error } = await supabase
+      .from("ideas")
+      .update({ category })
+      .in("id", Array.from(selectedIds));
+
+    if (error) {
+      toast.error("Failed to update category");
+      console.error("Error updating category:", error);
+    } else {
+      toast.success(`Successfully updated ${selectedIds.size} idea(s)!`);
+      setSelectedIds(new Set());
+      loadIdeas();
+    }
   };
 
   return (
@@ -475,18 +573,83 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
             </SelectContent>
           </Select>
 
-          {(searchTerm ||
-            filterCategory !== "all" ||
-            filterPriority !== "all" ||
-            filterStatus !== "all") && (
-            <Button variant="outline" size="icon" onClick={clearFilters}>
-              <X className="h-4 w-4" />
-            </Button>
-          )}
-        </div>
-      </div>
+      {(searchTerm ||
+        filterCategory !== "all" ||
+        filterPriority !== "all" ||
+        filterStatus !== "all") && (
+        <Button variant="outline" size="icon" onClick={clearFilters}>
+          <X className="h-4 w-4" />
+        </Button>
+      )}
+    </div>
+  </div>
 
-      {filteredIdeas.length === 0 ? (
+  {selectedIds.size > 0 && (
+    <div className="flex items-center justify-between p-4 bg-accent rounded-lg border border-border">
+      <div className="flex items-center gap-4">
+        <span className="text-sm font-medium text-accent-foreground">
+          {selectedIds.size} idea(s) selected
+        </span>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => setSelectedIds(new Set())}
+        >
+          Deselect All
+        </Button>
+      </div>
+      <div className="flex items-center gap-2">
+        <Select onValueChange={handleBulkUpdateCategory}>
+          <SelectTrigger className="w-[180px] h-9">
+            <SelectValue placeholder="Change Category" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="process-improvement">
+              Process Improvement
+            </SelectItem>
+            <SelectItem value="cost-reduction">Cost Reduction</SelectItem>
+            <SelectItem value="innovation">Innovation</SelectItem>
+            <SelectItem value="quality">Quality</SelectItem>
+          </SelectContent>
+        </Select>
+        <Select onValueChange={handleBulkUpdatePriority}>
+          <SelectTrigger className="w-[150px] h-9">
+            <SelectValue placeholder="Change Priority" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="high">High</SelectItem>
+            <SelectItem value="medium">Medium</SelectItem>
+            <SelectItem value="low">Low</SelectItem>
+          </SelectContent>
+        </Select>
+        <Select onValueChange={handleBulkUpdateStatus}>
+          <SelectTrigger className="w-[150px] h-9">
+            <SelectValue placeholder="Change Status" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="new">New</SelectItem>
+            <SelectItem value="under-review">Under Review</SelectItem>
+            <SelectItem value="approved">Approved</SelectItem>
+            <SelectItem value="rejected">Rejected</SelectItem>
+            <SelectItem value="implemented">Implemented</SelectItem>
+          </SelectContent>
+        </Select>
+        <Button variant="destructive" size="sm" onClick={handleBulkDelete}>
+          <Trash2 className="h-4 w-4 mr-2" />
+          Delete Selected
+        </Button>
+      </div>
+    </div>
+  )}
+
+  {isLoading ? (
+    <div className="rounded-lg border border-border bg-card p-6 space-y-4">
+      <Skeleton className="h-10 w-full" />
+      <Skeleton className="h-10 w-full" />
+      <Skeleton className="h-10 w-full" />
+      <Skeleton className="h-10 w-full" />
+    </div>
+  ) : filteredIdeas.length === 0 ? (
         <div className="text-center py-12 bg-card rounded-lg border border-border">
           <p className="text-muted-foreground">
             {ideas.length === 0
@@ -499,12 +662,23 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead className="w-12">
+                  <Checkbox
+                    checked={
+                      filteredIdeas.length > 0 &&
+                      selectedIds.size === filteredIdeas.length
+                    }
+                    onCheckedChange={handleSelectAll}
+                    aria-label="Select all"
+                  />
+                </TableHead>
                 <TableHead className="w-16">Sl.No</TableHead>
                 <TableHead className="min-w-[200px]">Idea Title</TableHead>
                 <TableHead className="min-w-[250px]">Problem Statement</TableHead>
                 <TableHead className="min-w-[250px]">Proposed Solution</TableHead>
                 <TableHead className="min-w-[250px]">Expected Benefits</TableHead>
                 <TableHead className="w-[140px]">Category</TableHead>
+                <TableHead className="w-[200px]">Idea Owner</TableHead>
                 <TableHead className="w-[100px]">Priority</TableHead>
                 <TableHead className="w-[120px]">Status</TableHead>
                 <TableHead className="min-w-[200px]">Remarks</TableHead>
@@ -512,10 +686,22 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filteredIdeas.map((idea, index) => (
-                <TableRow key={idea.id}>
+              {filteredIdeas.map((idea) => (
+                <TableRow
+                  key={idea.id}
+                  className={
+                    selectedIds.has(idea.id) ? "bg-accent/50" : undefined
+                  }
+                >
+                  <TableCell>
+                    <Checkbox
+                      checked={selectedIds.has(idea.id)}
+                      onCheckedChange={() => handleSelectOne(idea.id)}
+                      aria-label={`Select ${idea.title}`}
+                    />
+                  </TableCell>
                   <TableCell className="font-medium text-foreground">
-                    {index + 1}
+                    {ideas.findIndex((i) => i.id === idea.id) + 1}
                   </TableCell>
                   <TableCell className="font-medium text-foreground">
                     {idea.title}
@@ -533,6 +719,9 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
                     <Badge variant={getCategoryVariant(idea.category)}>
                       {idea.category.replace("-", " ")}
                     </Badge>
+                  </TableCell>
+                  <TableCell className="text-muted-foreground text-xs">
+                    {idea.created_by || "Unknown"}
                   </TableCell>
                   <TableCell>
                     <Badge variant={getPriorityVariant(idea.priority)}>
