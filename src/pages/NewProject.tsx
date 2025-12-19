@@ -660,7 +660,6 @@ const NewProject = () => {
                 ))}
                 <Button
                   type="button"
-                  variant="blue"
                   onClick={() => {
                     setFormData({
                       ...formData,
@@ -705,7 +704,6 @@ const NewProject = () => {
           </Button>
           <Button 
             type="submit"
-            variant="blue"
             className="hover:scale-105 transition-all duration-300"
           >
             Create Project

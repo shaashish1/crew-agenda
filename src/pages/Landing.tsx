@@ -325,7 +325,6 @@ const Landing = () => {
               <Button 
                 onClick={() => navigate("/projects")} 
                 size="lg" 
-                variant="blue"
                 className="shadow-premium-md hover:shadow-premium-lg transition-all duration-300 hover:scale-105 hover:-translate-y-1 px-16 py-4 animate-fade-in"
               >
                 Get Started
@@ -358,7 +357,6 @@ const Landing = () => {
               <Button 
                 size="lg" 
                 onClick={() => navigate("/projects")}
-                variant="blue"
                 className="shadow-premium-lg hover:shadow-premium-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 group animate-fade-in"
               >
                 Explore Our Portfolio
@@ -366,7 +364,6 @@ const Landing = () => {
               </Button>
               <Button 
                 size="lg" 
-                variant="blue"
                 onClick={() => navigate("/dashboard")}
                 className="transition-all duration-300 hover:scale-105 hover:-translate-y-1 group animate-fade-in"
               >
@@ -613,11 +610,11 @@ const Landing = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center mt-12">
-            <Button onClick={() => navigate("/projects")} size="lg" variant="blue">
+            <Button onClick={() => navigate("/projects")} size="lg">
               Update Our Projects
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
-            <Button onClick={() => navigate("/dashboard")} size="lg" variant="blue">
+            <Button onClick={() => navigate("/dashboard")} size="lg">
               Update Our Tasks
             </Button>
           </div>
@@ -714,7 +711,7 @@ const Landing = () => {
               <Button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                variant={selectedCategory === cat.id ? "blue" : "outline"}
+                variant={selectedCategory === cat.id ? "default" : "outline"}
                 className={`
                   px-10 py-3 rounded-full transition-all duration-300
                   ${selectedCategory === cat.id 
@@ -926,7 +923,6 @@ const Landing = () => {
               <Button 
                 size="lg" 
                 onClick={() => navigate("/projects")}
-                variant="blue"
                 className="shadow-premium-xl hover:shadow-premium-xl transition-all duration-300 hover:scale-110 hover:-translate-y-1 px-16 py-4 group animate-fade-in"
               >
                 Explore Projects
@@ -934,7 +930,6 @@ const Landing = () => {
               </Button>
               <Button 
                 size="lg" 
-                variant="blue"
                 onClick={() => navigate("/dashboard")}
                 className="transition-all duration-300 hover:scale-110 hover:-translate-y-1 px-16 py-4 group animate-fade-in"
               >
