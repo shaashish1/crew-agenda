@@ -2,7 +2,6 @@ import { Link, useLocation } from "react-router-dom";
 import { CheckSquare, Settings, LayoutDashboard, FolderKanban, BrainCircuit, Lightbulb, BarChart3 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { FontSelector } from "@/components/FontSelector";
 import { AIAssistant } from "@/components/AIAssistant";
 
 const navigation = [
@@ -21,15 +20,15 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="flex h-screen bg-background">
       {/* Sidebar */}
-      <div className="w-64 bg-white border-r border-border flex flex-col">
-        <div className="p-6 border-b border-border">
+      <div className="w-64 bg-sidebar-background border-r border-sidebar-border flex flex-col">
+        <div className="p-6 border-b border-sidebar-border">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-primary rounded-md flex items-center justify-center shadow-sm">
-              <CheckSquare className="w-6 h-6 text-primary-foreground" />
+            <div className="w-10 h-10 bg-sidebar-primary rounded-lg flex items-center justify-center shadow-sm">
+              <CheckSquare className="w-6 h-6 text-sidebar-primary-foreground" />
             </div>
             <div>
-              <h1 className="text-lg font-semibold text-primary">Syngene ProjectHub</h1>
-              <p className="text-xs text-muted-foreground">IT Portfolio Management</p>
+              <h1 className="text-lg font-semibold text-sidebar-foreground">Syngene ProjectHub</h1>
+              <p className="text-xs text-sidebar-foreground/70">IT Portfolio Management</p>
             </div>
           </div>
         </div>
@@ -42,10 +41,11 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                 key={item.name}
                 to={item.href}
                 className={cn(
-                  "flex items-center gap-3 px-4 py-3 rounded-md transition-all duration-200 font-semibold text-sm hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                  "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 font-medium text-sm",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring focus-visible:ring-offset-2 focus-visible:ring-offset-sidebar-background",
                   isActive
-                    ? "bg-primary text-primary-foreground shadow-sm hover:bg-primary/90"
-                    : "text-foreground hover:bg-accent hover:text-accent-foreground"
+                    ? "bg-sidebar-primary text-sidebar-primary-foreground shadow-sm"
+                    : "text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                 )}
               >
                 <item.icon className="w-5 h-5" />
@@ -55,12 +55,11 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
           })}
         </nav>
 
-        <div className="p-4 border-t border-border space-y-3">
-          <div className="flex items-center justify-center gap-2">
+        <div className="p-4 border-t border-sidebar-border space-y-3">
+          <div className="flex items-center justify-center">
             <ThemeToggle />
-            <FontSelector />
           </div>
-          <p className="text-xs text-muted-foreground text-center">
+          <p className="text-xs text-sidebar-foreground/60 text-center">
             © 2025 Syngene International
           </p>
         </div>
