@@ -18,6 +18,8 @@ const buttonVariants = cva(
         info: "bg-info text-info-foreground shadow hover:bg-info/90 hover:shadow-md",
         success: "bg-success text-success-foreground shadow hover:bg-success/90 hover:shadow-md",
         warning: "bg-warning text-warning-foreground shadow hover:bg-warning/90 hover:shadow-md",
+        gradient: "bg-gradient-to-r from-primary via-primary/80 to-accent text-primary-foreground shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]",
+        glass: "bg-background/20 backdrop-blur-md border border-border/50 text-foreground shadow-sm hover:bg-background/30 hover:shadow-md hover:border-border",
       },
       size: {
         default: "h-11 px-6 py-2 text-btn-md",
