@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,37 +12,37 @@ All colors MUST be HSL.
 @layer base {
   :root {
     /* Light Mode - Premium Digital IT Portfolio (Deep Reds & Warm Tones) */
-    --background: 30 15% 98%;
-    --foreground: 0 5% 10%;
+    --background: 0 0% 96%;
+    --foreground: 0 0% 9%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 5% 10%;
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 9%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 5% 10%;
+    --popover: 0 0% 89%;
+    --popover-foreground: 0 0% 9%;
 
     /* Primary - Deep Professional Red */
-    --primary: 355 70% 42%;
-    --primary-foreground: 0 0% 100%;
-    
+    --primary: 161 93% 30%;
+    --primary-foreground: 151 80% 95%;
+
     /* Primary variants for gradients */
     --primary-light: 355 65% 52%;
     --primary-dark: 355 75% 35%;
     --primary-glow: 355 60% 60%;
 
     /* Secondary - Warm Neutral */
-    --secondary: 30 12% 92%;
-    --secondary-foreground: 0 5% 15%;
+    --secondary: 0 0% 32%;
+    --secondary-foreground: 0 0% 98%;
 
     /* Accent - Elegant Burgundy */
-    --accent: 345 50% 38%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 166 76% 96%;
+    --accent-foreground: 173 80% 40%;
 
-    --muted: 210 20% 95%;
-    --muted-foreground: 215 15% 50%;
+    --muted: 0 0% 63%;
+    --muted-foreground: 0 0% 9%;
 
-    --destructive: 0 75% 55%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 0 85% 97%;
 
     --success: 145 65% 42%;
     --success-foreground: 0 0% 100%;
@@ -53,17 +56,17 @@ All colors MUST be HSL.
     --rating-medium: 38 92% 60%;
     --rating-medium-foreground: 260 35% 12%;
 
-    --border: 30 10% 88%;
-    --input: 30 10% 88%;
-    --ring: 355 70% 42%;
+    --border: 0 0% 83%;
+    --input: 0 0% 83%;
+    --ring: 161 93% 30%;
 
     --radius: 0.75rem;
 
     /* Premium Shadow System - Warm & Elegant */
-    --shadow-sm: 0 2px 4px 0 rgb(139 0 0 / 0.08);
-    --shadow-md: 0 4px 12px -2px rgb(139 0 0 / 0.12);
-    --shadow-lg: 0 12px 28px -4px rgb(139 0 0 / 0.16);
-    --shadow-xl: 0 24px 56px -8px rgb(139 0 0 / 0.20);
+    --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
+    --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 2px 4px -1px hsl(0 0% 0% / 0.1);
+    --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 4px 6px -1px hsl(0 0% 0% / 0.1);
+    --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 8px 10px -1px hsl(0 0% 0% / 0.1);
     --shadow-card: 0 3px 16px 0 rgb(139 0 0 / 0.08);
     --shadow-card-hover: 0 10px 32px 0 rgb(139 0 0 / 0.16);
     --shadow-glow: 0 0 48px hsl(355 70% 42% / 0.25);
@@ -71,14 +74,14 @@ All colors MUST be HSL.
     --shadow-premium-md: 0 4px 20px rgba(139,0,0,0.10), 0 2px 10px rgba(139,0,0,0.15);
     --shadow-premium-lg: 0 12px 40px rgba(139,0,0,0.14), 0 4px 20px rgba(139,0,0,0.18);
     --shadow-premium-xl: 0 28px 72px rgba(139,0,0,0.18), 0 10px 36px rgba(139,0,0,0.24);
-    
+
     /* Warm Premium Gradient backgrounds */
     --gradient-primary: linear-gradient(135deg, hsl(355 70% 42%) 0%, hsl(345 50% 38%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(30 15% 98%) 100%);
     --gradient-button: linear-gradient(135deg, hsl(355 70% 42%) 0%, hsl(355 75% 35%) 100%);
     --gradient-glow: radial-gradient(circle at top left, hsl(355 70% 42% / 0.10), transparent 60%);
     --gradient-blue: linear-gradient(135deg, hsl(210 100% 55%) 0%, hsl(220 90% 50%) 100%);
-    
+
     /* Neon Gradient Styles */
     --neon-blue: 210 100% 60%;
     --neon-cyan: 180 100% 50%;
@@ -92,13 +95,28 @@ All colors MUST be HSL.
     --shadow-neon-pink: 0 0 20px hsl(330 100% 65% / 0.5), 0 0 40px hsl(330 100% 65% / 0.3);
 
     --sidebar-background: 355 70% 42%;
-    --sidebar-foreground: 0 0% 100%;
-    --sidebar-primary: 0 0% 100%;
-    --sidebar-primary-foreground: 355 70% 42%;
-    --sidebar-accent: 355 65% 48%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 355 60% 48%;
-    --sidebar-ring: 0 0% 100%;
+    --sidebar-foreground: 0 0% 9%;
+    --sidebar-primary: 161 93% 30%;
+    --sidebar-primary-foreground: 151 80% 95%;
+    --sidebar-accent: 0 0% 32%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 0 0% 83%;
+    --sidebar-ring: 161 93% 30%;
+    --chart-1: 158 64% 51%;
+    --chart-2: 141 69% 58%;
+    --chart-3: 172 66% 50%;
+    --chart-4: 82 77% 55%;
+    --chart-5: 0 0% 45%;
+    --sidebar: 0 0% 98%;
+    --font-sans: 'Work Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+    --font-serif: 'Lora', ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+    --font-mono: 'Inconsolata', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+    --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+    --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
+    --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+    --tracking-normal: 0em;
+    --spacing: 0.25rem;
   }
 
   .light-grey {
@@ -114,7 +132,7 @@ All colors MUST be HSL.
 
     --primary: 213 94% 45%;
     --primary-foreground: 0 0% 100%;
-    
+
     --primary-light: 213 94% 55%;
     --primary-dark: 213 94% 38%;
     --primary-glow: 213 80% 65%;
@@ -154,7 +172,7 @@ All colors MUST be HSL.
     --shadow-card: 0 2px 12px 0 rgb(0 0 0 / 0.05);
     --shadow-card-hover: 0 8px 24px 0 rgb(0 0 0 / 0.1);
     --shadow-glow: 0 0 32px hsl(213 94% 45% / 0.12);
-    
+
     --gradient-primary: linear-gradient(135deg, hsl(213 94% 45%) 0%, hsl(195 75% 45%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(0 0% 98%) 0%, hsl(0 0% 96%) 100%);
     --gradient-button: linear-gradient(135deg, hsl(213 94% 45%) 0%, hsl(213 94% 38%) 100%);
@@ -173,33 +191,33 @@ All colors MUST be HSL.
 
   .dark {
     /* Dark Mode - Premium Digital IT (Elegant Black with Deep Red Accents) */
-    --background: 0 5% 8%;
-    --foreground: 30 10% 95%;
+    --background: 0 0% 9%;
+    --foreground: 0 0% 98%;
 
-    --card: 0 5% 12%;
-    --card-foreground: 30 10% 95%;
+    --card: 0 0% 14%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 0 5% 10%;
-    --popover-foreground: 30 10% 95%;
+    --popover: 0 0% 25%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 355 65% 55%;
-    --primary-foreground: 0 0% 100%;
-    
+    --primary: 158 64% 51%;
+    --primary-foreground: 165 91% 9%;
+
     --primary-light: 355 65% 65%;
     --primary-dark: 355 70% 45%;
     --primary-glow: 355 60% 70%;
 
-    --secondary: 0 5% 18%;
-    --secondary-foreground: 30 10% 95%;
+    --secondary: 0 0% 45%;
+    --secondary-foreground: 0 0% 98%;
 
-    --accent: 345 55% 48%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 178 84% 10%;
+    --accent-foreground: 172 66% 50%;
 
-    --muted: 215 20% 25%;
-    --muted-foreground: 215 10% 65%;
+    --muted: 0 0% 45%;
+    --muted-foreground: 0 0% 98%;
 
-    --destructive: 0 75% 60%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 85% 97%;
 
     --success: 145 60% 48%;
     --success-foreground: 0 0% 100%;
@@ -213,18 +231,18 @@ All colors MUST be HSL.
     --rating-medium: 38 92% 60%;
     --rating-medium-foreground: 0 0% 100%;
 
-    --border: 215 25% 22%;
-    --input: 215 25% 22%;
-    --ring: 213 85% 55%;
+    --border: 0 0% 32%;
+    --input: 0 0% 32%;
+    --ring: 158 64% 51%;
 
-    --shadow-sm: 0 2px 6px 0 rgb(0 0 0 / 0.7);
-    --shadow-md: 0 6px 16px -2px rgb(0 0 0 / 0.8);
-    --shadow-lg: 0 16px 36px -4px rgb(0 0 0 / 0.85);
-    --shadow-xl: 0 28px 64px -8px rgb(0 0 0 / 0.9);
+    --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
+    --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 2px 4px -1px hsl(0 0% 0% / 0.1);
+    --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 4px 6px -1px hsl(0 0% 0% / 0.1);
+    --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 8px 10px -1px hsl(0 0% 0% / 0.1);
     --shadow-card: 0 6px 24px 0 hsl(355 65% 55% / 0.20);
     --shadow-card-hover: 0 12px 48px 0 hsl(355 65% 55% / 0.35);
     --shadow-glow: 0 0 64px hsl(355 65% 55% / 0.40);
-    
+
     --gradient-primary: linear-gradient(135deg, hsl(355 65% 55%) 0%, hsl(345 55% 48%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(0 5% 12%) 0%, hsl(0 5% 16%) 100%);
     --gradient-button: linear-gradient(135deg, hsl(355 65% 55%) 0%, hsl(355 70% 45%) 100%);
@@ -232,13 +250,23 @@ All colors MUST be HSL.
     --gradient-blue: linear-gradient(135deg, hsl(210 85% 60%) 0%, hsl(220 75% 55%) 100%);
 
     --sidebar-background: 0 5% 10%;
-    --sidebar-foreground: 30 10% 95%;
-    --sidebar-primary: 355 65% 55%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 5% 16%;
-    --sidebar-accent-foreground: 30 10% 95%;
-    --sidebar-border: 0 5% 18%;
-    --sidebar-ring: 355 65% 55%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 158 64% 51%;
+    --sidebar-primary-foreground: 165 91% 9%;
+    --sidebar-accent: 172 66% 50%;
+    --sidebar-accent-foreground: 178 84% 10%;
+    --sidebar-border: 0 0% 32%;
+    --sidebar-ring: 158 64% 51%;
+    --chart-1: 156 71% 66%;
+    --chart-2: 141 76% 73%;
+    --chart-3: 170 76% 64%;
+    --chart-4: 81 84% 67%;
+    --chart-5: 0 0% 45%;
+    --sidebar: 0 0% 14%;
+    --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+    --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+    --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
+    --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
   }
 
   .ocean {
@@ -254,7 +282,7 @@ All colors MUST be HSL.
 
     --primary: 195 85% 42%;
     --primary-foreground: 0 0% 100%;
-    
+
     --primary-light: 195 85% 52%;
     --primary-dark: 195 85% 35%;
     --primary-glow: 195 70% 62%;
@@ -293,7 +321,7 @@ All colors MUST be HSL.
     --shadow-card: 0 2px 12px 0 rgb(0 0 0 / 0.06);
     --shadow-card-hover: 0 8px 24px 0 rgb(0 0 0 / 0.12);
     --shadow-glow: 0 0 32px hsl(195 85% 42% / 0.15);
-    
+
     --gradient-primary: linear-gradient(135deg, hsl(195 85% 42%) 0%, hsl(185 75% 45%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(200 20% 98%) 0%, hsl(200 25% 96%) 100%);
     --gradient-button: linear-gradient(135deg, hsl(195 85% 42%) 0%, hsl(195 85% 35%) 100%);
@@ -322,7 +350,7 @@ All colors MUST be HSL.
 
     --primary: 15 85% 55%;
     --primary-foreground: 0 0% 100%;
-    
+
     --primary-light: 15 85% 65%;
     --primary-dark: 15 85% 45%;
     --primary-glow: 15 70% 70%;
@@ -361,7 +389,7 @@ All colors MUST be HSL.
     --shadow-card: 0 2px 12px 0 rgb(0 0 0 / 0.06);
     --shadow-card-hover: 0 8px 24px 0 rgb(0 0 0 / 0.12);
     --shadow-glow: 0 0 32px hsl(15 85% 55% / 0.15);
-    
+
     --gradient-primary: linear-gradient(135deg, hsl(15 85% 55%) 0%, hsl(280 65% 55%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(25 25% 98%) 0%, hsl(25 30% 96%) 100%);
     --gradient-button: linear-gradient(135deg, hsl(15 85% 55%) 0%, hsl(15 85% 45%) 100%);
@@ -390,7 +418,7 @@ All colors MUST be HSL.
 
     --primary: 155 70% 38%;
     --primary-foreground: 0 0% 100%;
-    
+
     --primary-light: 155 70% 48%;
     --primary-dark: 155 70% 30%;
     --primary-glow: 155 60% 58%;
@@ -429,7 +457,7 @@ All colors MUST be HSL.
     --shadow-card: 0 2px 12px 0 rgb(0 0 0 / 0.06);
     --shadow-card-hover: 0 8px 24px 0 rgb(0 0 0 / 0.12);
     --shadow-glow: 0 0 32px hsl(155 70% 38% / 0.15);
-    
+
     --gradient-primary: linear-gradient(135deg, hsl(155 70% 38%) 0%, hsl(85 65% 45%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(150 18% 98%) 0%, hsl(150 22% 96%) 100%);
     --gradient-button: linear-gradient(135deg, hsl(155 70% 38%) 0%, hsl(155 70% 30%) 100%);
@@ -458,7 +486,7 @@ All colors MUST be HSL.
 
     --primary: 265 75% 52%;
     --primary-foreground: 0 0% 100%;
-    
+
     --primary-light: 265 75% 62%;
     --primary-dark: 265 75% 42%;
     --primary-glow: 265 60% 70%;
@@ -497,7 +525,7 @@ All colors MUST be HSL.
     --shadow-card: 0 2px 12px 0 rgb(0 0 0 / 0.06);
     --shadow-card-hover: 0 8px 24px 0 rgb(0 0 0 / 0.12);
     --shadow-glow: 0 0 32px hsl(265 75% 52% / 0.15);
-    
+
     --gradient-primary: linear-gradient(135deg, hsl(265 75% 52%) 0%, hsl(285 70% 55%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(270 20% 98%) 0%, hsl(270 25% 96%) 100%);
     --gradient-button: linear-gradient(135deg, hsl(265 75% 52%) 0%, hsl(265 75% 42%) 100%);
@@ -526,7 +554,7 @@ All colors MUST be HSL.
 
     --primary: 210 100% 50%;
     --primary-foreground: 0 0% 100%;
-    
+
     --primary-light: 210 100% 60%;
     --primary-dark: 210 100% 40%;
     --primary-glow: 210 80% 70%;
@@ -573,7 +601,7 @@ All colors MUST be HSL.
     --shadow-premium-md: 0 4px 16px rgba(33,150,243,0.12), 0 2px 8px rgba(0,0,0,0.06);
     --shadow-premium-lg: 0 8px 24px rgba(33,150,243,0.15), 0 4px 12px rgba(0,0,0,0.08);
     --shadow-premium-xl: 0 16px 48px rgba(33,150,243,0.18), 0 8px 24px rgba(0,0,0,0.10);
-    
+
     /* Corporate Gradients - Subtle & Professional */
     --gradient-primary: linear-gradient(135deg, hsl(210 100% 50%) 0%, hsl(180 60% 45%) 100%);
     --gradient-card: linear-gradient(to bottom, hsl(0 0% 100%) 0%, hsl(210 20% 99%) 100%);
@@ -606,7 +634,7 @@ All colors MUST be HSL.
     /* Primary - Material Blue (M3 primary color) */
     --primary: 214 100% 42%;
     --primary-foreground: 0 0% 100%;
-    
+
     --primary-light: 214 95% 52%;
     --primary-dark: 214 100% 35%;
     --primary-glow: 214 90% 58%;
@@ -654,7 +682,7 @@ All colors MUST be HSL.
     --shadow-premium-md: 0 2px 8px rgba(0,0,0,0.10);
     --shadow-premium-lg: 0 4px 16px rgba(0,0,0,0.12);
     --shadow-premium-xl: 0 8px 32px rgba(0,0,0,0.14);
-    
+
     /* Material 3 Gradients - Subtle surface tints */
     --gradient-primary: linear-gradient(135deg, hsl(214 100% 42%) 0%, hsl(186 52% 48%) 100%);
     --gradient-card: linear-gradient(180deg, hsl(220 20% 99%) 0%, hsl(220 18% 96%) 100%);
@@ -686,7 +714,7 @@ All colors MUST be HSL.
     /* Primary - Material Blue in dark */
     --primary: 214 90% 65%;
     --primary-foreground: 220 15% 12%;
-    
+
     --primary-light: 214 85% 72%;
     --primary-dark: 214 95% 58%;
     --primary-glow: 214 80% 75%;
@@ -732,7 +760,7 @@ All colors MUST be HSL.
     --shadow-premium-md: 0 2px 8px rgba(0,0,0,0.40);
     --shadow-premium-lg: 0 4px 16px rgba(0,0,0,0.50);
     --shadow-premium-xl: 0 8px 32px rgba(0,0,0,0.60);
-    
+
     --gradient-primary: linear-gradient(135deg, hsl(214 90% 65%) 0%, hsl(186 50% 55%) 100%);
     --gradient-card: linear-gradient(180deg, hsl(220 18% 18%) 0%, hsl(220 15% 14%) 100%);
     --gradient-button: linear-gradient(180deg, hsl(214 90% 68%) 0%, hsl(214 90% 60%) 100%);
@@ -753,65 +781,65 @@ All colors MUST be HSL.
     /* Syngene International Theme - Official Brand Colors */
     --background: 0 0% 100%;
     --foreground: 207 100% 33%;
-    
+
     --card: 0 0% 100%;
     --card-foreground: 207 100% 33%;
-    
+
     --popover: 0 0% 100%;
     --popover-foreground: 207 100% 33%;
-    
+
     /* Primary - Endeavour Blue (Official Brand Color #005BAA) */
     --primary: 207 100% 33%;
     --primary-foreground: 0 0% 100%;
     --primary-light: 207 100% 43%;
     --primary-dark: 207 100% 25%;
-    
+
     /* Secondary - Pure White */
     --secondary: 0 0% 100%;
     --secondary-foreground: 207 100% 33%;
-    
+
     /* Accent - Black for high contrast */
     --accent: 0 0% 96%;
     --accent-foreground: 207 100% 33%;
-    
+
     /* Muted - Light Gray (for dividers/backgrounds) */
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 40%;
-    
+
     /* Destructive/Error - Red */
     --destructive: 0 75% 50%;
     --destructive-foreground: 0 0% 100%;
-    
+
     /* Success - Green */
     --success: 145 60% 45%;
     --success-foreground: 0 0% 100%;
-    
+
     /* Info - Uses brand blue */
     --info: 207 100% 33%;
     --info-foreground: 0 0% 100%;
-    
+
     /* Warning - Amber */
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 0%;
-    
+
     /* Border & Input */
     --border: 0 0% 88%;
     --input: 0 0% 96%;
     --ring: 207 100% 33%;
-    
+
     /* Chart colors - Blue dominant palette */
     --chart-1: 207 100% 33%;
     --chart-2: 207 100% 45%;
     --chart-3: 0 0% 40%;
     --chart-4: 207 100% 20%;
     --chart-5: 145 60% 45%;
-    
+
     --radius: 0.375rem;
-    
+
     /* Typography colors */
     --text-primary: 0 0% 0%;
     --text-secondary: 0 0% 40%;
-    
+
     /* Clean, Subtle Shadows - Blue tints */
     --shadow-sm: 0 1px 2px 0 rgba(0, 91, 170, 0.05);
     --shadow-md: 0 2px 4px -1px rgba(0, 91, 170, 0.08);
@@ -824,7 +852,7 @@ All colors MUST be HSL.
     --shadow-premium-md: 0 2px 4px rgba(0, 91, 170, 0.08);
     --shadow-premium-lg: 0 4px 8px rgba(0, 91, 170, 0.12);
     --shadow-premium-xl: 0 8px 16px rgba(0, 91, 170, 0.16);
-    
+
     /* Gradients - Blue based */
     --gradient-primary: linear-gradient(135deg, hsl(207 100% 33%) 0%, hsl(207 100% 45%) 100%);
     --gradient-secondary: linear-gradient(135deg, hsl(207 100% 25%) 0%, hsl(207 100% 35%) 100%);
@@ -832,7 +860,7 @@ All colors MUST be HSL.
     --gradient-button: linear-gradient(180deg, hsl(207 100% 35%) 0%, hsl(207 100% 30%) 100%);
     --gradient-glow: radial-gradient(circle at top left, hsl(207 100% 33% / 0.08), transparent 60%);
     --gradient-glassmorphism: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
-    
+
     /* Sidebar - White with Blue accents */
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 207 100% 33%;
@@ -854,7 +882,7 @@ All colors MUST be HSL.
     @apply bg-background text-foreground font-sans;
     min-height: 100vh;
   }
-  
+
   .syngene body {
     font-family: Arial, sans-serif;
   }
@@ -864,21 +892,21 @@ All colors MUST be HSL.
   .shadow-card {
     box-shadow: var(--shadow-md);
   }
-  
+
   .shadow-card-hover {
     box-shadow: var(--shadow-xl);
   }
-  
+
   .card-3d {
     transform: translateZ(0);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-  
+
   .card-3d:hover {
     transform: translateY(-4px) translateZ(0);
     box-shadow: var(--shadow-xl);
   }
-  
+
   .glass-effect {
     backdrop-filter: blur(12px);
     background: rgba(255, 255, 255, 0.9);
@@ -977,11 +1005,11 @@ All colors MUST be HSL.
     line-height: 1.7;
     letter-spacing: 0.01em;
   }
-  
+
   .animate-float {
     animation: float 3s ease-in-out infinite;
   }
-  
+
   @keyframes float {
     0%, 100% {
       transform: translateY(0px);
@@ -1058,7 +1086,6 @@ All colors MUST be HSL.
     filter: drop-shadow(0 0 10px currentColor);
     transition: all 0.3s ease;
   }
-
 
   .icon-neon:hover {
     filter: drop-shadow(0 0 20px currentColor);
