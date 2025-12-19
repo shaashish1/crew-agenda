@@ -335,7 +335,7 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
           if (!isOpen) resetForm();
         }}>
           <DialogTrigger asChild>
-            <Button variant="blue">
+            <Button>
               <Plus className="mr-2 h-4 w-4" />
               Add New Idea
             </Button>
@@ -509,7 +509,7 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
                 >
                   Cancel
                 </Button>
-                <Button type="submit" variant="blue">
+                <Button type="submit">
                   {editingIdea ? "Update Idea" : "Create Idea"}
                 </Button>
               </div>

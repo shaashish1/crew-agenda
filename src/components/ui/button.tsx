@@ -9,15 +9,15 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary shadow hover:bg-primary/90 hover:shadow-md btn-primary-text",
-        destructive: "bg-destructive shadow hover:bg-destructive/90 hover:shadow-md btn-primary-text",
+        default: "bg-primary text-primary-foreground shadow hover:bg-primary/90 hover:shadow-md",
+        destructive: "bg-destructive text-destructive-foreground shadow hover:bg-destructive/90 hover:shadow-md",
         outline: "border-2 border-primary text-primary bg-background hover:bg-primary hover:text-primary-foreground hover:shadow-sm",
         secondary: "bg-secondary text-secondary-foreground border border-border hover:bg-accent hover:text-accent-foreground hover:shadow-sm",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
+        ghost: "text-foreground hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        info: "bg-info shadow hover:bg-info/90 hover:shadow-md btn-primary-text",
-        success: "bg-success shadow hover:bg-success/90 hover:shadow-md btn-primary-text",
-        blue: "bg-[image:var(--gradient-blue)] text-white shadow-lg hover:shadow-xl hover:scale-[1.02]",
+        info: "bg-info text-info-foreground shadow hover:bg-info/90 hover:shadow-md",
+        success: "bg-success text-success-foreground shadow hover:bg-success/90 hover:shadow-md",
+        warning: "bg-warning text-warning-foreground shadow hover:bg-warning/90 hover:shadow-md",
       },
       size: {
         default: "h-11 px-6 py-2 text-btn-md",

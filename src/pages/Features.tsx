@@ -302,7 +302,7 @@ const Features = () => {
             Real-time insights and comprehensive management tools for IT excellence
           </p>
           <div className="flex gap-4 justify-center pt-4 animate-fade-in">
-            <Button onClick={() => navigate("/projects/new")} variant="blue" size="lg" className="gap-2 group">
+            <Button onClick={() => navigate("/projects/new")} size="lg" className="gap-2 group">
               Get Started
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Button>
