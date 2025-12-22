@@ -92,6 +92,86 @@ export type Database = {
         }
         Relationships: []
       }
+      department_evaluation_criteria: {
+        Row: {
+          created_at: string
+          criteria_description: string | null
+          criteria_name: string
+          department_id: string | null
+          id: string
+          is_required: boolean | null
+          stage: Database["public"]["Enums"]["evaluation_stage"]
+          updated_at: string
+          weight: number | null
+        }
+        Insert: {
+          created_at?: string
+          criteria_description?: string | null
+          criteria_name: string
+          department_id?: string | null
+          id?: string
+          is_required?: boolean | null
+          stage: Database["public"]["Enums"]["evaluation_stage"]
+          updated_at?: string
+          weight?: number | null
+        }
+        Update: {
+          created_at?: string
+          criteria_description?: string | null
+          criteria_name?: string
+          department_id?: string | null
+          id?: string
+          is_required?: boolean | null
+          stage?: Database["public"]["Enums"]["evaluation_stage"]
+          updated_at?: string
+          weight?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "department_evaluation_criteria_department_id_fkey"
+            columns: ["department_id"]
+            isOneToOne: false
+            referencedRelation: "departments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      departments: {
+        Row: {
+          code: string
+          created_at: string
+          description: string | null
+          head_email: string | null
+          head_name: string | null
+          id: string
+          is_active: boolean | null
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          description?: string | null
+          head_email?: string | null
+          head_name?: string | null
+          id?: string
+          is_active?: boolean | null
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          description?: string | null
+          head_email?: string | null
+          head_name?: string | null
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       document_templates: {
         Row: {
           category: string
@@ -218,20 +298,239 @@ export type Database = {
           },
         ]
       }
+      idea_attachments: {
+        Row: {
+          created_at: string
+          file_name: string
+          file_size: number | null
+          file_type: string | null
+          file_url: string
+          id: string
+          idea_id: string
+          uploaded_by: string
+        }
+        Insert: {
+          created_at?: string
+          file_name: string
+          file_size?: number | null
+          file_type?: string | null
+          file_url: string
+          id?: string
+          idea_id: string
+          uploaded_by: string
+        }
+        Update: {
+          created_at?: string
+          file_name?: string
+          file_size?: number | null
+          file_type?: string | null
+          file_url?: string
+          id?: string
+          idea_id?: string
+          uploaded_by?: string
+        }
+        Relationships: []
+      }
+      idea_comments: {
+        Row: {
+          author_email: string | null
+          author_name: string
+          content: string
+          created_at: string
+          id: string
+          idea_id: string
+          is_internal: boolean | null
+          parent_comment_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          author_email?: string | null
+          author_name: string
+          content: string
+          created_at?: string
+          id?: string
+          idea_id: string
+          is_internal?: boolean | null
+          parent_comment_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          author_email?: string | null
+          author_name?: string
+          content?: string
+          created_at?: string
+          id?: string
+          idea_id?: string
+          is_internal?: boolean | null
+          parent_comment_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "idea_comments_parent_comment_id_fkey"
+            columns: ["parent_comment_id"]
+            isOneToOne: false
+            referencedRelation: "idea_comments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      idea_reviews: {
+        Row: {
+          alignment_score: number | null
+          comments: string | null
+          created_at: string
+          feasibility_score: number | null
+          id: string
+          idea_id: string
+          impact_score: number | null
+          novelty_score: number | null
+          overall_score: number | null
+          recommendation: string | null
+          review_date: string
+          reviewer_email: string | null
+          reviewer_name: string
+          stage: Database["public"]["Enums"]["evaluation_stage"]
+          updated_at: string
+        }
+        Insert: {
+          alignment_score?: number | null
+          comments?: string | null
+          created_at?: string
+          feasibility_score?: number | null
+          id?: string
+          idea_id: string
+          impact_score?: number | null
+          novelty_score?: number | null
+          overall_score?: number | null
+          recommendation?: string | null
+          review_date?: string
+          reviewer_email?: string | null
+          reviewer_name: string
+          stage: Database["public"]["Enums"]["evaluation_stage"]
+          updated_at?: string
+        }
+        Update: {
+          alignment_score?: number | null
+          comments?: string | null
+          created_at?: string
+          feasibility_score?: number | null
+          id?: string
+          idea_id?: string
+          impact_score?: number | null
+          novelty_score?: number | null
+          overall_score?: number | null
+          recommendation?: string | null
+          review_date?: string
+          reviewer_email?: string | null
+          reviewer_name?: string
+          stage?: Database["public"]["Enums"]["evaluation_stage"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      idea_stage_history: {
+        Row: {
+          change_reason: string | null
+          changed_by: string
+          created_at: string
+          from_stage: Database["public"]["Enums"]["evaluation_stage"] | null
+          from_status: Database["public"]["Enums"]["stage_status"] | null
+          id: string
+          idea_id: string
+          to_stage: Database["public"]["Enums"]["evaluation_stage"]
+          to_status: Database["public"]["Enums"]["stage_status"]
+        }
+        Insert: {
+          change_reason?: string | null
+          changed_by: string
+          created_at?: string
+          from_stage?: Database["public"]["Enums"]["evaluation_stage"] | null
+          from_status?: Database["public"]["Enums"]["stage_status"] | null
+          id?: string
+          idea_id: string
+          to_stage: Database["public"]["Enums"]["evaluation_stage"]
+          to_status: Database["public"]["Enums"]["stage_status"]
+        }
+        Update: {
+          change_reason?: string | null
+          changed_by?: string
+          created_at?: string
+          from_stage?: Database["public"]["Enums"]["evaluation_stage"] | null
+          from_status?: Database["public"]["Enums"]["stage_status"] | null
+          id?: string
+          idea_id?: string
+          to_stage?: Database["public"]["Enums"]["evaluation_stage"]
+          to_status?: Database["public"]["Enums"]["stage_status"]
+        }
+        Relationships: []
+      }
       ideas: {
         Row: {
           category: string
           created_at: string
           created_by: string | null
+          department_id: string | null
           description: string | null
+          evaluation_stage:
+            | Database["public"]["Enums"]["evaluation_stage"]
+            | null
           expected_benefits: string | null
           id: string
+          l1_completed_at: string | null
+          l2_alignment_score: number | null
+          l2_comments: string | null
+          l2_completed_at: string | null
+          l2_feasibility_score: number | null
+          l2_impact_score: number | null
+          l2_novelty_score: number | null
+          l2_overall_score: number | null
+          l2_screened_by: string | null
+          l2_screening_date: string | null
+          l3_assessed_by: string | null
+          l3_assessment_date: string | null
+          l3_comments: string | null
+          l3_completed_at: string | null
+          l3_dependencies: string | null
+          l3_feasibility_score: number | null
+          l3_resource_requirements: string | null
+          l3_risk_assessment: string | null
+          l3_technical_feasibility: string | null
+          l3_timeline_estimate: string | null
+          l4_approval_date: string | null
+          l4_approved_by: string | null
+          l4_comments: string | null
+          l4_competitive_advantage: string | null
+          l4_completed_at: string | null
+          l4_estimated_benefits: number | null
+          l4_estimated_cost: number | null
+          l4_market_potential: string | null
+          l4_npv: number | null
+          l4_payback_period_months: number | null
+          l4_roi_percentage: number | null
+          l4_strategic_fit_score: number | null
+          l5_actual_completion_date: string | null
+          l5_comments: string | null
+          l5_completed_at: string | null
+          l5_implementation_status: string | null
+          l5_lessons_learned: string | null
+          l5_milestones: Json | null
+          l5_progress_percentage: number | null
+          l5_project_lead: string | null
+          l5_start_date: string | null
+          l5_target_completion_date: string | null
+          l5_team_members: string[] | null
           priority: string
           problem_statement: string | null
           project_id: string | null
           proposed_solution: string | null
           remarks: string | null
+          stage_status: Database["public"]["Enums"]["stage_status"] | null
           status: string
+          submission_date: string | null
+          submitter_email: string | null
+          submitter_employee_id: string | null
+          submitter_name: string | null
           title: string
           updated_at: string
         }
@@ -239,15 +538,67 @@ export type Database = {
           category: string
           created_at?: string
           created_by?: string | null
+          department_id?: string | null
           description?: string | null
+          evaluation_stage?:
+            | Database["public"]["Enums"]["evaluation_stage"]
+            | null
           expected_benefits?: string | null
           id?: string
+          l1_completed_at?: string | null
+          l2_alignment_score?: number | null
+          l2_comments?: string | null
+          l2_completed_at?: string | null
+          l2_feasibility_score?: number | null
+          l2_impact_score?: number | null
+          l2_novelty_score?: number | null
+          l2_overall_score?: number | null
+          l2_screened_by?: string | null
+          l2_screening_date?: string | null
+          l3_assessed_by?: string | null
+          l3_assessment_date?: string | null
+          l3_comments?: string | null
+          l3_completed_at?: string | null
+          l3_dependencies?: string | null
+          l3_feasibility_score?: number | null
+          l3_resource_requirements?: string | null
+          l3_risk_assessment?: string | null
+          l3_technical_feasibility?: string | null
+          l3_timeline_estimate?: string | null
+          l4_approval_date?: string | null
+          l4_approved_by?: string | null
+          l4_comments?: string | null
+          l4_competitive_advantage?: string | null
+          l4_completed_at?: string | null
+          l4_estimated_benefits?: number | null
+          l4_estimated_cost?: number | null
+          l4_market_potential?: string | null
+          l4_npv?: number | null
+          l4_payback_period_months?: number | null
+          l4_roi_percentage?: number | null
+          l4_strategic_fit_score?: number | null
+          l5_actual_completion_date?: string | null
+          l5_comments?: string | null
+          l5_completed_at?: string | null
+          l5_implementation_status?: string | null
+          l5_lessons_learned?: string | null
+          l5_milestones?: Json | null
+          l5_progress_percentage?: number | null
+          l5_project_lead?: string | null
+          l5_start_date?: string | null
+          l5_target_completion_date?: string | null
+          l5_team_members?: string[] | null
           priority: string
           problem_statement?: string | null
           project_id?: string | null
           proposed_solution?: string | null
           remarks?: string | null
+          stage_status?: Database["public"]["Enums"]["stage_status"] | null
           status?: string
+          submission_date?: string | null
+          submitter_email?: string | null
+          submitter_employee_id?: string | null
+          submitter_name?: string | null
           title: string
           updated_at?: string
         }
@@ -255,19 +606,79 @@ export type Database = {
           category?: string
           created_at?: string
           created_by?: string | null
+          department_id?: string | null
           description?: string | null
+          evaluation_stage?:
+            | Database["public"]["Enums"]["evaluation_stage"]
+            | null
           expected_benefits?: string | null
           id?: string
+          l1_completed_at?: string | null
+          l2_alignment_score?: number | null
+          l2_comments?: string | null
+          l2_completed_at?: string | null
+          l2_feasibility_score?: number | null
+          l2_impact_score?: number | null
+          l2_novelty_score?: number | null
+          l2_overall_score?: number | null
+          l2_screened_by?: string | null
+          l2_screening_date?: string | null
+          l3_assessed_by?: string | null
+          l3_assessment_date?: string | null
+          l3_comments?: string | null
+          l3_completed_at?: string | null
+          l3_dependencies?: string | null
+          l3_feasibility_score?: number | null
+          l3_resource_requirements?: string | null
+          l3_risk_assessment?: string | null
+          l3_technical_feasibility?: string | null
+          l3_timeline_estimate?: string | null
+          l4_approval_date?: string | null
+          l4_approved_by?: string | null
+          l4_comments?: string | null
+          l4_competitive_advantage?: string | null
+          l4_completed_at?: string | null
+          l4_estimated_benefits?: number | null
+          l4_estimated_cost?: number | null
+          l4_market_potential?: string | null
+          l4_npv?: number | null
+          l4_payback_period_months?: number | null
+          l4_roi_percentage?: number | null
+          l4_strategic_fit_score?: number | null
+          l5_actual_completion_date?: string | null
+          l5_comments?: string | null
+          l5_completed_at?: string | null
+          l5_implementation_status?: string | null
+          l5_lessons_learned?: string | null
+          l5_milestones?: Json | null
+          l5_progress_percentage?: number | null
+          l5_project_lead?: string | null
+          l5_start_date?: string | null
+          l5_target_completion_date?: string | null
+          l5_team_members?: string[] | null
           priority?: string
           problem_statement?: string | null
           project_id?: string | null
           proposed_solution?: string | null
           remarks?: string | null
+          stage_status?: Database["public"]["Enums"]["stage_status"] | null
           status?: string
+          submission_date?: string | null
+          submitter_email?: string | null
+          submitter_employee_id?: string | null
+          submitter_name?: string | null
           title?: string
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "ideas_department_id_fkey"
+            columns: ["department_id"]
+            isOneToOne: false
+            referencedRelation: "departments"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       milestones: {
         Row: {
@@ -909,6 +1320,13 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      evaluation_stage: "L1" | "L2" | "L3" | "L4" | "L5"
+      stage_status:
+        | "pending"
+        | "in_progress"
+        | "approved"
+        | "rejected"
+        | "on_hold"
       vendor_contract_status:
         | "draft"
         | "pending_approval"
@@ -1050,6 +1468,14 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      evaluation_stage: ["L1", "L2", "L3", "L4", "L5"],
+      stage_status: [
+        "pending",
+        "in_progress",
+        "approved",
+        "rejected",
+        "on_hold",
+      ],
       vendor_contract_status: [
         "draft",
         "pending_approval",
