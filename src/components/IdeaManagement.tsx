@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
-import { Plus, Pencil, Trash2, Search, X } from "lucide-react";
+import { Plus, Search, X, Eye, Filter } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -31,7 +31,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Idea } from "@/types/database";
+import { Idea, Department, EvaluationStage } from "@/types/database";
+import IdeaDetailModal from "./IdeaDetailModal";
 
 interface IdeaManagementProps {
   projectId?: string;
@@ -39,14 +40,17 @@ interface IdeaManagementProps {
 
 const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
   const [ideas, setIdeas] = useState<Idea[]>([]);
+  const [departments, setDepartments] = useState<Department[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  const [editingIdea, setEditingIdea] = useState<Idea | null>(null);
+  const [selectedIdea, setSelectedIdea] = useState<Idea | null>(null);
+  const [detailModalOpen, setDetailModalOpen] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [searchTerm, setSearchTerm] = useState("");
   const [filterCategory, setFilterCategory] = useState<string>("all");
   const [filterPriority, setFilterPriority] = useState<string>("all");
-  const [filterStatus, setFilterStatus] = useState<string>("all");
+  const [filterStage, setFilterStage] = useState<string>("all");
+  const [filterDepartment, setFilterDepartment] = useState<string>("all");
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -55,13 +59,28 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
     expected_benefits: "",
     category: "process-improvement",
     priority: "medium",
-    status: "new",
     remarks: "",
+    submitting_department_id: "",
   });
 
   useEffect(() => {
     loadIdeas();
+    loadDepartments();
   }, [projectId]);
+
+  const loadDepartments = async () => {
+    const { data, error } = await supabase
+      .from("departments")
+      .select("*")
+      .eq("is_active", true)
+      .order("name");
+
+    if (error) {
+      console.error("Error loading departments:", error);
+    } else {
+      setDepartments(data || []);
+    }
+  };
 
   const loadIdeas = async () => {
     setIsLoading(true);
@@ -89,76 +108,41 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
       expected_benefits: "",
       category: "process-improvement",
       priority: "medium",
-      status: "new",
       remarks: "",
+      submitting_department_id: "",
     });
-    setEditingIdea(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (editingIdea) {
-      const { error } = await supabase
-        .from("ideas")
-        .update(formData)
-        .eq("id", editingIdea.id);
+    const ideaData = {
+      ...formData,
+      project_id: projectId || null,
+      // Set L1-L5 framework defaults for new ideas
+      evaluation_stage: "L1" as EvaluationStage,
+      stage_status: "pending",
+      stage_entered_at: new Date().toISOString(),
+      status: "new", // Keep for backward compatibility
+      submitting_department_id: formData.submitting_department_id || null,
+    };
 
-      if (error) {
-        toast.error("Failed to update idea");
-        console.error("Error updating idea:", error);
-      } else {
-        toast.success("Idea updated successfully!");
-        setOpen(false);
-        resetForm();
-        loadIdeas();
-      }
-    } else {
-      const { error } = await supabase.from("ideas").insert([{
-        ...formData,
-        project_id: projectId || null
-      }]);
-
-      if (error) {
-        toast.error("Failed to create idea");
-        console.error("Error creating idea:", error);
-      } else {
-        toast.success("Idea created successfully!");
-        setOpen(false);
-        resetForm();
-        loadIdeas();
-      }
-    }
-  };
-
-  const handleEdit = (idea: Idea) => {
-    setEditingIdea(idea);
-    setFormData({
-      title: idea.title,
-      description: idea.description || "",
-      problem_statement: idea.problem_statement || "",
-      proposed_solution: idea.proposed_solution || "",
-      expected_benefits: idea.expected_benefits || "",
-      category: idea.category,
-      priority: idea.priority,
-      status: idea.status,
-      remarks: idea.remarks || "",
-    });
-    setOpen(true);
-  };
-
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this idea?")) return;
-
-    const { error } = await supabase.from("ideas").delete().eq("id", id);
+    const { error } = await supabase.from("ideas").insert([ideaData]);
 
     if (error) {
-      toast.error("Failed to delete idea");
-      console.error("Error deleting idea:", error);
+      toast.error("Failed to create idea");
+      console.error("Error creating idea:", error);
     } else {
-      toast.success("Idea deleted successfully!");
+      toast.success("Idea created successfully and entered L1 screening!");
+      setOpen(false);
+      resetForm();
       loadIdeas();
     }
+  };
+
+  const handleViewDetails = (idea: Idea) => {
+    setSelectedIdea(idea);
+    setDetailModalOpen(true);
   };
 
   const getPriorityVariant = (priority: string) => {
@@ -189,18 +173,35 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
     }
   };
 
-  const getStatusVariant = (status: string) => {
-    switch (status) {
-      case "new":
+  const getStageVariant = (stage: EvaluationStage) => {
+    switch (stage) {
+      case "L1":
         return "outline";
-      case "under-review":
+      case "L2":
+        return "secondary";
+      case "L3":
+        return "info";
+      case "L4":
+        return "warning";
+      case "L5":
+        return "success";
+      default:
+        return "default";
+    }
+  };
+
+  const getStageStatusVariant = (status: string) => {
+    switch (status) {
+      case "pending":
+        return "outline";
+      case "in-review":
         return "warning";
       case "approved":
         return "success";
       case "rejected":
         return "destructive";
-      case "implemented":
-        return "info";
+      case "on-hold":
+        return "secondary";
       default:
         return "default";
     }
@@ -215,140 +216,101 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
         filterCategory === "all" || idea.category === filterCategory;
       const matchesPriority =
         filterPriority === "all" || idea.priority === filterPriority;
-      const matchesStatus =
-        filterStatus === "all" || idea.status === filterStatus;
+      const matchesStage =
+        filterStage === "all" || idea.evaluation_stage === filterStage;
+      const matchesDepartment =
+        filterDepartment === "all" ||
+        idea.submitting_department_id === filterDepartment;
 
-      return matchesSearch && matchesCategory && matchesPriority && matchesStatus;
+      return (
+        matchesSearch &&
+        matchesCategory &&
+        matchesPriority &&
+        matchesStage &&
+        matchesDepartment
+      );
     });
-  }, [ideas, searchTerm, filterCategory, filterPriority, filterStatus]);
+  }, [
+    ideas,
+    searchTerm,
+    filterCategory,
+    filterPriority,
+    filterStage,
+    filterDepartment,
+  ]);
 
   const clearFilters = () => {
     setSearchTerm("");
     setFilterCategory("all");
     setFilterPriority("all");
-    setFilterStatus("all");
+    setFilterStage("all");
+    setFilterDepartment("all");
   };
 
-  // Selection handlers
-  const handleSelectOne = (id: string) => {
-    setSelectedIds((prev) => {
-      const newSet = new Set(prev);
-      newSet.has(id) ? newSet.delete(id) : newSet.add(id);
-      return newSet;
-    });
-  };
-
-  const handleSelectAll = () => {
-    if (selectedIds.size === filteredIdeas.length) {
-      setSelectedIds(new Set());
-    } else {
-      setSelectedIds(new Set(filteredIdeas.map((idea) => idea.id)));
-    }
-  };
-
-  // Bulk action handlers
-  const handleBulkDelete = async () => {
-    if (selectedIds.size === 0) return;
-    if (!confirm(`Are you sure you want to delete ${selectedIds.size} idea(s)?`))
-      return;
-
-    const { error } = await supabase
-      .from("ideas")
-      .delete()
-      .in("id", Array.from(selectedIds));
-
-    if (error) {
-      toast.error("Failed to delete ideas");
-      console.error("Error deleting ideas:", error);
-    } else {
-      toast.success(`Successfully deleted ${selectedIds.size} idea(s)!`);
-      setSelectedIds(new Set());
-      loadIdeas();
-    }
-  };
-
-  const handleBulkUpdateStatus = async (status: string) => {
-    if (selectedIds.size === 0) return;
-
-    const { error } = await supabase
-      .from("ideas")
-      .update({ status })
-      .in("id", Array.from(selectedIds));
-
-    if (error) {
-      toast.error("Failed to update status");
-      console.error("Error updating status:", error);
-    } else {
-      toast.success(`Successfully updated ${selectedIds.size} idea(s)!`);
-      setSelectedIds(new Set());
-      loadIdeas();
-    }
-  };
-
-  const handleBulkUpdatePriority = async (priority: string) => {
-    if (selectedIds.size === 0) return;
-
-    const { error } = await supabase
-      .from("ideas")
-      .update({ priority })
-      .in("id", Array.from(selectedIds));
-
-    if (error) {
-      toast.error("Failed to update priority");
-      console.error("Error updating priority:", error);
-    } else {
-      toast.success(`Successfully updated ${selectedIds.size} idea(s)!`);
-      setSelectedIds(new Set());
-      loadIdeas();
-    }
-  };
-
-  const handleBulkUpdateCategory = async (category: string) => {
-    if (selectedIds.size === 0) return;
-
-    const { error } = await supabase
-      .from("ideas")
-      .update({ category })
-      .in("id", Array.from(selectedIds));
-
-    if (error) {
-      toast.error("Failed to update category");
-      console.error("Error updating category:", error);
-    } else {
-      toast.success(`Successfully updated ${selectedIds.size} idea(s)!`);
-      setSelectedIds(new Set());
-      loadIdeas();
-    }
-  };
+  // Get stage statistics
+  const stageStats = useMemo(() => {
+    return {
+      L1: ideas.filter((i) => i.evaluation_stage === "L1").length,
+      L2: ideas.filter((i) => i.evaluation_stage === "L2").length,
+      L3: ideas.filter((i) => i.evaluation_stage === "L3").length,
+      L4: ideas.filter((i) => i.evaluation_stage === "L4").length,
+      L5: ideas.filter((i) => i.evaluation_stage === "L5").length,
+    };
+  }, [ideas]);
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-between items-center">
+      {/* Header with Stats */}
+      <div className="flex justify-between items-start">
         <div>
-          <h2 className="text-2xl font-bold text-foreground">Ideas</h2>
+          <h2 className="text-2xl font-bold text-foreground">AI Ideation Portal</h2>
           <p className="text-muted-foreground">
-            Manage and track innovative ideas
+            L1-L5 Evaluation Framework for Innovation Management
           </p>
+
+          {/* Stage Statistics */}
+          <div className="flex gap-2 mt-3">
+            <Badge variant="outline" className="text-xs">
+              L1: {stageStats.L1}
+            </Badge>
+            <Badge variant="secondary" className="text-xs">
+              L2: {stageStats.L2}
+            </Badge>
+            <Badge variant="info" className="text-xs">
+              L3: {stageStats.L3}
+            </Badge>
+            <Badge variant="warning" className="text-xs">
+              L4: {stageStats.L4}
+            </Badge>
+            <Badge variant="success" className="text-xs">
+              L5: {stageStats.L5}
+            </Badge>
+            <Badge className="text-xs ml-2">Total: {ideas.length}</Badge>
+          </div>
         </div>
-        <Dialog open={open} onOpenChange={(isOpen) => {
-          setOpen(isOpen);
-          if (!isOpen) resetForm();
-        }}>
+
+        <Dialog
+          open={open}
+          onOpenChange={(isOpen) => {
+            setOpen(isOpen);
+            if (!isOpen) resetForm();
+          }}
+        >
           <DialogTrigger asChild>
             <Button variant="blue">
               <Plus className="mr-2 h-4 w-4" />
-              Add New Idea
+              Submit New Idea
             </Button>
           </DialogTrigger>
           <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>
-                {editingIdea ? "Edit Idea" : "Add New Idea"}
-              </DialogTitle>
+              <DialogTitle>Submit New Idea (L1 Screening)</DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="title">Idea Title *</Label>
+                <Label htmlFor="title">
+                  Idea Title <span className="text-destructive">*</span>
+                </Label>
                 <Input
                   id="title"
                   value={formData.title}
@@ -356,7 +318,32 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
                     setFormData({ ...formData, title: e.target.value })
                   }
                   required
+                  placeholder="Brief, descriptive title for your idea"
                 />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="submitting_department">
+                  Submitting Department <span className="text-destructive">*</span>
+                </Label>
+                <Select
+                  value={formData.submitting_department_id}
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, submitting_department_id: value })
+                  }
+                  required
+                >
+                  <SelectTrigger id="submitting_department">
+                    <SelectValue placeholder="Select your department" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {departments.map((dept) => (
+                      <SelectItem key={dept.id} value={dept.id}>
+                        {dept.name} ({dept.code})
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
 
               <div className="space-y-2">
@@ -368,11 +355,14 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
                     setFormData({ ...formData, description: e.target.value })
                   }
                   rows={3}
+                  placeholder="Provide a brief overview of your idea"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="problem_statement">Problem Statement</Label>
+                <Label htmlFor="problem_statement">
+                  Problem Statement <span className="text-destructive">*</span>
+                </Label>
                 <Textarea
                   id="problem_statement"
                   value={formData.problem_statement}
@@ -383,12 +373,15 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
                     })
                   }
                   rows={3}
-                  placeholder="What problem does this idea solve?"
+                  placeholder="What problem does this idea solve? Include pain points and current challenges."
+                  required
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="proposed_solution">Proposed Solution</Label>
+                <Label htmlFor="proposed_solution">
+                  Proposed Solution <span className="text-destructive">*</span>
+                </Label>
                 <Textarea
                   id="proposed_solution"
                   value={formData.proposed_solution}
@@ -399,12 +392,15 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
                     })
                   }
                   rows={3}
-                  placeholder="How will this idea be implemented?"
+                  placeholder="How will this idea address the problem? Describe your proposed approach."
+                  required
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="expected_benefits">Expected Benefits</Label>
+                <Label htmlFor="expected_benefits">
+                  Expected Benefits <span className="text-destructive">*</span>
+                </Label>
                 <Textarea
                   id="expected_benefits"
                   value={formData.expected_benefits}
@@ -415,11 +411,12 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
                     })
                   }
                   rows={3}
-                  placeholder="What are the anticipated outcomes?"
+                  placeholder="What value will this create? Consider efficiency, cost savings, quality, compliance, etc."
+                  required
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="category">Category</Label>
                   <Select
@@ -462,31 +459,10 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
                     </SelectContent>
                   </Select>
                 </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="status">Status</Label>
-                  <Select
-                    value={formData.status}
-                    onValueChange={(value) =>
-                      setFormData({ ...formData, status: value })
-                    }
-                  >
-                    <SelectTrigger id="status">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="new">New</SelectItem>
-                      <SelectItem value="under-review">Under Review</SelectItem>
-                      <SelectItem value="approved">Approved</SelectItem>
-                      <SelectItem value="rejected">Rejected</SelectItem>
-                      <SelectItem value="implemented">Implemented</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="remarks">Remarks</Label>
+                <Label htmlFor="remarks">Additional Remarks</Label>
                 <Textarea
                   id="remarks"
                   value={formData.remarks}
@@ -494,8 +470,16 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
                     setFormData({ ...formData, remarks: e.target.value })
                   }
                   rows={2}
-                  placeholder="Additional notes or comments"
+                  placeholder="Any additional context or information"
                 />
+              </div>
+
+              <div className="bg-blue-50 dark:bg-blue-950/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                <p className="text-sm text-blue-900 dark:text-blue-100">
+                  💡 <strong>Next Steps:</strong> Your idea will enter L1 (Initial
+                  Screening) and will be routed to the appropriate reviewers for
+                  evaluation.
+                </p>
               </div>
 
               <div className="flex justify-end gap-2">
@@ -510,7 +494,7 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
                   Cancel
                 </Button>
                 <Button type="submit" variant="blue">
-                  {editingIdea ? "Update Idea" : "Create Idea"}
+                  Submit Idea
                 </Button>
               </div>
             </form>
@@ -518,12 +502,13 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
         </Dialog>
       </div>
 
+      {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-4 p-4 bg-card rounded-lg border border-border">
         <div className="flex-1">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search by title..."
+              placeholder="Search ideas by title..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-9"
@@ -532,6 +517,34 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-2">
+          <Select value={filterStage} onValueChange={setFilterStage}>
+            <SelectTrigger className="w-full sm:w-[140px]">
+              <SelectValue placeholder="Stage" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Stages</SelectItem>
+              <SelectItem value="L1">L1: Screening</SelectItem>
+              <SelectItem value="L2">L2: Review</SelectItem>
+              <SelectItem value="L3">L3: Business</SelectItem>
+              <SelectItem value="L4">L4: Executive</SelectItem>
+              <SelectItem value="L5">L5: Implementation</SelectItem>
+            </SelectContent>
+          </Select>
+
+          <Select value={filterDepartment} onValueChange={setFilterDepartment}>
+            <SelectTrigger className="w-full sm:w-[160px]">
+              <SelectValue placeholder="Department" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Departments</SelectItem>
+              {departments.map((dept) => (
+                <SelectItem key={dept.id} value={dept.id}>
+                  {dept.code}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
           <Select value={filterCategory} onValueChange={setFilterCategory}>
             <SelectTrigger className="w-full sm:w-[180px]">
               <SelectValue placeholder="Category" />
@@ -559,101 +572,32 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
             </SelectContent>
           </Select>
 
-          <Select value={filterStatus} onValueChange={setFilterStatus}>
-            <SelectTrigger className="w-full sm:w-[160px]">
-              <SelectValue placeholder="Status" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Statuses</SelectItem>
-              <SelectItem value="new">New</SelectItem>
-              <SelectItem value="under-review">Under Review</SelectItem>
-              <SelectItem value="approved">Approved</SelectItem>
-              <SelectItem value="rejected">Rejected</SelectItem>
-              <SelectItem value="implemented">Implemented</SelectItem>
-            </SelectContent>
-          </Select>
-
-      {(searchTerm ||
-        filterCategory !== "all" ||
-        filterPriority !== "all" ||
-        filterStatus !== "all") && (
-        <Button variant="outline" size="icon" onClick={clearFilters}>
-          <X className="h-4 w-4" />
-        </Button>
-      )}
-    </div>
-  </div>
-
-  {selectedIds.size > 0 && (
-    <div className="flex items-center justify-between p-4 bg-accent rounded-lg border border-border">
-      <div className="flex items-center gap-4">
-        <span className="text-sm font-medium text-accent-foreground">
-          {selectedIds.size} idea(s) selected
-        </span>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => setSelectedIds(new Set())}
-        >
-          Deselect All
-        </Button>
+          {(searchTerm ||
+            filterCategory !== "all" ||
+            filterPriority !== "all" ||
+            filterStage !== "all" ||
+            filterDepartment !== "all") && (
+            <Button variant="outline" size="icon" onClick={clearFilters}>
+              <X className="h-4 w-4" />
+            </Button>
+          )}
+        </div>
       </div>
-      <div className="flex items-center gap-2">
-        <Select onValueChange={handleBulkUpdateCategory}>
-          <SelectTrigger className="w-[180px] h-9">
-            <SelectValue placeholder="Change Category" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="process-improvement">
-              Process Improvement
-            </SelectItem>
-            <SelectItem value="cost-reduction">Cost Reduction</SelectItem>
-            <SelectItem value="innovation">Innovation</SelectItem>
-            <SelectItem value="quality">Quality</SelectItem>
-          </SelectContent>
-        </Select>
-        <Select onValueChange={handleBulkUpdatePriority}>
-          <SelectTrigger className="w-[150px] h-9">
-            <SelectValue placeholder="Change Priority" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="high">High</SelectItem>
-            <SelectItem value="medium">Medium</SelectItem>
-            <SelectItem value="low">Low</SelectItem>
-          </SelectContent>
-        </Select>
-        <Select onValueChange={handleBulkUpdateStatus}>
-          <SelectTrigger className="w-[150px] h-9">
-            <SelectValue placeholder="Change Status" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="new">New</SelectItem>
-            <SelectItem value="under-review">Under Review</SelectItem>
-            <SelectItem value="approved">Approved</SelectItem>
-            <SelectItem value="rejected">Rejected</SelectItem>
-            <SelectItem value="implemented">Implemented</SelectItem>
-          </SelectContent>
-        </Select>
-        <Button variant="destructive" size="sm" onClick={handleBulkDelete}>
-          <Trash2 className="h-4 w-4 mr-2" />
-          Delete Selected
-        </Button>
-      </div>
-    </div>
-  )}
 
-  {isLoading ? (
-    <div className="rounded-lg border border-border bg-card p-6 space-y-4">
-      <Skeleton className="h-10 w-full" />
-      <Skeleton className="h-10 w-full" />
-      <Skeleton className="h-10 w-full" />
-      <Skeleton className="h-10 w-full" />
-    </div>
-  ) : filteredIdeas.length === 0 ? (
+      {/* Ideas Table */}
+      {isLoading ? (
+        <div className="rounded-lg border border-border bg-card p-6 space-y-4">
+          <Skeleton className="h-10 w-full" />
+          <Skeleton className="h-10 w-full" />
+          <Skeleton className="h-10 w-full" />
+          <Skeleton className="h-10 w-full" />
+        </div>
+      ) : filteredIdeas.length === 0 ? (
         <div className="text-center py-12 bg-card rounded-lg border border-border">
+          <Filter className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
           <p className="text-muted-foreground">
             {ideas.length === 0
-              ? "No ideas yet. Create your first idea to get started!"
+              ? "No ideas yet. Submit your first idea to get started!"
               : "No ideas match your current filters."}
           </p>
         </div>
@@ -662,106 +606,91 @@ const IdeaManagement: React.FC<IdeaManagementProps> = ({ projectId }) => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-12">
-                  <Checkbox
-                    checked={
-                      filteredIdeas.length > 0 &&
-                      selectedIds.size === filteredIdeas.length
-                    }
-                    onCheckedChange={handleSelectAll}
-                    aria-label="Select all"
-                  />
-                </TableHead>
-                <TableHead className="w-16">Sl.No</TableHead>
-                <TableHead className="min-w-[200px]">Idea Title</TableHead>
-                <TableHead className="min-w-[250px]">Problem Statement</TableHead>
-                <TableHead className="min-w-[250px]">Proposed Solution</TableHead>
-                <TableHead className="min-w-[250px]">Expected Benefits</TableHead>
-                <TableHead className="w-[140px]">Category</TableHead>
-                <TableHead className="w-[200px]">Idea Owner</TableHead>
-                <TableHead className="w-[100px]">Priority</TableHead>
+                <TableHead className="w-16">ID</TableHead>
+                <TableHead className="min-w-[250px]">Idea Title</TableHead>
+                <TableHead className="w-[100px]">Stage</TableHead>
                 <TableHead className="w-[120px]">Status</TableHead>
-                <TableHead className="min-w-[200px]">Remarks</TableHead>
-                <TableHead className="w-[180px] text-right">Actions</TableHead>
+                <TableHead className="w-[140px]">Department</TableHead>
+                <TableHead className="w-[140px]">Category</TableHead>
+                <TableHead className="w-[100px]">Priority</TableHead>
+                <TableHead className="w-[100px]">Days in Stage</TableHead>
+                <TableHead className="w-[140px] text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filteredIdeas.map((idea) => (
-                <TableRow
-                  key={idea.id}
-                  className={
-                    selectedIds.has(idea.id) ? "bg-accent/50" : undefined
-                  }
-                >
-                  <TableCell>
-                    <Checkbox
-                      checked={selectedIds.has(idea.id)}
-                      onCheckedChange={() => handleSelectOne(idea.id)}
-                      aria-label={`Select ${idea.title}`}
-                    />
-                  </TableCell>
-                  <TableCell className="font-medium text-foreground">
-                    {ideas.findIndex((i) => i.id === idea.id) + 1}
-                  </TableCell>
-                  <TableCell className="font-medium text-foreground">
-                    {idea.title}
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {idea.problem_statement || "-"}
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {idea.proposed_solution || "-"}
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {idea.expected_benefits || "-"}
-                  </TableCell>
-                  <TableCell>
-                    <Badge variant={getCategoryVariant(idea.category)}>
-                      {idea.category.replace("-", " ")}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="text-muted-foreground text-xs">
-                    {idea.created_by || "Unknown"}
-                  </TableCell>
-                  <TableCell>
-                    <Badge variant={getPriorityVariant(idea.priority)}>
-                      {idea.priority}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    <Badge variant={getStatusVariant(idea.status)}>
-                      {idea.status.replace("-", " ")}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {idea.remarks || "-"}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-2">
+              {filteredIdeas.map((idea, index) => {
+                const department = departments.find(
+                  (d) => d.id === idea.submitting_department_id
+                );
+
+                return (
+                  <TableRow key={idea.id}>
+                    <TableCell className="font-medium text-muted-foreground">
+                      #{index + 1}
+                    </TableCell>
+                    <TableCell className="font-medium text-foreground">
+                      <div className="max-w-xs">
+                        <p className="truncate">{idea.title}</p>
+                        {idea.description && (
+                          <p className="text-xs text-muted-foreground truncate mt-1">
+                            {idea.description}
+                          </p>
+                        )}
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant={getStageVariant(idea.evaluation_stage)}>
+                        {idea.evaluation_stage}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant={getStageStatusVariant(idea.stage_status)}>
+                        {idea.stage_status}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-xs text-muted-foreground">
+                        {department?.code || "N/A"}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant={getCategoryVariant(idea.category)} className="text-xs">
+                        {idea.category.replace("-", " ")}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant={getPriorityVariant(idea.priority)} className="text-xs">
+                        {idea.priority}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="text-sm text-muted-foreground">
+                      {idea.time_in_stage_days || 0}
+                    </TableCell>
+                    <TableCell className="text-right">
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => handleEdit(idea)}
+                        onClick={() => handleViewDetails(idea)}
                       >
-                        <Pencil className="h-4 w-4" />
-                        Edit
+                        <Eye className="h-4 w-4 mr-2" />
+                        View
                       </Button>
-                      <Button
-                        variant="destructive"
-                        size="sm"
-                        onClick={() => handleDelete(idea.id)}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                        Delete
-                      </Button>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </div>
       )}
+
+      {/* Idea Detail Modal */}
+      <IdeaDetailModal
+        idea={selectedIdea}
+        open={detailModalOpen}
+        onOpenChange={setDetailModalOpen}
+        onUpdate={loadIdeas}
+      />
     </div>
   );
 };
