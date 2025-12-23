@@ -43,6 +43,7 @@ import { format, differenceInDays } from "date-fns";
 import { EnhancedIdea, Department, EvaluationStage, StageStatistics } from "@/types/ideation";
 import { IdeaSubmissionForm } from "./IdeaSubmissionForm";
 import { IdeaDetailModal } from "./IdeaDetailModal";
+import { ImportIdeasButton } from "./ImportIdeasButton";
 
 interface AIIdeationPortalProps {
   projectId?: string;
@@ -223,24 +224,32 @@ export function AIIdeationPortal({ projectId }: AIIdeationPortalProps) {
           </p>
         </div>
         
-        <Dialog open={submitDialogOpen} onOpenChange={setSubmitDialogOpen}>
-          <DialogTrigger asChild>
-            <Button size="lg" className="gap-2">
-              <Plus className="h-5 w-5" />
-              Submit New Idea
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-            <IdeaSubmissionForm
-              projectId={projectId}
-              onSuccess={() => {
-                setSubmitDialogOpen(false);
-                loadIdeas();
-              }}
-              onCancel={() => setSubmitDialogOpen(false)}
-            />
-          </DialogContent>
-        </Dialog>
+        <div className="flex gap-2">
+          <ImportIdeasButton 
+            projectId={projectId} 
+            departments={departments}
+            onImportComplete={loadIdeas}
+          />
+          
+          <Dialog open={submitDialogOpen} onOpenChange={setSubmitDialogOpen}>
+            <DialogTrigger asChild>
+              <Button size="lg" className="gap-2">
+                <Plus className="h-5 w-5" />
+                Submit New Idea
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+              <IdeaSubmissionForm
+                projectId={projectId}
+                onSuccess={() => {
+                  setSubmitDialogOpen(false);
+                  loadIdeas();
+                }}
+                onCancel={() => setSubmitDialogOpen(false)}
+              />
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
 
       {/* Stage Statistics */}
