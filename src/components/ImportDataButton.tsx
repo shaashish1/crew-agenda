@@ -66,7 +66,6 @@ export const ImportDataButton = () => {
       />
       <Button 
         onClick={() => fileInputRef.current?.click()} 
-        variant="outline" 
         size="lg"
         disabled={loading}
       >

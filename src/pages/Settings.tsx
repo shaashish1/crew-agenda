@@ -95,7 +95,6 @@ const Settings = () => {
                       >
                         <span className="font-medium">{category.name}</span>
                         <Button
-                          variant="ghost"
                           size="icon"
                           onClick={() => {
                             deleteCategory(category.id);
@@ -174,7 +173,6 @@ const Settings = () => {
                           )}
                         </div>
                         <Button
-                          variant="ghost"
                           size="icon"
                           onClick={() => {
                             deleteOwner(owner.id);
