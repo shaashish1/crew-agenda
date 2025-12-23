@@ -453,6 +453,7 @@ const Dashboard = () => {
                           <Pencil className="w-4 h-4" />
                         </Button>
                         <Button
+                          variant="destructive"
                           size="icon"
                           className="h-8 w-8"
                           onClick={() => handleDelete(task.id)}
