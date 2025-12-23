@@ -213,7 +213,7 @@ export const TaskDialog = ({ open, onOpenChange, task }: TaskDialogProps) => {
         <Separator />
 
         <DialogFooter>
-          <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+          <Button type="button" onClick={() => onOpenChange(false)}>
             Cancel
           </Button>
           <Button type="submit">{task ? "Update Task" : "Add Task"}</Button>

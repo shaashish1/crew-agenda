@@ -97,7 +97,7 @@ const ProjectDetails = () => {
         </div>
         <div className="flex gap-2">
           <RAGStatusBadge status={project.overallRAG} />
-          <Button variant="outline" className="gap-2">
+          <Button className="gap-2">
             <Edit className="w-4 h-4" />
             Edit
           </Button>

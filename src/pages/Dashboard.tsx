@@ -302,7 +302,6 @@ const Dashboard = () => {
           </div>
           {(filterOwners.length > 0 || filterCategories.length > 0 || filterStatuses.length > 0 || searchQuery) && (
             <Button
-              variant="secondary"
               size="sm"
               onClick={() => {
                 setFilterOwners([]);
@@ -447,7 +446,6 @@ const Dashboard = () => {
                     <TableCell>
                       <div className="flex gap-1">
                         <Button
-                          variant="ghost"
                           size="icon"
                           className="h-8 w-8"
                           onClick={() => handleEdit(task)}
@@ -455,9 +453,8 @@ const Dashboard = () => {
                           <Pencil className="w-4 h-4" />
                         </Button>
                         <Button
-                          variant="ghost"
                           size="icon"
-                          className="h-8 w-8 hover:bg-destructive/10 hover:text-destructive"
+                          className="h-8 w-8"
                           onClick={() => handleDelete(task.id)}
                         >
                           <Trash2 className="w-4 h-4" />

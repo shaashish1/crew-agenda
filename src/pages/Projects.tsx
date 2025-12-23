@@ -49,7 +49,7 @@ const Projects = () => {
             className="pl-10 h-11"
           />
         </div>
-        <Button variant="outline" size="lg" className="gap-2">
+        <Button size="lg" className="gap-2">
           <Filter className="w-4 h-4" />
           Filter
         </Button>
