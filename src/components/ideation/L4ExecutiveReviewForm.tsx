@@ -434,11 +434,6 @@ export function L4ExecutiveReviewForm({ idea, onUpdate }: L4ExecutiveReviewFormP
           onClick={handleSubmit} 
           disabled={isSubmitting || isAlreadyReviewed || !finalDecision}
           size="lg"
-          className={
-            finalDecision === 'approve' ? 'bg-green-600 hover:bg-green-700' :
-            finalDecision === 'reject' ? 'bg-red-600 hover:bg-red-700' :
-            finalDecision === 'on_hold' ? 'bg-yellow-600 hover:bg-yellow-700' : ''
-          }
         >
           {isSubmitting ? "Submitting..." : "Submit Executive Decision"}
         </Button>
