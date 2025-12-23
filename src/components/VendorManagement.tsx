@@ -182,7 +182,7 @@ export const VendorManagement = ({ projectId }: VendorManagementProps) => {
         <TabsContent value="contracts" className="space-y-4">
           <div className="flex justify-between items-center">
             <h3 className="text-lg font-semibold">Vendor Contracts</h3>
-            <Button onClick={() => setContractDialogOpen(true)} className="gap-2">
+            <Button onClick={() => setContractDialogOpen(true)} size="default" className="gap-2">
               <Plus className="w-4 h-4" />
               Add Contract
             </Button>
@@ -248,7 +248,7 @@ export const VendorManagement = ({ projectId }: VendorManagementProps) => {
         <TabsContent value="deliverables" className="space-y-4">
           <div className="flex justify-between items-center">
             <h3 className="text-lg font-semibold">Vendor Deliverables</h3>
-            <Button onClick={() => setDeliverableDialogOpen(true)} className="gap-2">
+            <Button onClick={() => setDeliverableDialogOpen(true)} size="default" className="gap-2">
               <Plus className="w-4 h-4" />
               Add Deliverable
             </Button>
@@ -321,7 +321,7 @@ export const VendorManagement = ({ projectId }: VendorManagementProps) => {
         <TabsContent value="performance" className="space-y-4">
           <div className="flex justify-between items-center">
             <h3 className="text-lg font-semibold">Vendor Performance Reviews</h3>
-            <Button onClick={() => setPerformanceDialogOpen(true)} className="gap-2">
+            <Button onClick={() => setPerformanceDialogOpen(true)} size="default" className="gap-2">
               <Plus className="w-4 h-4" />
               Add Review
             </Button>

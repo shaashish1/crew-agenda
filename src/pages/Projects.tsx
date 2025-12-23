@@ -32,7 +32,7 @@ const Projects = () => {
             Manage and track all IT projects
           </p>
         </div>
-        <Button onClick={() => navigate("/projects/new")} size="lg">
+        <Button onClick={() => navigate("/projects/new")} size="lg" className="gap-2">
           <Plus className="w-4 h-4" />
           New Project
         </Button>
@@ -49,7 +49,7 @@ const Projects = () => {
             className="pl-10 h-11"
           />
         </div>
-        <Button size="lg" className="gap-2">
+        <Button variant="outline" size="lg" className="gap-2">
           <Filter className="w-4 h-4" />
           Filter
         </Button>

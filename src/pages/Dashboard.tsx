@@ -141,7 +141,7 @@ const Dashboard = () => {
         </div>
         <div className="flex gap-3">
           <ImportDataButton />
-          <Button onClick={handleAddNew} size="lg">
+          <Button onClick={handleAddNew} size="lg" className="gap-2">
             <Plus className="w-4 h-4" />
             Add Task
           </Button>
@@ -302,6 +302,7 @@ const Dashboard = () => {
           </div>
           {(filterOwners.length > 0 || filterCategories.length > 0 || filterStatuses.length > 0 || searchQuery) && (
             <Button
+              variant="ghost"
               size="sm"
               onClick={() => {
                 setFilterOwners([]);

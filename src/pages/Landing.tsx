@@ -357,18 +357,19 @@ const Landing = () => {
               <Button 
                 size="lg" 
                 onClick={() => navigate("/projects")}
-                className="shadow-premium-lg hover:shadow-premium-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 group animate-fade-in"
+                className="shadow-premium-lg hover:shadow-premium-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 group animate-fade-in gap-2"
               >
                 Explore Our Portfolio
-                <ChevronRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
               <Button 
+                variant="outline"
                 size="lg" 
                 onClick={() => navigate("/dashboard")}
-                className="transition-all duration-300 hover:scale-105 hover:-translate-y-1 group animate-fade-in"
+                className="transition-all duration-300 hover:scale-105 hover:-translate-y-1 group animate-fade-in gap-2"
               >
                 View Dashboard
-                <Activity className="ml-2 w-5 h-5 group-hover:scale-110 transition-transform" />
+                <Activity className="w-5 h-5 group-hover:scale-110 transition-transform" />
               </Button>
             </div>
           </div>
