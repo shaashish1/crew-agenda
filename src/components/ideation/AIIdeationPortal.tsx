@@ -36,13 +36,13 @@ import {
   CheckCircle2,
   XCircle,
   Clock,
-  Rocket
+  Rocket,
+  X
 } from "lucide-react";
-import { format } from "date-fns";
+import { format, differenceInDays } from "date-fns";
 import { EnhancedIdea, Department, EvaluationStage, StageStatistics } from "@/types/ideation";
 import { IdeaSubmissionForm } from "./IdeaSubmissionForm";
 import { IdeaDetailModal } from "./IdeaDetailModal";
-import { StageProgressIndicator } from "./StageProgressIndicator";
 
 interface AIIdeationPortalProps {
   projectId?: string;
@@ -55,6 +55,19 @@ const stageLabels: Record<EvaluationStage, { label: string; description: string;
   L4: { label: 'L4 Business Case', description: 'ROI analysis', icon: <CheckCircle2 className="h-5 w-5" /> },
   L5: { label: 'L5 Implementation', description: 'In progress', icon: <Rocket className="h-5 w-5" /> },
 };
+
+const categories = [
+  { value: 'Innovation', label: 'Innovation' },
+  { value: 'Process Improvement', label: 'Process Improvement' },
+  { value: 'Cost Reduction', label: 'Cost Reduction' },
+  { value: 'Quality', label: 'Quality' },
+];
+
+const priorities = [
+  { value: 'High', label: 'High' },
+  { value: 'Medium', label: 'Medium' },
+  { value: 'Low', label: 'Low' },
+];
 
 export function AIIdeationPortal({ projectId }: AIIdeationPortalProps) {
   const [ideas, setIdeas] = useState<EnhancedIdea[]>([]);
@@ -69,6 +82,8 @@ export function AIIdeationPortal({ projectId }: AIIdeationPortalProps) {
   const [filterStage, setFilterStage] = useState<string>("all");
   const [filterDepartment, setFilterDepartment] = useState<string>("all");
   const [filterStatus, setFilterStatus] = useState<string>("all");
+  const [filterCategory, setFilterCategory] = useState<string>("all");
+  const [filterPriority, setFilterPriority] = useState<string>("all");
 
   useEffect(() => {
     loadData();
@@ -135,17 +150,34 @@ export function AIIdeationPortal({ projectId }: AIIdeationPortalProps) {
     });
   }, [ideas]);
 
+  const hasActiveFilters = filterStage !== "all" || filterDepartment !== "all" || 
+    filterStatus !== "all" || filterCategory !== "all" || filterPriority !== "all" || 
+    searchTerm !== "";
+
+  const clearAllFilters = () => {
+    setSearchTerm("");
+    setFilterStage("all");
+    setFilterDepartment("all");
+    setFilterStatus("all");
+    setFilterCategory("all");
+    setFilterPriority("all");
+  };
+
   const filteredIdeas = useMemo(() => {
     return ideas.filter((idea) => {
       const matchesSearch = idea.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        idea.submitter_name?.toLowerCase().includes(searchTerm.toLowerCase());
+        idea.submitter_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        idea.problem_statement?.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesStage = filterStage === "all" || idea.evaluation_stage === filterStage;
       const matchesDepartment = filterDepartment === "all" || idea.department_id === filterDepartment;
       const matchesStatus = filterStatus === "all" || idea.stage_status === filterStatus;
+      const matchesCategory = filterCategory === "all" || idea.category === filterCategory;
+      const matchesPriority = filterPriority === "all" || idea.priority === filterPriority;
 
-      return matchesSearch && matchesStage && matchesDepartment && matchesStatus;
+      return matchesSearch && matchesStage && matchesDepartment && matchesStatus && 
+        matchesCategory && matchesPriority;
     });
-  }, [ideas, searchTerm, filterStage, filterDepartment, filterStatus]);
+  }, [ideas, searchTerm, filterStage, filterDepartment, filterStatus, filterCategory, filterPriority]);
 
   const handleViewIdea = (idea: EnhancedIdea) => {
     setSelectedIdea(idea);
@@ -165,6 +197,16 @@ export function AIIdeationPortal({ projectId }: AIIdeationPortalProps) {
       default:
         return 'secondary';
     }
+  };
+
+  const getDaysInStage = (idea: EnhancedIdea) => {
+    const submissionDate = idea.submission_date || idea.created_at;
+    return differenceInDays(new Date(), new Date(submissionDate));
+  };
+
+  const truncateText = (text: string | null, maxLength: number = 50) => {
+    if (!text) return "-";
+    return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
   };
 
   return (
@@ -244,7 +286,7 @@ export function AIIdeationPortal({ projectId }: AIIdeationPortalProps) {
       {/* Filters */}
       <Card>
         <CardContent className="pt-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
@@ -283,6 +325,34 @@ export function AIIdeationPortal({ projectId }: AIIdeationPortalProps) {
               </SelectContent>
             </Select>
 
+            <Select value={filterCategory} onValueChange={setFilterCategory}>
+              <SelectTrigger>
+                <SelectValue placeholder="All Categories" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Categories</SelectItem>
+                {categories.map((cat) => (
+                  <SelectItem key={cat.value} value={cat.value}>
+                    {cat.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select value={filterPriority} onValueChange={setFilterPriority}>
+              <SelectTrigger>
+                <SelectValue placeholder="All Priorities" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Priorities</SelectItem>
+                {priorities.map((pri) => (
+                  <SelectItem key={pri.value} value={pri.value}>
+                    {pri.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
             <Select value={filterStatus} onValueChange={setFilterStatus}>
               <SelectTrigger>
                 <SelectValue placeholder="All Statuses" />
@@ -297,6 +367,18 @@ export function AIIdeationPortal({ projectId }: AIIdeationPortalProps) {
               </SelectContent>
             </Select>
           </div>
+          
+          {hasActiveFilters && (
+            <div className="mt-4 flex items-center gap-2">
+              <span className="text-sm text-muted-foreground">
+                Showing {filteredIdeas.length} of {ideas.length} ideas
+              </span>
+              <Button variant="ghost" size="sm" onClick={clearAllFilters} className="gap-1">
+                <X className="h-4 w-4" />
+                Clear All Filters
+              </Button>
+            </div>
+          )}
         </CardContent>
       </Card>
 
@@ -320,69 +402,94 @@ export function AIIdeationPortal({ projectId }: AIIdeationPortalProps) {
               </p>
             </div>
           ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-12">#</TableHead>
-                  <TableHead>Title</TableHead>
-                  <TableHead>Submitter</TableHead>
-                  <TableHead>Department</TableHead>
-                  <TableHead>Stage</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Submitted</TableHead>
-                  <TableHead className="w-20">Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredIdeas.map((idea, index) => (
-                  <TableRow key={idea.id} className="cursor-pointer hover:bg-muted/50">
-                    <TableCell className="font-medium text-muted-foreground">
-                      {index + 1}
-                    </TableCell>
-                    <TableCell>
-                      <div>
-                        <p className="font-medium text-foreground">{idea.title}</p>
-                        <p className="text-sm text-muted-foreground line-clamp-1">
-                          {idea.description || idea.problem_statement}
-                        </p>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-foreground">
-                        {idea.submitter_name || "Anonymous"}
-                      </span>
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant="outline">
-                        {idea.department?.code || "N/A"}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant="secondary">
-                        {idea.evaluation_stage}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant={getStatusBadgeVariant(idea.stage_status)}>
-                        {idea.stage_status.replace("_", " ")}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="text-muted-foreground text-sm">
-                      {format(new Date(idea.created_at), "MMM d, yyyy")}
-                    </TableCell>
-                    <TableCell>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => handleViewIdea(idea)}
-                      >
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                    </TableCell>
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-16">Sl.No</TableHead>
+                    <TableHead className="w-20">OU</TableHead>
+                    <TableHead className="min-w-[200px]">Idea Title</TableHead>
+                    <TableHead className="min-w-[150px]">Problem Statement</TableHead>
+                    <TableHead className="min-w-[150px]">Proposed Solution</TableHead>
+                    <TableHead className="min-w-[150px]">Expected Benefits</TableHead>
+                    <TableHead className="w-32">Category</TableHead>
+                    <TableHead className="w-32">Idea Owner</TableHead>
+                    <TableHead className="min-w-[100px]">Remarks</TableHead>
+                    <TableHead className="w-20">Stage</TableHead>
+                    <TableHead className="w-24">Status</TableHead>
+                    <TableHead className="w-20">Days</TableHead>
+                    <TableHead className="w-20">Actions</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+                <TableBody>
+                  {filteredIdeas.map((idea, index) => (
+                    <TableRow key={idea.id} className="cursor-pointer hover:bg-muted/50">
+                      <TableCell className="font-medium text-muted-foreground">
+                        {index + 1}
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant="outline" className="font-mono">
+                          {idea.department?.code || "N/A"}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <p className="font-medium text-foreground">{idea.title}</p>
+                      </TableCell>
+                      <TableCell>
+                        <p className="text-sm text-muted-foreground">
+                          {truncateText(idea.problem_statement)}
+                        </p>
+                      </TableCell>
+                      <TableCell>
+                        <p className="text-sm text-muted-foreground">
+                          {truncateText(idea.proposed_solution)}
+                        </p>
+                      </TableCell>
+                      <TableCell>
+                        <p className="text-sm text-muted-foreground">
+                          {truncateText(idea.expected_benefits)}
+                        </p>
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant="secondary">{idea.category}</Badge>
+                      </TableCell>
+                      <TableCell>
+                        <span className="text-foreground">
+                          {idea.submitter_name || "Anonymous"}
+                        </span>
+                      </TableCell>
+                      <TableCell>
+                        <p className="text-sm text-muted-foreground">
+                          {truncateText(idea.remarks, 30)}
+                        </p>
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant="outline">
+                          {idea.evaluation_stage}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant={getStatusBadgeVariant(idea.stage_status)}>
+                          {idea.stage_status.replace("_", " ")}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="text-muted-foreground text-sm">
+                        {getDaysInStage(idea)}d
+                      </TableCell>
+                      <TableCell>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleViewIdea(idea)}
+                        >
+                          <Eye className="h-4 w-4" />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
           )}
         </CardContent>
       </Card>

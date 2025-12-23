@@ -17,6 +17,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { EnhancedIdea, IdeaComment, IdeaStageHistory, IdeaReview } from "@/types/ideation";
 import { StageProgressIndicator } from "./StageProgressIndicator";
 import { L2EvaluationForm } from "./L2EvaluationForm";
+import { L3BusinessCaseForm } from "./L3BusinessCaseForm";
+import { L4ExecutiveReviewForm } from "./L4ExecutiveReviewForm";
 import { 
   User, 
   Calendar, 
@@ -309,89 +311,13 @@ export function IdeaDetailModal({ idea, open, onOpenChange, onUpdate }: IdeaDeta
               </TabsContent>
 
               {/* L3 Feasibility Tab */}
-              <TabsContent value="l3-feasibility" className="mt-0 space-y-4">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>L3 Feasibility Assessment</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    {idea.evaluation_stage === 'L1' ? (
-                      <p className="text-muted-foreground">
-                        Complete L2 screening first to access feasibility assessment.
-                      </p>
-                    ) : (
-                      <div className="grid gap-4">
-                        <div>
-                          <Label className="text-muted-foreground">Technical Feasibility</Label>
-                          <p className="mt-1">{idea.l3_technical_feasibility || "Not assessed"}</p>
-                        </div>
-                        <div>
-                          <Label className="text-muted-foreground">Resource Requirements</Label>
-                          <p className="mt-1">{idea.l3_resource_requirements || "Not assessed"}</p>
-                        </div>
-                        <div>
-                          <Label className="text-muted-foreground">Timeline Estimate</Label>
-                          <p className="mt-1">{idea.l3_timeline_estimate || "Not assessed"}</p>
-                        </div>
-                        <div>
-                          <Label className="text-muted-foreground">Risk Assessment</Label>
-                          <p className="mt-1">{idea.l3_risk_assessment || "Not assessed"}</p>
-                        </div>
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
+              <TabsContent value="l3-feasibility" className="mt-0">
+                <L3BusinessCaseForm idea={idea} onUpdate={onUpdate} />
               </TabsContent>
 
               {/* L4 Business Case Tab */}
-              <TabsContent value="l4-business" className="mt-0 space-y-4">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>L4 Business Case</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    {['L1', 'L2'].includes(idea.evaluation_stage) ? (
-                      <p className="text-muted-foreground">
-                        Complete L3 feasibility assessment first.
-                      </p>
-                    ) : (
-                      <div className="grid gap-4 md:grid-cols-2">
-                        <div>
-                          <Label className="text-muted-foreground">Estimated Cost</Label>
-                          <p className="mt-1 text-lg font-semibold">
-                            {idea.l4_estimated_cost 
-                              ? `$${idea.l4_estimated_cost.toLocaleString()}` 
-                              : "Not estimated"}
-                          </p>
-                        </div>
-                        <div>
-                          <Label className="text-muted-foreground">Estimated Benefits</Label>
-                          <p className="mt-1 text-lg font-semibold">
-                            {idea.l4_estimated_benefits 
-                              ? `$${idea.l4_estimated_benefits.toLocaleString()}` 
-                              : "Not estimated"}
-                          </p>
-                        </div>
-                        <div>
-                          <Label className="text-muted-foreground">ROI</Label>
-                          <p className="mt-1 text-lg font-semibold">
-                            {idea.l4_roi_percentage 
-                              ? `${idea.l4_roi_percentage}%` 
-                              : "Not calculated"}
-                          </p>
-                        </div>
-                        <div>
-                          <Label className="text-muted-foreground">Payback Period</Label>
-                          <p className="mt-1 text-lg font-semibold">
-                            {idea.l4_payback_period_months 
-                              ? `${idea.l4_payback_period_months} months` 
-                              : "Not calculated"}
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
+              <TabsContent value="l4-business" className="mt-0">
+                <L4ExecutiveReviewForm idea={idea} onUpdate={onUpdate} />
               </TabsContent>
 
               {/* L5 Implementation Tab */}
