@@ -373,7 +373,7 @@ export function AIIdeationPortal({ projectId }: AIIdeationPortalProps) {
               <span className="text-sm text-muted-foreground">
                 Showing {filteredIdeas.length} of {ideas.length} ideas
               </span>
-              <Button variant="ghost" size="sm" onClick={clearAllFilters} className="gap-1">
+              <Button size="sm" onClick={clearAllFilters} className="gap-1">
                 <X className="h-4 w-4" />
                 Clear All Filters
               </Button>
@@ -478,7 +478,6 @@ export function AIIdeationPortal({ projectId }: AIIdeationPortalProps) {
                       </TableCell>
                       <TableCell>
                         <Button
-                          variant="ghost"
                           size="sm"
                           onClick={() => handleViewIdea(idea)}
                         >
