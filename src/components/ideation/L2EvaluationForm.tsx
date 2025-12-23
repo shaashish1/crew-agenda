@@ -17,23 +17,23 @@ interface L2EvaluationFormProps {
 const criteria = [
   {
     key: 'novelty',
-    label: 'Novelty',
-    description: 'How innovative and unique is this idea?',
+    label: 'Technical Feasibility',
+    description: 'How technically feasible is this idea to implement?',
   },
   {
     key: 'feasibility',
-    label: 'Feasibility',
-    description: 'How technically and operationally feasible is this idea?',
+    label: 'Resource Assessment',
+    description: 'Are the required resources (people, budget, tools) available?',
   },
   {
     key: 'alignment',
-    label: 'Strategic Alignment',
-    description: 'How well does this align with organizational goals?',
+    label: 'Timeline Viability',
+    description: 'Can this be delivered within a reasonable timeline?',
   },
   {
     key: 'impact',
-    label: 'Potential Impact',
-    description: 'What is the expected business impact?',
+    label: 'Organizational Fit',
+    description: 'How well does this fit with organizational culture and processes?',
   },
 ];
 
