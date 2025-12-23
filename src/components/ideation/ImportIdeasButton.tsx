@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { parseIdeasFile, ParsedIdea } from "@/utils/ideasImporter";
 import { Department } from "@/types/ideation";
+import { ImportPreviewDialog } from "./ImportPreviewDialog";
 
 interface ImportIdeasButtonProps {
   projectId?: string;
@@ -13,7 +14,12 @@ interface ImportIdeasButtonProps {
 }
 
 export function ImportIdeasButton({ projectId, departments, onImportComplete }: ImportIdeasButtonProps) {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isParsing, setIsParsing] = useState(false);
+  const [isImporting, setIsImporting] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
+  const [parsedIdeas, setParsedIdeas] = useState<ParsedIdea[]>([]);
+  const [skippedCount, setSkippedCount] = useState(0);
+  const [parseErrors, setParseErrors] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const findDepartmentId = (code: string | null): string | null => {
@@ -50,19 +56,36 @@ export function ImportIdeasButton({ projectId, departments, onImportComplete }: 
       return;
     }
 
-    setIsLoading(true);
+    setIsParsing(true);
 
     try {
       const result = await parseIdeasFile(file);
 
-      if (result.ideas.length === 0) {
+      if (result.ideas.length === 0 && result.errors.length > 0) {
         toast.error(result.errors[0] || 'No valid ideas found in file');
-        setIsLoading(false);
+        setIsParsing(false);
         return;
       }
 
+      // Store parsed results and show preview
+      setParsedIdeas(result.ideas);
+      setSkippedCount(result.skipped);
+      setParseErrors(result.errors);
+      setShowPreview(true);
+    } catch (error) {
+      console.error('Parse error:', error);
+      toast.error(error instanceof Error ? error.message : 'Failed to parse file');
+    } finally {
+      setIsParsing(false);
+    }
+  };
+
+  const handleConfirmImport = async () => {
+    setIsImporting(true);
+
+    try {
       // Prepare ideas for insertion
-      const ideasToInsert = result.ideas.map((idea: ParsedIdea) => ({
+      const ideasToInsert = parsedIdeas.map((idea: ParsedIdea) => ({
         project_id: projectId || null,
         title: idea.title,
         description: idea.description,
@@ -102,14 +125,12 @@ export function ImportIdeasButton({ projectId, departments, onImportComplete }: 
       if (insertedCount > 0) {
         toast.success(`Successfully imported ${insertedCount} idea${insertedCount > 1 ? 's' : ''}`);
         
-        if (result.skipped > 0) {
-          toast.info(`${result.skipped} row${result.skipped > 1 ? 's' : ''} skipped (missing title)`);
-        }
-        
         if (insertErrors.length > 0) {
           toast.warning(`Some batches failed: ${insertErrors.length} error(s)`);
         }
 
+        setShowPreview(false);
+        setParsedIdeas([]);
         onImportComplete();
       } else {
         toast.error('Failed to import any ideas. Please check your file format.');
@@ -118,12 +139,21 @@ export function ImportIdeasButton({ projectId, departments, onImportComplete }: 
       console.error('Import error:', error);
       toast.error(error instanceof Error ? error.message : 'Failed to import ideas');
     } finally {
-      setIsLoading(false);
+      setIsImporting(false);
     }
   };
 
   const handleClick = () => {
     fileInputRef.current?.click();
+  };
+
+  const handleClosePreview = (open: boolean) => {
+    if (!open && !isImporting) {
+      setShowPreview(false);
+      setParsedIdeas([]);
+      setParseErrors([]);
+      setSkippedCount(0);
+    }
   };
 
   return (
@@ -140,12 +170,12 @@ export function ImportIdeasButton({ projectId, departments, onImportComplete }: 
         size="lg"
         className="gap-2"
         onClick={handleClick}
-        disabled={isLoading}
+        disabled={isParsing}
       >
-        {isLoading ? (
+        {isParsing ? (
           <>
             <Loader2 className="h-5 w-5 animate-spin" />
-            Importing...
+            Parsing...
           </>
         ) : (
           <>
@@ -154,6 +184,16 @@ export function ImportIdeasButton({ projectId, departments, onImportComplete }: 
           </>
         )}
       </Button>
+
+      <ImportPreviewDialog
+        open={showPreview}
+        onOpenChange={handleClosePreview}
+        ideas={parsedIdeas}
+        skippedCount={skippedCount}
+        errors={parseErrors}
+        onConfirm={handleConfirmImport}
+        isImporting={isImporting}
+      />
     </>
   );
 }
