@@ -274,7 +274,7 @@ export function IdeaSubmissionForm({ onSuccess, onCancel, projectId }: IdeaSubmi
         </div>
 
         <div className="flex justify-end gap-3 pt-4 border-t">
-          <Button type="button" variant="outline" onClick={onCancel}>
+          <Button type="button" onClick={onCancel}>
             Cancel
           </Button>
           <Button type="submit" disabled={isLoading}>
