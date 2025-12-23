@@ -65,8 +65,10 @@ export const ImportDataButton = () => {
         className="hidden"
       />
       <Button 
+        variant="secondary"
         onClick={() => fileInputRef.current?.click()} 
         size="lg"
+        className="gap-2"
         disabled={loading}
       >
         <Upload className="w-5 h-5" />

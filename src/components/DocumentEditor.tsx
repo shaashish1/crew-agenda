@@ -109,8 +109,8 @@ const DocumentEditor: React.FC<DocumentEditorProps> = ({ projectId }) => {
           <h3 className="font-semibold">Documents</h3>
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-              <Button size="sm">
-                <Plus className="h-4 w-4 mr-1" />
+              <Button size="sm" className="gap-1">
+                <Plus className="h-4 w-4" />
                 New
               </Button>
             </DialogTrigger>
@@ -162,8 +162,8 @@ const DocumentEditor: React.FC<DocumentEditorProps> = ({ projectId }) => {
                   </div>
                 </div>
               </div>
-              <DialogFooter>
-                <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
+              <DialogFooter className="gap-2">
+                <Button type="button" variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
                 <Button onClick={handleCreate}>Create</Button>
               </DialogFooter>
             </DialogContent>
@@ -217,8 +217,8 @@ const DocumentEditor: React.FC<DocumentEditorProps> = ({ projectId }) => {
                     v{selectedDoc.version} • {selectedDoc.phase}
                   </p>
                 </div>
-                <Button onClick={handleSave}>
-                  <Save className="h-4 w-4 mr-2" />
+                <Button onClick={handleSave} className="gap-2">
+                  <Save className="h-4 w-4" />
                   Save
                 </Button>
               </div>

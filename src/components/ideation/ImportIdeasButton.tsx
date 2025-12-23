@@ -166,7 +166,7 @@ export function ImportIdeasButton({ projectId, departments, onImportComplete }: 
         className="hidden"
       />
       <Button
-        variant="outline"
+        variant="secondary"
         size="lg"
         className="gap-2"
         onClick={handleClick}
